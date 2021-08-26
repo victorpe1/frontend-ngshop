@@ -1,0 +1,29 @@
+.pedido-resumen {
+  background-color: var(--surface-0);
+  padding: 15px;
+  border: 1px solid var(--surface-200);
+
+  .pedido-precio {
+    display: flex;
+    margin: 15px 0;
+    span {
+      display: block;
+      width: 80%;
+
+      &:last-child {
+        width: 20%;
+        font-weight: 600;
+      }
+
+      &.free {
+        color: green;
+      }
+    }
+  }
+
+  .pedido-button {
+    button {
+      width: 100%;
+    }
+  }
+}

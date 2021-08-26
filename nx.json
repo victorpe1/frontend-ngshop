@@ -25,6 +25,25 @@
     "ng-shop-e2e": {
       "tags": [],
       "implicitDependencies": ["ng-shop"]
+    },
+    "admin": {
+      "tags": []
+    },
+    "admin-e2e": {
+      "tags": [],
+      "implicitDependencies": ["admin"]
+    },
+    "productos": {
+      "tags": []
+    },
+    "usuarios": {
+      "tags": []
+    },
+    "pedidos": {
+      "tags": []
+    },
+    "ui": {
+      "tags": []
     }
   }
 }

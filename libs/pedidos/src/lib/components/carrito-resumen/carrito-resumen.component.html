@@ -1,0 +1,20 @@
+<div class="pedido-resumen">
+  <h3>Pedido Resumen</h3>
+  <div class="pedido-precio">
+    <span>Precio de los articulos</span>
+    <span>{{ precioTotal | currency }}</span>
+  </div>
+  <div class="pedido-precio">
+    <span>Embalaje y envío</span>
+    <span class="free">Gratis</span>
+  </div>
+  <div class="to-checkout">
+    <div class="pedido-precio">
+      <span>Precio Total</span>
+      <span>{{ precioTotal | currency }}</span>
+    </div>
+    <div class="checkout-button" *ngIf="!esCheckout">
+      <p-button label="Checkout" (onClick)="irACheckout()"></p-button>
+    </div>
+  </div>
+</div>

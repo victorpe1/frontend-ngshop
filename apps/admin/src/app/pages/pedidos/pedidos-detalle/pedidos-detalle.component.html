@@ -1,0 +1,81 @@
+<p-toast></p-toast>
+<div class="admin-page" *ngIf="pedido">
+  <p-card [header]="'Ver pedido'" subheader="Tu puedes editar aqui">
+    <p-fieldset legend="Detalles del pedido" styleClass="p-mb-4" [toggleable]="true">
+      <div class="p-grid">
+        <div class="p-col-4">
+          <h5>Id del pedido</h5>
+          <p>{{ pedido.id }}</p>
+        </div>
+
+        <div class="p-col-4">
+          <h5>Fecha del pedido</h5>
+          <p>{{ pedido.fecha_pedido | date: 'short' }}</p>
+        </div>
+
+        <div class="p-col-4">
+          <h5>Estado del pedido</h5>
+          <p-dropdown
+            [options]="estadosPedido"
+            optionLabel="name"
+            optionValue="id"
+            (onChange)="onStatusChange($event)"
+            [(ngModel)]="estadoSeleccionado"
+          >
+          </p-dropdown>
+        </div>
+
+        <div class="p-col-4">
+          <h5>Total del precio del pedido</h5>
+          <p>{{ pedido.totalPrecio | currency }}</p>
+        </div>
+      </div>
+    </p-fieldset>
+    <p-fieldset legend="Pedido Items" styleClass="p-mb-4" [toggleable]="true">
+      <div class="p-grid p-mb-5">
+        <div class="p-col-2 p-text-bold">Nombre</div>
+        <div class="p-col-2 p-text-bold">Marca</div>
+        <div class="p-col-2 p-text-bold">Categoria</div>
+        <div class="p-col-2 p-text-bold">Precio</div>
+        <div class="p-col-2 p-text-bold">Cantidad</div>
+        <div class="p-col-2 p-text-bold">Subtotal</div>
+      </div>
+      <div class="p-grid p-mb-5" *ngFor="let order_prod of pedido.order_prods">
+        <div class="p-col-2">{{ order_prod.producto.nombre }}</div>
+        <div class="p-col-2">{{ order_prod.producto.marca }}</div>
+        <div class="p-col-2">{{ order_prod.producto.categoria.nombre }}</div>
+        <div class="p-col-2">{{ order_prod.producto.precio | currency }}</div>
+        <div class="p-col-2">{{ order_prod.cantidad }}</div>
+        <div class="p-col-2">{{ order_prod.producto.precio * order_prod.cantidad! | currency }}</div>
+      </div>
+      <div class="p-grid" style="color: green">
+        <div class="p-col-2 p-offset-8 p-text-bold">Precio Total</div>
+
+        <div class="p-col-2 p-text-bold">{{ pedido.totalPrecio | currency }}</div>
+      </div>
+    </p-fieldset>
+    <p-fieldset legend="Direccion del pedido" styleClass="p-mb-4" [toggleable]="true">
+      <div class="p-grid">
+        <div class="p-col-4">
+          <h5>Direccion del pedido</h5>
+          <p>
+            {{ pedido.envio_direcc1 }}<br />
+            {{ pedido.envio_direcc2 }}<br />
+            {{ pedido.cod_postal }} {{ pedido.ciudad }}<br />
+            {{ pedido.pais }}
+          </p>
+        </div>
+
+        <div class="p-col-4">
+          <h5>Informacion del Cliente</h5>
+          <p>{{ pedido.usuario?.nombre }}</p>
+        </div>
+
+        <div class="p-col-4">
+          <h5>Informacion del Contacto</h5>
+          <p>{{ pedido.telef }}</p>
+        </div>
+      </div>
+    </p-fieldset>
+  </p-card>
+</div>

@@ -1,0 +1,91 @@
+<div class="checkout-page">
+  <div>
+    <p-button label="Volver al carrito" icon="pi pi-arrow-left" (onClick)="volverAlCarrito()"></p-button>
+  </div>
+  <div class="p-grid checkout-form">
+    <div class="p-col-8">
+      <form [formGroup]="checkoutFormGroup">
+        <div class="p-fluid p-formgrid p-grid">
+          <div class="p-field p-col-4">
+            <label for="nombre">Nombre</label>
+            <input formControlName="nombre" id="nombre" type="text" pInputText />
+            <small *ngIf="checkoutForm.nombre.invalid && esEnviado" class="p-error"
+              >Nombre es necesario</small
+            >
+          </div>
+          <div class="p-field p-col-4">
+            <label for="email">Correo Electronico</label>
+            <input formControlName="email" id="email" type="text" pInputText />
+            <small *ngIf="checkoutForm.email.invalid && esEnviado" class="p-error"
+              ><span *ngIf="checkoutForm.email.errors!.required">email es necesario</span>
+              <span *ngIf="checkoutForm.email.errors!.email">email es invalido</span></small
+            >
+          </div>
+          <div class="p-field p-col-4">
+            <label for="color">Telefono</label><br />
+            <p-inputMask
+              mask="(999) 999-9999"
+              formControlName="telef"
+              placeholder="(999) 999-9999"
+            ></p-inputMask>
+            <small *ngIf="checkoutForm.telef.invalid && esEnviado" class="p-error"
+              >Numero es necesario</small
+            >
+          </div>
+        </div>
+        <div class="p-fluid p-formgrid p-grid">
+          <div class="p-field p-col-4">
+            <label for="calle">Calle</label>
+            <input formControlName="calle" id="calle" type="text" pInputText />
+            <small *ngIf="checkoutForm.calle.invalid && esEnviado" class="p-error"
+              >Calle es necesario</small
+            >
+          </div>
+          <div class="p-field p-col-4">
+            <label for="apartamento">Apartamento</label>
+            <input formControlName="apartamento" id="apartamento" type="text" pInputText />
+            <small *ngIf="checkoutForm.apartamento.invalid && esEnviado" class="p-error"
+              >apartamento es necesario</small
+            >
+          </div>
+          <div class="p-field p-col-4">
+            <label for="cod_postal">Codigo Postal</label>
+            <input formControlName="cod_postal" id="cod_postal" type="text" pInputText />
+            <small *ngIf="checkoutForm.cod_postal.invalid && esEnviado" class="p-error"
+              >Codigo postal es necesario</small
+            >
+          </div>
+          <div class="p-field p-col-4">
+            <label for="ciudad">Ciudad</label>
+            <input formControlName="ciudad" id="ciudad" type="text" pInputText />
+            <small *ngIf="checkoutForm.ciudad.invalid && esEnviado" class="p-error"
+              >Ciudad es necesario</small
+            >
+          </div>
+          <div class="p-field p-col-4">
+            <label for="pais">Pais</label><br />
+            <p-dropdown
+              [options]="paises"
+              formControlName="pais"
+              optionLabel="nombre"
+              optionValue="id"
+              [filter]="true"
+              filterBy="nombre"
+              [showClear]="true"
+              placeholder="Eliga un Pais"
+            ></p-dropdown>
+            <small *ngIf="checkoutForm.pais.invalid && esEnviado" class="p-error"
+              >Pais es necesario</small
+            >
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="p-col-4">
+      <pedidos-carrito-resumen></pedidos-carrito-resumen>
+      <div class="checkout-button">
+        <p-button label="Realizar-Pedido" (onClick)="placePedido()"></p-button>
+      </div>
+    </div>
+  </div>
+</div>

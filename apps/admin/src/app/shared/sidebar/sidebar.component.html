@@ -1,0 +1,28 @@
+<div class="admin-sidebar">
+  <div class="logo">
+    <img src="/assets/images/logo.png" alt="" />
+  </div>
+  <div class="links">
+    <ul>
+      <li>
+        <a routerLink="/panel"><i class="pi pi-home"></i> Menu Admin</a>
+      </li>
+      <li>
+        <a routerLink="/productos"><i class="pi pi-briefcase"></i> Productos</a>
+      </li>
+      <li>
+        <a routerLink="/categorias"><i class="pi pi-list"></i> Categorias</a>
+      </li>
+      <li>
+        <a routerLink="pedidos"><i class="pi pi-shopping-cart"></i> Pedidos</a>
+      </li>
+      <li>
+        <a routerLink="/usuarios"><i class="pi pi-users"></i> Usuarios</a>
+      </li>
+
+      <li class="logout">
+        <a><i class="pi pi-sign-out" (click)="cerrarSesion()"></i> Cerrar sesion</a>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+.producto {
+  &-nombre {
+    font-size: 2em;
+  }
+
+  &-desc {
+    font-size: 1.4em;
+  }
+
+  &-calificacion {
+    margin: 15px 0;
+  }
+
+  &-precio {
+    font-size: 2em;
+    font-weight: 600;
+    border-bottom: 1px solid var(--surface-300);
+    padding: 25px 0;
+
+    .precio-before {
+      font-size: 0.7em;
+      margin-left: 10px;
+      font-weight: 200;
+      color: var(--surface-500);
+      text-decoration: line-through;
+    }
+  }
+
+  &-cantidad {
+    margin: 25px 0;
+
+    label {
+      font-size: 1.2em;
+    }
+
+    .p-button {
+      background-color: $primary-color;
+      border: 0;
+    }
+  }
+
+  &-actions {
+    .p-button {
+      background-color: $primary-color;
+      border: 0;
+    }
+  }
+}
+
+.product-grande_descripcion {
+  line-height: 1.6;
+}

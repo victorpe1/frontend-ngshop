@@ -1,0 +1,64 @@
+<p-toast></p-toast>
+<div class="admin-page">
+  <p-card header="Categorias" subheader="Lista de todas las categorias">
+    <div class="p-grid">
+      <div class="p-col-12">
+        <p-toolbar>
+          <div class="p-toolbar-group-left">
+            <p-button
+              styleClass="p-button-success"
+              label="Nuevo"
+              icon="pi pi-plus"
+              routerLink="form"
+            ></p-button>
+          </div>
+        </p-toolbar>
+      </div>
+    </div>
+    <div class="p-grid">
+      <div class="p-col-12">
+        <p-table [value]="categorias" styleClass="p-datatable-gridlines">
+          <ng-template pTemplate="header">
+            <tr>
+              <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
+              <th>Icono</th>
+              <th>Color</th>
+              <th></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-categoria>
+            <tr>
+              <td>{{ categoria.nombre }}</td>
+              <td><i style="font-size: 2rem" class="pi" [ngClass]="'pi-' + categoria.icon"></i></td>
+              <td>
+                <i
+                  class="pi pi-circle-on"
+                  style="font-size: 2rem"
+                  [ngStyle]="{ color: categoria.color }"
+                ></i>
+              </td>
+              <td>
+                <p-button
+                  (click)="deleteCategoria(categoria._id)"
+                  styleClass="p-button-danger p-mr-2"
+                  icon="pi pi-trash"
+                ></p-button>
+                <p-button
+                  (click)="updateCategoria(categoria._id)"
+                  styleClass="p-button-success"
+                  icon="pi pi-pencil"
+                ></p-button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </p-card>
+</div>
+<p-confirmDialog
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="10000"
+  rejectButtonStyleClass="p-button-text"
+></p-confirmDialog>
+

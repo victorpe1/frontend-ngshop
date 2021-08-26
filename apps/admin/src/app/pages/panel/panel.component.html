@@ -1,0 +1,50 @@
+<div class="admin-page" *ngIf="estadisticas.length">
+  <p-card header="Panel Principal" subheader="Ultima actualizacion">
+    <div class="p-grid">
+      <div class="p-col-3">
+        <p-card styleClass="d-pedidos">
+          <div class="d-item">
+            <div>
+              <i class="pi pi-shopping-cart"></i><br />
+              <span class="name">Pedidos</span>
+            </div>
+            <span class="number">{{ estadisticas[0] }}</span>
+          </div>
+        </p-card>
+      </div>
+      <div class="p-col-3">
+        <p-card styleClass="d-productos">
+          <div class="d-item">
+            <div>
+              <i class="pi pi-briefcase"></i><br />
+              <span class="name">Productos</span>
+            </div>
+            <span class="number">{{ estadisticas[1] }}</span>
+          </div>
+        </p-card>
+      </div>
+      <div class="p-col-3">
+        <p-card styleClass="d-usuarios">
+          <div class="d-item">
+            <div>
+              <i class="pi pi-users"></i><br />
+              <span class="name">Usuarios</span>
+            </div>
+            <span class="number">{{ estadisticas[2] }}</span>
+          </div>
+        </p-card>
+      </div>
+      <div class="p-col-3">
+        <p-card styleClass="d-ventaTotales">
+          <div class="d-item">
+            <div>
+              <i class="pi pi-dollar"></i><br />
+              <span class="name">Total ventas</span>
+            </div>
+            <span class="number">{{ estadisticas[3] | currency }}</span>
+          </div>
+        </p-card>
+      </div>
+    </div>
+  </p-card>
+</div>

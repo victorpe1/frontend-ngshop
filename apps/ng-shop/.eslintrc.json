@@ -16,7 +16,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "bluebits",
+            "prefix": "ngshop",
             "style": "camelCase"
           }
         ],
@@ -24,10 +24,12 @@
           "error",
           {
             "type": "element",
-            "prefix": "bluebits",
+            "prefix": "ngshop",
             "style": "kebab-case"
           }
-        ]
+        ],
+        "no-empty-function": "off",
+        "@typescript-eslint/no-empty-function": "off"
       }
     },
     {

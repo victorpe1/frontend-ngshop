@@ -1,0 +1,102 @@
+<p-toast></p-toast>
+<div class="admin-page">
+  <p-card [header]="editar_mode ? 'Editar Usuario' : 'Agregar Usuario'" subheader="Puede agregar o editar usuarios aquí">
+    <div class="p-grid p-mb-5">
+      <div class="p-col-12">
+        <p-toolbar>
+          <div class="p-toolbar-group-left"></div>
+          <div class="p-toolbar-group-right">
+            <p-button
+              styleClass="p-button-primary p-mr-2"
+              [label]="editar_mode ? 'Actualizar' : 'Crear'"
+              icon="pi pi-plus"
+              (click)="onSubmit()"
+            ></p-button>
+            <p-button
+              styleClass="p-button-secondary"
+              label="Cancle"
+              icon="pi pi-arrow-circle-left"
+              (click)="onCancle()"
+            ></p-button>
+          </div>
+        </p-toolbar>
+      </div>
+    </div>
+    <div class="p-grid">
+      <div class="p-col-12">
+        <form [formGroup]="form">
+          <div class="p-fluid p-formgrid p-grid">
+            <div class="p-field p-col-4">
+              <label for="nombre">Nombre</label>
+              <input formControlName="nombre" id="nombre" type="text" pInputText />
+              <small *ngIf="usuarioForm.nombre.invalid && enviado" class="p-error"
+              >Se requiere el nombre</small
+              >
+            </div>
+            <div class="p-field p-col-4">
+              <label for="email">Email</label>
+              <input formControlName="email" id="email" type="text" pInputText />
+              <small *ngIf="usuarioForm.email.invalid && enviado" class="p-error"
+                ><span *ngIf="usuarioForm.email.errors?.required">Se requiere el email</span>
+                <span *ngIf="usuarioForm.email.errors?.email">Email invalido</span></small
+              >
+            </div>
+            <div class="p-field p-col-4">
+              <label for="password">Contraseña</label>
+              <input formControlName="password" id="password" type="password" pInputText />
+              <small *ngIf="usuarioForm.password.invalid && enviado" class="p-error"
+                >Se requiere la contraseña</small
+              >
+            </div>
+            <div class="p-field p-col-4">
+              <label for="telef">Telefono</label><br />
+              <p-inputMask
+                mask="(999) 999-9999"
+                formControlName="telef"
+                placeholder="(999) 999-9999"
+              ></p-inputMask>
+              <small *ngIf="usuarioForm.telef.invalid && enviado" class="p-error"
+                >Se requiere el telefono</small
+              >
+            </div>
+            <div class="p-field p-col-4">
+              <label for="admi">Es administrador</label><br />
+              <p-inputSwitch formControlName="admi"></p-inputSwitch>
+            </div>
+          </div>
+          <div class="p-fluid p-formgrid p-grid">
+            <div class="p-field p-col-4">
+              <label for="calle">Calle</label>
+              <input formControlName="calle" id="calle" type="text" pInputText />
+            </div>
+            <div class="p-field p-col-4">
+              <label for="apartamento">Apartamento</label>
+              <input formControlName="apartamento" id="apartamento" type="text" pInputText />
+            </div>
+            <div class="p-field p-col-4">
+              <label for="cod_postal">Codigo Postal</label>
+              <input formControlName="cod_postal" id="cod_postal" type="text" pInputText />
+            </div>
+            <div class="p-field p-col-4">
+              <label for="ciudad">Ciudad</label>
+              <input formControlName="ciudad" id="ciudad" type="text" pInputText />
+            </div>
+            <div class="p-field p-col-4">
+              <label for="pais">Pais</label><br />
+              <p-dropdown
+                [options]="paises"
+                formControlName="pais"
+                optionLabel="nombre"
+                optionValue="id"
+                [filter]="true"
+                filterBy="nombre"
+                [showClear]="true"
+                placeholder="Selecciona un pais"
+              ></p-dropdown>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </p-card>
+</div>
