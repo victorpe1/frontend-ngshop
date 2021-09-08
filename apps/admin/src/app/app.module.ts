@@ -49,6 +49,8 @@ import { PedidosListaComponent } from './pages/pedidos/pedidos-lista/pedidos-lis
 import { PedidosDetalleComponent } from './pages/pedidos/pedidos-detalle/pedidos-detalle.component';
 import { PedidosService } from '@bluebits/pedidos';
 import { AuthService } from '@bluebits/usuarios';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 
 const UX_MODULE = [
@@ -90,6 +92,8 @@ const UX_MODULE = [
     HttpClientModule,
     BrowserModule,
     UiModule,
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,

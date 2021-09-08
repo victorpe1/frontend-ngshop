@@ -14,15 +14,17 @@ import { CarritoResumenComponent } from './components/carrito-resumen/carrito-re
 import { CarritoPageComponent } from './pages/carrito-page/carrito-page.component';
 import { CarritoCheckoutComponent } from './pages/carrito-checkout/carrito-checkout.component';
 import { GraciasCompraComponent } from './pages/gracias-compra/gracias-compra.component';
+import { AuthGuard } from '@bluebits/usuarios';
 
 const routes: Routes = [
   {
     path: 'carrito',
-    component: CarritoPageComponent
+    component: CarritoCheckoutComponent
   },
   {
     path: 'checkout',
-    component: CarritoCheckoutComponent
+    canActivate: [AuthGuard],
+    component: CarritoPageComponent
   },
   {
     path: 'exitoso',

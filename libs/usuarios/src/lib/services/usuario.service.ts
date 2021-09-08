@@ -3,10 +3,11 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { Usuario } from '../models/usuario';
-import { environment } from '@env/environment';
+import { environment } from '../../../../../environments/environment';
 import { map } from 'rxjs/operators';
 
 import * as countriesLib from 'i18n-iso-countries';
+import { UsuariosFacade } from './../state/usuarios.facade';
 declare const require: any;
 
 @Injectable({
@@ -17,7 +18,7 @@ export class UsuariosService {
 
   apiURLUsuarios = environment.apiUrl + 'usuarios';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private usuariosFacade: UsuariosFacade ) {
     countriesLib.registerLocale(require('i18n-iso-countries/langs/en.json'));
   }
 
@@ -58,6 +59,18 @@ export class UsuariosService {
 
   getPais(countryKey: string): string {
     return countriesLib.getName(countryKey, 'en');
+  }
+
+  initAppSession(){
+    this.usuariosFacade.buildUsuarioSession();
+  }
+
+  observeCurrentUsuario(){
+    return this.usuariosFacade.currentUsuario$;
+  }
+
+  isCurrentUsuarioAuth(){
+    return this.usuariosFacade.isAuth$;
   }
 
 }

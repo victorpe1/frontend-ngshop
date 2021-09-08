@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuariosService } from '@bluebits/usuarios';
@@ -8,6 +8,8 @@ import { PedidoItem } from '../../models/pedido-item';
 import { CarritoService } from '../../services/carrito.service';
 import { PedidosService } from '../../services/pedidos.service';
 import { PEDIDO_STATUS } from '../../pedidos.constants';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'pedidos-carrito-page',
@@ -15,7 +17,7 @@ import { PEDIDO_STATUS } from '../../pedidos.constants';
   styles: [
   ]
 })
-export class CarritoPageComponent implements OnInit {
+export class CarritoPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
@@ -28,13 +30,20 @@ export class CarritoPageComponent implements OnInit {
   checkoutFormGroup!: FormGroup;
   esEnviado = false;
   pedidoItems: PedidoItem[] = [];
-  usuarioId = '609d65943373711346c5e950';
+  usuarioId!: string;
   paises: any;
+  unsubscribe$: Subject<any> = new Subject();
 
   ngOnInit(): void {
     this._initCheckoutForm();
     this._getCarritoItems();
     this._getPaises();
+    this._autoFillUserData();
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   private _initCheckoutForm() {
@@ -48,6 +57,25 @@ export class CarritoPageComponent implements OnInit {
       apartamento: ['', Validators.required],
       calle: ['', Validators.required]
     });
+  }
+
+  private _autoFillUserData() {
+    this.usuariosService
+      .observeCurrentUsuario()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((user: any) => {
+        if (user) {
+          this.usuarioId = user.id;
+          this.checkoutForm.nombre.setValue(user.nombre);
+          this.checkoutForm.email.setValue(user.email);
+          this.checkoutForm.telef.setValue(user.telef);
+          this.checkoutForm.ciudad.setValue(user.ciudad);
+          this.checkoutForm.calle.setValue(user.calle);
+          this.checkoutForm.pais.setValue(user.pais);
+          this.checkoutForm.cod_postal.setValue(user.cod_postal);
+          this.checkoutForm.apartamento.setValue(user.apartamento);
+        }
+      });
   }
 
   private _getCarritoItems() {
