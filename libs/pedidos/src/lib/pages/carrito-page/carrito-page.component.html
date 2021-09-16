@@ -1,3 +1,6 @@
+<ngx-spinner>
+  <h3>Procesando ...</h3>
+</ngx-spinner>
 <div class="checkout-page">
   <div>
     <p-button label="Volver al carrito" icon="pi pi-arrow-left" (onClick)="volverAlCarrito()"></p-button>
@@ -83,9 +86,8 @@
     </div>
     <div class="p-col-4">
       <pedidos-carrito-resumen></pedidos-carrito-resumen>
-      <div class="checkout-button">
-        <p-button label="Realizar-Pedido" (onClick)="placePedido()"></p-button>
-      </div>
-    </div>
+
+    <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+
   </div>
 </div>

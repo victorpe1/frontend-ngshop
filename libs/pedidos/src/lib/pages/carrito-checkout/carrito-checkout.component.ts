@@ -49,6 +49,7 @@ export class CarritoCheckoutComponent implements OnInit, OnDestroy  {
           });
         });
       });
+      console.log(this.carritoItemDetallado)
     });
   }
 

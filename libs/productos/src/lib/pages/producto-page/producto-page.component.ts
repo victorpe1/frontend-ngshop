@@ -39,7 +39,6 @@ export class ProductoPageComponent implements OnInit {
       productoId: this.producto._id,
       cantidad: this.cantidad
     };
-    console.log(cartItem)
     this.carritoService.setCarritoItem(cartItem);
   }
 

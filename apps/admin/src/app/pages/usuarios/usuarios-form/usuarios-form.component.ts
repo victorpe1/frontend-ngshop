@@ -52,7 +52,7 @@ export class UsuariosFormComponent implements OnInit {
   }
 
   private _addUsuario(usuario: Usuario) {
-    console.log(usuario.password)
+
     this.usuariosService.createUsuario(usuario).subscribe(
       (usuario: Usuario) => {
         this.messageService.add({

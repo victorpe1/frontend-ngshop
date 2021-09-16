@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -20,6 +20,10 @@ import { MessageService } from 'primeng/api';
 import { JwtInterceptor, UsuariosModule } from '@bluebits/usuarios';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { NgxPayPalModule } from 'ngx-paypal';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -35,6 +39,9 @@ import { EffectsModule } from '@ngrx/effects';
     UiModule,
     BrowserAnimationsModule,
     AccordionModule,
+    NgxSpinnerModule,
+    NgxPayPalModule,
+    NgbModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     PedidosModule,
@@ -42,8 +49,8 @@ import { EffectsModule } from '@ngrx/effects';
     HttpClientModule,
     UsuariosModule,
     ToastModule],
-  providers: [MessageService, { provide: HTTP_INTERCEPTORS,
-    useClass: JwtInterceptor, multi: true }],
+  providers: [MessageService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

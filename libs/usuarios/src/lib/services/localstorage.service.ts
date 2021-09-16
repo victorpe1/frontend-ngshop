@@ -30,10 +30,12 @@ export class LocalstorageService {
 
   getUserIdFromToken() {
     const token = this.getToken();
+
     if (token) {
       const tokenDecode = JSON.parse(atob(token.split('.')[1]));
+
       if (tokenDecode) {
-        return tokenDecode.usuarioId;
+        return tokenDecode.userId;
       } else {
         return null;
       }

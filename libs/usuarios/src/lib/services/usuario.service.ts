@@ -66,7 +66,8 @@ export class UsuariosService {
   }
 
   observeCurrentUsuario(){
-    return this.usuariosFacade.currentUsuario$;
+
+  return this.usuariosFacade.currentUsuario$;
   }
 
   isCurrentUsuarioAuth(){

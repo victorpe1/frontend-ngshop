@@ -32,7 +32,7 @@ export class CategoriasListComponent implements OnInit {
   }
 
   deleteCategoria(id_cat: string) {
-    console.log(id_cat);
+
     this.confirmationService.confirm({
       message: 'Quieres eliminar esta categoria?',
       header: 'Eliminar Categoria',

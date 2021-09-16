@@ -1,7 +1,22 @@
 <div class="checkout-page">
+
   <div class="thankyou-page">
     <h2>Gracias por comprar con nosotros!</h2>
     <h3>Hemos recibido tu pedido y te será entregado en los próximos 3 días.</h3>
     <p-button label="Volver a Comprar" routerLink="/"></p-button>
   </div>
+  <hr>
+
+  <h3>Productos comprados</h3>
+  <hr>
+  <div *ngFor= "let item of items">
+    <p>
+      <b>Nombre: </b>{{item.name}}
+      <b>Cantidad: </b>{{item.quantity}}
+      <b>Precio/Unidad: </b>{{item.unit_amount.value}}Soles
+    </p>
+  </div>
+  <hr>
+  <p><h3><b>Total: </b>S/. {{amount}}</h3>
+
 </div>

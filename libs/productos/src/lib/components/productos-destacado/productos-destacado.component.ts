@@ -34,9 +34,7 @@ export class ProductosDestacadoComponent implements OnInit, OnDestroy {
       .subscribe((productos) => {
         this.productos = productos;
 
-        console.log(this.productos)
       });
-      console.log(this.productos)
   }
 }
 

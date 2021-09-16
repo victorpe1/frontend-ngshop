@@ -28,7 +28,6 @@ export class PedidosService {
   }
 
   updatePedido(estadoPedido: { estado: string }, pedidoId: string): Observable<Pedido> {
-    console.log(estadoPedido)
 
     return this.http.put<Pedido>(`${this.apiURLPedidos}/${pedidoId}`, estadoPedido);
   }
@@ -52,5 +51,6 @@ export class PedidosService {
   getProducto(productoId: string): Observable<any> {
     return this.http.get<any>(`${this.apiURLProductos}/${productoId}`);
   }
+
 
 }

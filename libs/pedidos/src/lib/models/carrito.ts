@@ -11,3 +11,10 @@ export class CarritoItemDetallado{
   producto?: any;
   cantidad?: number;
 }
+
+export class CarritoItemDetalladoPaypal{
+  name?: string;
+  category?: string;
+  quantity?: string;
+  unit_amount?: any;
+}

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CarritoService } from './services/carrito.service';
 import { BadgeModule } from 'primeng/badge';
@@ -15,6 +15,10 @@ import { CarritoPageComponent } from './pages/carrito-page/carrito-page.componen
 import { CarritoCheckoutComponent } from './pages/carrito-checkout/carrito-checkout.component';
 import { GraciasCompraComponent } from './pages/gracias-compra/gracias-compra.component';
 import { AuthGuard } from '@bluebits/usuarios';
+import { NgxPayPalModule } from 'ngx-paypal';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PopupComponent } from './pages/popup/popup.component'
 
 const routes: Routes = [
   {
@@ -39,8 +43,11 @@ const routes: Routes = [
     ButtonModule,
     InputNumberModule,
     FormsModule,
+    NgxSpinnerModule,
     ReactiveFormsModule,
+    NgxPayPalModule,
     InputTextModule,
+    NgbModule,
     InputMaskModule,
     DropdownModule
   ],
@@ -49,14 +56,19 @@ const routes: Routes = [
     CarritoResumenComponent,
     CarritoPageComponent,
     CarritoCheckoutComponent,
-    GraciasCompraComponent
+    GraciasCompraComponent,
+    PopupComponent
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ],
   exports: [
     CarritoIconComponent,
     CarritoResumenComponent, /*pedido resumen*/
     CarritoPageComponent,
     CarritoCheckoutComponent,
-    GraciasCompraComponent
+    GraciasCompraComponent,
+    PopupComponent
   ],
 })
 export class PedidosModule {

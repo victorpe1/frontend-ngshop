@@ -58,7 +58,6 @@ export class CategoriaFormComponent implements OnInit {
   }
 
   private _addCategoria(categoria: Categoria) {
-    console.log(categoria.nombre);
 
     this.categoriaService.crearCategoria(categoria).subscribe(
       (categoria: Categoria) => {

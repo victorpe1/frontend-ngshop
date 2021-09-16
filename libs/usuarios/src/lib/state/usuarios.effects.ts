@@ -17,8 +17,12 @@ export class UsuariosEffects {
 
   buildUserSession$ = createEffect(() =>
     this.actions$.pipe(ofType(UsuariosActions.buildUsuarioSession), concatMap(() => {
+
     const usuarioId = this.localstorageService.getUserIdFromToken();
+
+
     if(this.localstorageService.isValidToken()){
+
       if(usuarioId){
         return this.usuariosService.getUsuario(usuarioId).pipe(
         map((usuario) => {
