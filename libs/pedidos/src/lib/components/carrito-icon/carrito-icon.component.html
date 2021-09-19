@@ -1,4 +1,4 @@
-<i
+<!-- <i
   class="pi pi-shopping-cart p-mr-4 p-text-secondary"
   pBadge
   style="font-size: 1.5rem"
@@ -6,4 +6,52 @@
   severity="danger"
   routerLink="/carrito"
 ></i>
+        <p-dropdown [options]="carritoItemDetallado"
+        [(ngModel)]="auxiliar" optionLabel="producto.nombre"
+        [style]="{'font-size': '1.5rem'}"
+        > -->
+        <script>
+          $(".item-remove").click(function(event) {
+              event.preventDefault();
+              $(this).parents('.item').remove();
+          });
+          </script>
 
+<div class="cart float-right">
+  <label data-toggle="collapse" data-target="#ViewCart">
+    <i class="fa fa-cart-plus" aria-hidden="true"></i>
+    <span class="items-count">{{contador}}</span> – Productos
+  </label>
+  <div class="items-list collapse" id="ViewCart">
+
+    <div class="carrito-item p-mb-5" *ngFor="let carritoItem of carritoItemDetallado">
+
+    <div class="item">
+      <div class="row">
+        <div class="col-4">
+          <div class="item-pic">
+            <img [src]="carritoItem.producto.image" class="img-fluid" alt="product" />
+          </div>
+        </div>
+        <div class="col-8 pl-0">
+          <h6 class="item-name">{{ carritoItem.producto.nombre }}</h6>
+          <p class="item-price">S/. {{
+            carritoItem.producto.precio * carritoItem.cantidad! }} </p>
+            <button pButton pRipple type="button"
+            icon="pi pi-trash" class="p-button-rounded p-button-text" (click)="deleteCarritoItem(carritoItem)"
+            ></button>
+        </div>
+      </div>
+    </div>
+
+</div>
+
+    <div class="row">
+      <div class="view-cart">
+        <span class="close-cart" data-toggle="collapse" data-target="#ViewCart"
+          >Cerrar</span>
+        <a routerLink="/carrito">Ver carrito</a>
+      </div>
+    </div>
+  </div>
+</div>

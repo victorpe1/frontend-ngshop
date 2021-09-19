@@ -5,6 +5,8 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Producto } from '../../models/producto';
 import { ProductosService } from '../../services/producto.service';
+import { UsuariosService } from '@bluebits/usuarios';
+import { Comentario } from '../../models/comentario';
 
 @Component({
   selector: 'producto-page',
@@ -15,16 +17,26 @@ import { ProductosService } from '../../services/producto.service';
 export class ProductoPageComponent implements OnInit {
 
   producto!: Producto;
+  comentarios: Comentario[]=[];
   endSubs$: Subject<any> = new Subject();
   cantidad = 1;
+  usuarioId!: string;
+  productoIdd!: string;
+  unsubscribe$: Subject<any> = new Subject();
 
   constructor(private prodService: ProductosService, private route: ActivatedRoute,
+  private usuariosService: UsuariosService,
   private carritoService: CarritoService) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       if (params.productoId) {
         this._getProducto(params.productoId);
+      }
+    });
+    this.route.params.subscribe((params) => {
+      if (params.productoId) {
+        this._getComentarios(params.productoId);
       }
     });
   }
@@ -48,7 +60,15 @@ export class ProductoPageComponent implements OnInit {
       .pipe(takeUntil(this.endSubs$))
       .subscribe((resProducto) => {
         this.producto = resProducto;
+        this.productoIdd = resProducto._id!;
       });
   }
+
+  private _getComentarios(id: string) {
+    this.prodService.getComentarios(id).subscribe((comentario) => {
+      this.comentarios = comentario;
+      console.log(comentario)
+    });
+}
 
 }

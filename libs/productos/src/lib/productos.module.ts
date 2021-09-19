@@ -15,6 +15,8 @@ import { RatingModule } from 'primeng/rating';
 import { FormsModule } from '@angular/forms';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { UiModule } from '@bluebits/ui';
+
+
 const routes: Routes = [
   {
     path: 'productos',
@@ -37,6 +39,7 @@ const routes: Routes = [
     PedidosModule,
     RouterModule,
     UiModule,
+
     ButtonModule,
     RouterModule.forChild(routes),
     CheckboxModule,

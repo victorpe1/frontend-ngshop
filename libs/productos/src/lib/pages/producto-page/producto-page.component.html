@@ -9,11 +9,15 @@
         {{ producto.descripcion }}
       </p>
       <div class="producto-calificacion">
-        <p-rating [(ngModel)]="producto.calificacion" [cancel]="false" [disabled]="true"></p-rating>
+        <p-rating
+          [(ngModel)]="producto.calificacion"
+          [cancel]="false"
+          [disabled]="true"
+        ></p-rating>
       </div>
       <div class="producto-precio">
-        {{ producto.precio | currency }}
-        <span class="precio-before">{{ producto.precio! + 18 | currency }}</span>
+        S/.{{ producto.precio }}
+        <span class="precio-before">S/. {{ producto.precio! + 18 }}</span>
       </div>
       <div class="producto-cantidad">
         <div class="p-field p-col-12 p-md-3 p-p-0">
@@ -48,9 +52,44 @@
       </div>
     </div>
   </div>
+  <hr />
+  <h3>
+    Informacion del producto
+    <hr />
+  </h3>
   <div class="p-grid product-grande_descripcion">
     <div class="p-col-12">
       <div [innerHTML]="producto.grande_descripcion"></div>
+    </div>
+  </div>
+  <hr />
+  <h3>
+    Comentarios acerca del producto
+    <hr />
+  </h3>
+
+  <div *ngIf="comentarios">
+    <div
+      class="p-grid product-comentario"
+      *ngFor="let comentario of comentarios"
+    >
+      <div class="p-col-9">
+        <h5>
+          <b>{{ comentario.usuario.nombre}}</b>
+        </h5>
+        <hr />
+        <div class="xd">{{ comentario.comentario }}</div>
+      </div>
+      <div class="p-col-3 center">
+        <div>Fecha: {{ comentario.fchaCreacion }}</div>
+        <div class="producto-calificacion">
+          <p-rating
+            [(ngModel)]="comentario.estrellas"
+            [cancel]="false"
+            [disabled]="true"
+          ></p-rating>
+        </div>
+      </div>
     </div>
   </div>
 </div>

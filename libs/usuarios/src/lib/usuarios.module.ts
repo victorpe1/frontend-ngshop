@@ -14,6 +14,7 @@ import { EffectsModule } from '@ngrx/effects';
 import * as fromUsuarios from './state/usuarios.reducer';
 import { UsuariosEffects } from './state/usuarios.effects';
 import { UsuariosFacade } from './state/usuarios.facade';
+import { PerfilPageComponent } from './components/perfil-page/perfil-page.component';
 
 @NgModule({
   imports: [
@@ -29,7 +30,7 @@ import { UsuariosFacade } from './state/usuarios.facade';
     ),
     EffectsModule.forFeature([UsuariosEffects]),
   ],
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, PerfilPageComponent],
   providers: [UsuariosFacade],
 })
 export class UsuariosModule {}

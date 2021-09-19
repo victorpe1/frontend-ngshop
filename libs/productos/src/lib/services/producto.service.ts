@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '@env/environment';
 import { Producto } from '../models/producto';
 import { map } from 'rxjs/operators';
+import { Comentario } from '../models/comentario';
 
 @Injectable({
   providedIn: 'root'
@@ -48,4 +49,9 @@ export class ProductosService {
   getDestacadoProducts(cont: number): Observable<Producto[]> {
     return this.http.get<Producto[]>(`${this.apiURLProducts}/get/destacado/${cont}`);
   }
+
+  getComentarios(id_prod: string): Observable<Comentario[]> {
+    return this.http.get<Comentario[]>(`${this.apiURLProducts}/review/${id_prod}`);
+  }
+
 }
