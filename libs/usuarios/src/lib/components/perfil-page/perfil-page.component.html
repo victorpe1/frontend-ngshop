@@ -1,1 +1,211 @@
-<p>perfil-page works!</p>
+<div class="p-grid">
+  <div class="p-col-4">
+    <div class="portlet light profile-sidebar-portlet bordered">
+      <div class="profile-userpic">
+        <img
+          src="https://bootdey.com/img/Content/avatar/avatar6.png"
+          class="img-responsive"
+          alt=""
+        />
+      </div>
+      <div class="profile-usertitle">
+        <div class="profile-usertitle-name">Marcus Doe</div>
+      </div>
+
+      <div class="profile-usermenu">
+        <ul class="nav">
+          <li class="active">
+            <a href="#"> <i class="icon-home"></i> Mi perfil </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="p-col-8">
+    <div class="portlet light bordered">
+      <div class="portlet-title tabbable-line">
+        <div class="caption caption-md">
+          <i class="icon-globe theme-font hide"></i>
+          <span class="caption-subject font-blue-madison bold uppercase"
+            >Nuestra informacion</span
+          >
+        </div>
+      </div>
+      <div class="portlet-body">
+        <div>
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+              <a href="#home" aria-controls="home" role="tab" data-toggle="tab"
+                >Actualizar</a
+              >
+            </li>
+            <li role="presentation">
+              <a
+                href="#profile"
+                aria-controls="profile"
+                role="tab"
+                data-toggle="tab"
+                >Pedidos</a
+              >
+            </li>
+            <li role="presentation">
+              <a
+                href="#messages"
+                aria-controls="messages"
+                role="tab"
+                data-toggle="tab"
+                >Comentarios</a
+              >
+            </li>
+            <li role="presentation">
+              <a
+                href="#settings"
+                aria-controls="settings"
+                role="tab"
+                data-toggle="tab"
+                >Tickets</a
+              >
+            </li>
+          </ul>
+
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="home">
+              <form [formGroup]="checkoutFormGroup">
+                <div class="p-field">
+                  <label for="nombre">Nombre</label>
+                  <input
+                    formControlName="nombre"
+                    id="nombre"
+                    type="text"
+                    pInputText
+                  />
+                  <small
+                    *ngIf="checkoutForm.nombre.invalid && enviado"
+                    class="p-error"
+                    >Se requiere el nombre</small
+                  >
+                </div>
+                <div class="p-field form-group">
+                  <label for="email">Email</label>
+                  <input
+                    formControlName="email"
+                    id="email"
+                    type="text"
+                    pInputText
+                  />
+                  <small
+                    *ngIf="checkoutForm.email.invalid && enviado"
+                    class="p-error"
+                    ><span *ngIf="checkoutForm.email.errors?.required"
+                      >Se requiere el email</span
+                    >
+                    <span *ngIf="checkoutForm.email.errors?.email"
+                      >Email invalido</span
+                    ></small
+                  >
+                </div>
+
+                <div class="p-field">
+                  <label for="telef">Telefono</label><br />
+                  <p-inputMask
+                    mask="(999) 999-9999"
+                    formControlName="telef"
+                    placeholder="(999) 999-9999"
+                  ></p-inputMask>
+                  <small
+                    *ngIf="checkoutForm.telef.invalid && enviado"
+                    class="p-error"
+                    >Se requiere el telefono</small
+                  >
+                </div>
+
+                <div class="p-field">
+                  <label for="calle">Calle</label>
+                  <input
+                    formControlName="calle"
+                    id="calle"
+                    type="text"
+                    pInputText
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="apartamento">Apartamento</label>
+                  <input
+                    formControlName="apartamento"
+                    id="apartamento"
+                    type="text"
+                    pInputText
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="cod_postal">Codigo Postal</label>
+                  <input
+                    formControlName="cod_postal"
+                    id="cod_postal"
+                    type="text"
+                    pInputText
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="ciudad">Ciudad</label>
+                  <input
+                    formControlName="ciudad"
+                    id="ciudad"
+                    type="text"
+                    pInputText
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="pais">Pais</label><br />
+                  <p-dropdown
+                    [options]="paises"
+                    formControlName="pais"
+                    optionLabel="nombre"
+                    optionValue="id"
+                    [filter]="true"
+                    filterBy="nombre"
+                    [showClear]="true"
+                    placeholder="Selecciona un pais"
+                  ></p-dropdown>
+                </div>
+
+                <div class="form-group">
+                  <label for="password">Contraseña</label>
+                  <input
+                    formControlName="password"
+                    id="password"
+                    type="password"
+                    pInputText
+                  />
+                  <small
+                    *ngIf="checkoutForm.password.invalid && enviado"
+                    class="p-error"
+                    >Se requiere la contraseña</small
+                  >
+                </div>
+
+                <p-button
+                  styleClass="p-button-primary p-mr-2"
+                  label="Actualizar"
+                  icon="pi pi-plus"
+                  (click)="onSubmit()"
+                ></p-button>
+              </form>
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="profile">Profile</div>
+            <div role="tabpanel" class="tab-pane" id="messages">Messages</div>
+            <div role="tabpanel" class="tab-pane" id="settings">Settings</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

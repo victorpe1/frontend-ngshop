@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { PedidosService } from '../../services/pedidos.service';
+import { CarritoService } from '../../services/carrito.service';
 
 @Component({
   selector: 'pedidos-popup',
@@ -8,15 +10,18 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class PopupComponent implements OnInit {
 
-
-  @Input() amount: any;
-  @Input() items: any;
-
-  constructor(
-    public activeModel: NgbActiveModal
+  constructor(private pedidosService: PedidosService,
+    private carritoService: CarritoService
   ) { }
 
   ngOnInit(): void {
+    const pedidoData = this.pedidosService.getCachePedidoData();
+
+    this.pedidosService.createPedido(pedidoData).subscribe(() => {
+      this.carritoService.vaciarCarrito()
+      this.pedidosService.eliminarCachePedidoData()
+    })
+
   }
 
 }

@@ -32,6 +32,10 @@ const routes: Routes = [
   },
   {
     path: 'exitoso',
+    component: PopupComponent
+  },
+  {
+    path: 'exitoso2',
     component: GraciasCompraComponent
   }
 ];

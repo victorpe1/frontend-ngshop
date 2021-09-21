@@ -51,6 +51,7 @@ import { PedidosService } from '@bluebits/pedidos';
 import { AuthService } from '@bluebits/usuarios';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { NgxStripeModule } from 'ngx-stripe';
 
 
 const UX_MODULE = [
@@ -97,6 +98,7 @@ const UX_MODULE = [
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxStripeModule.forRoot('pk_test_51JbeGwApvJeofVU9F6eCVbkvHCyzJADJw4WLPgoWhStzQEN1W5qzonSeaVtFrR4l0mBSuicgiRXfurZ53V8N8aVd00pxvnrZFv'),
     UsuariosModule,
     ...UX_MODULE
   ],

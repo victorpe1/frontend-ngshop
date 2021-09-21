@@ -23,6 +23,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxStripeModule } from 'ngx-stripe';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ProductosModule,
     HttpClientModule,
     UsuariosModule,
+    NgxStripeModule.forRoot('pk_test_51JbeGwApvJeofVU9F6eCVbkvHCyzJADJw4WLPgoWhStzQEN1W5qzonSeaVtFrR4l0mBSuicgiRXfurZ53V8N8aVd00pxvnrZFv'),
     ToastModule],
   providers: [MessageService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
