@@ -1,10 +1,21 @@
+
+
 <div class="productos-buscar">
-  <i class="pi pi-search"></i>
-  <input
-    type="text"
-    placeholder="Encontrar productos"
-    class="productos-buscar-input"
-    name="search"
-    id="search"
-  />
+
+  <form [formGroup]="checkoutFormGroup">
+
+      <input
+      formControlName="buscar"
+          type="text"
+          placeholder="Encontrar productos"
+          class="productos-buscar-input"
+          pInputText
+        />
+    <p-button label="Buscar" (onClick)="buscar()"
+    routerLink="buscar/{{buscado}}"
+    ></p-button>
+
+  </form>
+
 </div>
+

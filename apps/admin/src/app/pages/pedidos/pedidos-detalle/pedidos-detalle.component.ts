@@ -1,17 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Pedido, PedidosService } from '@bluebits/pedidos';
 import { MessageService } from 'primeng/api';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { ORDER_STATUS } from '../pedido.constants';
 
 @Component({
   selector: 'bluebits-pedidos-detalle',
   templateUrl: './pedidos-detalle.component.html'
 })
-export class PedidosDetalleComponent implements OnInit {
+export class PedidosDetalleComponent implements OnInit, OnDestroy {
   pedido!: Pedido;
   estadosPedido: any;
   estadoSeleccionado: any;
+  endsubs$: Subject<any> = new Subject();
 
   constructor(
     private pedidoService: PedidosService,
@@ -22,6 +25,11 @@ export class PedidosDetalleComponent implements OnInit {
   ngOnInit(): void {
     this._mapEstadoPedido();
     this._getPedido();
+  }
+
+  ngOnDestroy() {
+    this.endsubs$.next();
+    this.endsubs$.complete();
   }
 
   private _mapEstadoPedido() {
@@ -36,7 +44,7 @@ export class PedidosDetalleComponent implements OnInit {
   private _getPedido() {
     this.route.params.subscribe((params) => {
       if (params.id) {
-        this.pedidoService.getPedido(params.id).subscribe((pedido) => {
+        this.pedidoService.getPedido(params.id).pipe(takeUntil(this.endsubs$)).subscribe((pedido) => {
           this.pedido = pedido;
           this.estadoSeleccionado = pedido.estado;
         });
@@ -45,7 +53,7 @@ export class PedidosDetalleComponent implements OnInit {
   }
 
   onStatusChange(event: any) {
-    this.pedidoService.updatePedido({ estado: event.value }, this.pedido.id!).subscribe(
+    this.pedidoService.updatePedido({ estado: event.value }, this.pedido.id!).pipe(takeUntil(this.endsubs$)).subscribe(
       () => {
         this.messageService.add({
           severity: 'success',

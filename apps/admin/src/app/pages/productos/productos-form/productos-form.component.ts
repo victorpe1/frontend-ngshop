@@ -1,10 +1,11 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CategoriaService, Producto, ProductosService, Categoria } from '@bluebits/productos';
 import { MessageService } from 'primeng/api';
-import { timer } from 'rxjs';
+import { Subject, timer } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 
 @Component({
@@ -13,7 +14,7 @@ import { timer } from 'rxjs';
   styles: [
   ]
 })
-export class ProductosFormComponent implements OnInit {
+export class ProductosFormComponent implements OnInit, OnDestroy {
 
   editar_mode = false;
   form!: FormGroup;
@@ -21,6 +22,7 @@ export class ProductosFormComponent implements OnInit {
   categorias: Categoria[] = [];
   imageDisplay!: string | ArrayBuffer;
   id_producto_act!: string;
+  endsubs$: Subject<any> = new Subject();
 
   constructor(
     private messageService: MessageService,
@@ -35,6 +37,11 @@ export class ProductosFormComponent implements OnInit {
     this._initForm();
     this._getCategorias();
     this._checkEditMode();
+  }
+
+  ngOnDestroy() {
+    this.endsubs$.next();
+    this.endsubs$.complete();
   }
 
   private _initForm() {
@@ -52,13 +59,13 @@ export class ProductosFormComponent implements OnInit {
   }
 
   private _getCategorias() {
-    this.categoriaService.getCategorias().subscribe((categorias) => {
+    this.categoriaService.getCategorias().pipe(takeUntil(this.endsubs$)).subscribe((categorias) => {
       this.categorias = categorias;
     });
   }
 
   private _addProducto(producto_dato: FormData) {
-    this.productoService.crearProducto(producto_dato).subscribe(
+    this.productoService.crearProducto(producto_dato).pipe(takeUntil(this.endsubs$)).subscribe(
       (producto: Producto) => {
         this.messageService.add({
           severity: 'success',
@@ -82,7 +89,14 @@ export class ProductosFormComponent implements OnInit {
   }
 
   private _updateProducto(productoFormData: FormData) {
-    this.productoService.updateProducto(productoFormData, this.id_producto_act).subscribe(
+
+    console.log(productoFormData)
+
+    productoFormData.forEach((value,key) => {
+      console.log(key+" "+value)
+    });
+
+    this.productoService.updateProducto(productoFormData, this.id_producto_act).pipe(takeUntil(this.endsubs$)).subscribe(
       () => {
         this.messageService.add({
           severity: 'success',
@@ -106,11 +120,13 @@ export class ProductosFormComponent implements OnInit {
   }
 
   private _checkEditMode() {
-    this.route.params.subscribe((params) => {
+    this.route.params.pipe(takeUntil(this.endsubs$)).subscribe((params) => {
       if (params.id) {
         this.editar_mode = true;
         this.id_producto_act = params.id;
-        this.productoService.getProducto(params.id).subscribe((producto) => {
+        this.productoService.getProducto(params.id).pipe(takeUntil(this.endsubs$)).subscribe((producto) => {
+
+          console.log(producto)
           this.productoForm.nombre.setValue(producto.nombre);
 
           this.productoForm.categoria.setValue(producto.categoria!._id);
@@ -146,7 +162,7 @@ export class ProductosFormComponent implements OnInit {
       this._addProducto(productoFormData);
     }
   }
-  onCancle() {}
+  onCancle() {this.location.back();}
 
 
   onImageUpload(event: any) {

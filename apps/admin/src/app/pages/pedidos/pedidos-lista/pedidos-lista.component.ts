@@ -1,17 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Pedido, PedidosService } from '@bluebits/pedidos';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { ORDER_STATUS } from '../pedido.constants';
 
 @Component({
   selector: 'bluebits-pedidos-lista',
   templateUrl: './pedidos-lista.component.html'
 })
-export class PedidosListaComponent implements OnInit {
+export class PedidosListaComponent implements OnInit, OnDestroy {
 
   pedidos: Pedido[] = [];
   estadoPedido = ORDER_STATUS;
+  endsubs$: Subject<any> = new Subject();
 
   constructor(
     private pedidoService: PedidosService,
@@ -24,8 +27,13 @@ export class PedidosListaComponent implements OnInit {
     this._getPedidos();
   }
 
+  ngOnDestroy() {
+    this.endsubs$.next();
+    this.endsubs$.complete();
+  }
+
   _getPedidos() {
-    this.pedidoService.getPedidos().subscribe((pedidos) => {
+    this.pedidoService.getPedidos().pipe(takeUntil(this.endsubs$)).subscribe((pedidos) => {
       this.pedidos = pedidos;
     });
   }
@@ -40,7 +48,7 @@ export class PedidosListaComponent implements OnInit {
       header: 'Eliminar el pedido',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.pedidoService.deletePedido(pedidoId).subscribe(
+        this.pedidoService.deletePedido(pedidoId).pipe(takeUntil(this.endsubs$)).subscribe(
           () => {
             this._getPedidos();
             this.messageService.add({

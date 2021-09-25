@@ -5,12 +5,9 @@ import { AuthService } from '@bluebits/usuarios';
   selector: 'admin-sidebar',
   templateUrl: './sidebar.component.html'
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent {
 
   constructor(private authService: AuthService) { }
-
-  ngOnInit(): void {
-  }
 
   cerrarSesion() {
     this.authService.logout();

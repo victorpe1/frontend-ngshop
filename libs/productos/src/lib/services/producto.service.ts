@@ -54,4 +54,8 @@ export class ProductosService {
     return this.http.get<Comentario[]>(`${this.apiURLProducts}/review/${id_prod}`);
   }
 
+  getProductosBuscados(nom_prod: string): Observable<Producto[]> {
+    return this.http.get<Producto[]>(`${this.apiURLProducts}/busqueda/${nom_prod}`);
+  }
+
 }

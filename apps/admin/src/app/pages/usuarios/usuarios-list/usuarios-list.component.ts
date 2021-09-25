@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { UsuariosService, Usuario } from '@bluebits/usuarios';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 
 @Component({
   selector: 'bluebits-usuarios-list',
   templateUrl: './usuarios-list.component.html'
 })
-export class UsuariosListComponent implements OnInit {
+export class UsuariosListComponent implements OnInit, OnDestroy {
   usuarios: Usuario[] = [];
+  endsubs$: Subject<any> = new Subject();
 
   constructor(
     private usuariosService: UsuariosService,
@@ -23,13 +26,18 @@ export class UsuariosListComponent implements OnInit {
     this._getUsuarios();
   }
 
+  ngOnDestroy() {
+    this.endsubs$.next();
+    this.endsubs$.complete();
+  }
+
   deleteUsuario(usuarioId: string) {
     this.confirmationService.confirm({
       message: 'Quieres eliminar este usuario?',
       header: 'Eliminar usuario',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.usuariosService.deleteUsuario(usuarioId).subscribe(
+        this.usuariosService.deleteUsuario(usuarioId).pipe(takeUntil(this.endsubs$)).subscribe(
           () => {
             this._getUsuarios();
             this.messageService.add({
@@ -63,7 +71,7 @@ export class UsuariosListComponent implements OnInit {
   }
 
   private _getUsuarios() {
-    this.usuariosService.getUsuarios().subscribe((usuarios) => {
+    this.usuariosService.getUsuarios().pipe(takeUntil(this.endsubs$)).subscribe((usuarios) => {
       this.usuarios = usuarios;
     });
   }

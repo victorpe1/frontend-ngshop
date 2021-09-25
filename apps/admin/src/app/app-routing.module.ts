@@ -72,11 +72,6 @@ const routes: Routes = [
         component: PedidosDetalleComponent
       }
     ],
-  },
-  {
-     path: '**',
-     redirectTo: '',
-     pathMatch: 'full'
   }
 ];
 

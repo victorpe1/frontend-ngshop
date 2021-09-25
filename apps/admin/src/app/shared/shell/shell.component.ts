@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 
 
@@ -6,12 +6,10 @@ import { Component, OnInit } from '@angular/core';
   selector: 'admi-shell',
   templateUrl: './shell.component.html'
 })
-export class ShellComponent implements OnInit {
+export class ShellComponent {
 
     constructor() { }
 
-    ngOnInit(): void {
-    }
   }
 
 

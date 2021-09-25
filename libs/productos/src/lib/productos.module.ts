@@ -12,9 +12,10 @@ import { ProductosListaComponent } from './pages/productos-lista/productos-lista
 
 import { CheckboxModule } from 'primeng/checkbox';
 import { RatingModule } from 'primeng/rating';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { UiModule } from '@bluebits/ui';
+import { BuscarListaComponent } from './components/buscar-lista/buscar-lista.component';
 
 
 const routes: Routes = [
@@ -29,6 +30,10 @@ const routes: Routes = [
   {
     path: 'productos/:productoId',
     component: ProductoPageComponent
+  },
+  {
+    path: 'buscar/:nombreProd',
+    component: BuscarListaComponent
   }
 ];
 
@@ -39,13 +44,13 @@ const routes: Routes = [
     PedidosModule,
     RouterModule,
     UiModule,
-
     ButtonModule,
     RouterModule.forChild(routes),
     CheckboxModule,
     FormsModule,
     RatingModule,
     InputNumberModule,
+    ReactiveFormsModule
   ],
   declarations: [
     ProductosBuscarComponent,
@@ -53,7 +58,8 @@ const routes: Routes = [
     ProductosDestacadoComponent,
     CategoriaBannerComponent,
     ProductoPageComponent,
-    ProductosListaComponent
+    ProductosListaComponent,
+    BuscarListaComponent
   ],
   exports: [
     ProductosBuscarComponent,
@@ -61,7 +67,10 @@ const routes: Routes = [
     ProductosItemComponent,
     ProductosDestacadoComponent,
     ProductoPageComponent,
-    ProductosListaComponent
+    ReactiveFormsModule,
+    ProductosListaComponent,
+    BuscarListaComponent,
+    RouterModule
   ]
 })
 export class ProductosModule {}
