@@ -50,7 +50,7 @@ export class ProductosFormComponent implements OnInit, OnDestroy {
       marca: ['', Validators.required],
       precio: ['', Validators.required],
       categoria: ['', Validators.required],
-      cont_stock: ['', Validators.required],
+      cont_stock: ['0'],
       descripcion: ['', Validators.required],
       grande_descripcion: [''],
       image: ['', Validators.required],
@@ -65,11 +65,14 @@ export class ProductosFormComponent implements OnInit, OnDestroy {
   }
 
   private _addProducto(producto_dato: FormData) {
+
+    console.log(producto_dato)
+
     this.productoService.crearProducto(producto_dato).pipe(takeUntil(this.endsubs$)).subscribe(
       (producto: Producto) => {
         this.messageService.add({
           severity: 'success',
-          summary: 'Success',
+          summary: 'Actualizado',
           detail: `Producto ${producto.nombre} fue creado!`
         });
         timer(2000)
@@ -91,6 +94,8 @@ export class ProductosFormComponent implements OnInit, OnDestroy {
   private _updateProducto(productoFormData: FormData) {
 
     console.log(productoFormData)
+
+    console.log(this.id_producto_act)
 
     productoFormData.forEach((value,key) => {
       console.log(key+" "+value)
@@ -128,9 +133,7 @@ export class ProductosFormComponent implements OnInit, OnDestroy {
 
           console.log(producto)
           this.productoForm.nombre.setValue(producto.nombre);
-
           this.productoForm.categoria.setValue(producto.categoria!._id);
-
           this.productoForm.marca.setValue(producto.marca);
           this.productoForm.precio.setValue(producto.precio);
           this.productoForm.cont_stock.setValue(producto.cont_stock);

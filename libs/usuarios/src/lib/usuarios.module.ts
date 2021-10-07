@@ -30,7 +30,11 @@ import { InputMaskModule } from 'primeng/inputmask'
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import{ PdfMakeWrapper, Table } from 'pdfmake-wrapper';
 
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+
+PdfMakeWrapper.setFonts(pdfFonts)
 
 const UX_MODULE = [
   CardModule,

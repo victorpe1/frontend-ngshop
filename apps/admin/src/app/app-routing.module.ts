@@ -16,6 +16,8 @@ import { UsuariosFormComponent } from './pages/usuarios/usuarios-form/usuarios-f
 import { PedidosDetalleComponent } from './pages/pedidos/pedidos-detalle/pedidos-detalle.component';
 import { PedidosListaComponent } from './pages/pedidos/pedidos-lista/pedidos-lista.component';
 
+import { StockListaPageComponent } from './pages/producto_stock/stock_lista/stock_lista.component';
+import { StockDetallePageComponent } from './pages/producto_stock/stock_detalle/stock_detalle.component';
 
 const routes: Routes = [
   {
@@ -62,6 +64,18 @@ const routes: Routes = [
       {
         path: 'productos/form/:id',
         component: ProductosFormComponent
+      },
+      {
+        path: 'productos_stock',
+        component: StockListaPageComponent
+      },
+      {
+        path: 'productos_stock/form',
+        component: StockDetallePageComponent
+      },
+      {
+        path: 'productos_stock/form/:id',
+        component: StockDetallePageComponent
       },
       {
         path: 'pedidos',

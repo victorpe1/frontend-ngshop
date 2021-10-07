@@ -10,7 +10,13 @@
       <ngshop-nav></ngshop-nav>
     </div>
     <div class="p-col-1 tools">
-      <i class="pi pi-user p-text-secondary" routerLink="/perfil" style="font-size: 1.5rem"></i>
+
+      <i class="pi pi-user p-text-secondary" routerLink="/perfil" style="font-size: 1.0rem">
+        <div *ngIf="usuarioNombre">
+          {{usuarioNombre}}
+        </div>
+      </i>
+
       <pedidos-carrito-icon></pedidos-carrito-icon>
     </div>
   </div>

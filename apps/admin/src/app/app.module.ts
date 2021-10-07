@@ -43,6 +43,9 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { EditorModule } from 'primeng/editor';
 
 
+import { StockListaPageComponent } from './pages/producto_stock/stock_lista/stock_lista.component';
+import { StockDetallePageComponent } from './pages/producto_stock/stock_detalle/stock_detalle.component';
+
 import { UsuariosFormComponent } from './pages/usuarios/usuarios-form/usuarios-form.component';
 import { UsuariosListComponent } from './pages/usuarios/usuarios-list/usuarios-list.component';
 import { PedidosListaComponent } from './pages/pedidos/pedidos-lista/pedidos-lista.component';
@@ -86,7 +89,9 @@ const UX_MODULE = [
     UsuariosFormComponent,
     UsuariosListComponent,
     PedidosListaComponent,
-    PedidosDetalleComponent
+    PedidosDetalleComponent,
+    StockListaPageComponent,
+    StockDetallePageComponent
     ],
   imports: [
     AppRoutingModule,

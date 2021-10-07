@@ -55,12 +55,10 @@
           <div class="p-fluid p-formgrid p-grid">
             <div class="p-field p-col-4">
               <label for="cont_stock">Stock</label><br />
-              <p-inputNumber formControlName="cont_stock" mode="decimal" [useGrouping]="false">
+              <p-inputNumber formControlName="cont_stock" mode="decimal" [useGrouping]="false" [disabled]="true">
               </p-inputNumber>
-              <small *ngIf="productoForm.cont_stock.invalid && enviado" class="p-error"
-                >Cantidad de stock es obligatorio</small
-              >
             </div>
+
             <div class="p-field p-col-4">
               <label for="categoria">Categoria</label><br />
               <p-dropdown

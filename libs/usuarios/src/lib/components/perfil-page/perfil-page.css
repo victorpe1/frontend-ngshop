@@ -73,6 +73,10 @@ body{
   padding-bottom: 20px
 }
 
+.light-blue-backdrop {
+  background-color: #5cb3fd;
+}
+
 .profile-usermenu ul li {
   border-bottom: 1px solid #f0f4f7
 }

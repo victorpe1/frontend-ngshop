@@ -52,7 +52,7 @@ export class ProductosListComponent implements OnInit, OnDestroy {
             this._getProductos();
             this.messageService.add({
               severity: 'success',
-              summary: 'Success',
+              summary: 'Actualizado',
               detail: 'Producto fue eliminado!'
             });
           },

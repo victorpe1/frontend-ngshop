@@ -57,7 +57,7 @@ export class PedidosDetalleComponent implements OnInit, OnDestroy {
       () => {
         this.messageService.add({
           severity: 'success',
-          summary: 'Success',
+          summary: 'Actualizado',
           detail: 'Pedido actualizado!'
         });
       },

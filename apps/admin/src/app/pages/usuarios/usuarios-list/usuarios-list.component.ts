@@ -42,7 +42,7 @@ export class UsuariosListComponent implements OnInit, OnDestroy {
             this._getUsuarios();
             this.messageService.add({
               severity: 'success',
-              summary: 'Success',
+              summary: 'Actualizado',
               detail: 'Usuario eliminado!'
             });
           },

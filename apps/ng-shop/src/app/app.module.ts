@@ -25,7 +25,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxStripeModule } from 'ngx-stripe';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +32,7 @@ import { NgxStripeModule } from 'ngx-stripe';
     HeaderComponent,
     FooterComponent,
     NavComponent,
-    MessagesComponent
+    MessagesComponent,
   ],
   imports: [AppRoutingModule,
     BrowserModule,

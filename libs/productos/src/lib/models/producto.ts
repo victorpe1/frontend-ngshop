@@ -16,3 +16,8 @@ export class Producto {
   destacado?: boolean;
   fecha_creacion?: string;
 }
+
+export class Producto2 {
+  id?: string;
+  cont_stock?: number;
+}

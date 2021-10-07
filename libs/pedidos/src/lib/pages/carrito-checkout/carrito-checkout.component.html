@@ -21,7 +21,7 @@
           </div>
           <div class="p-col-7">
             <div class="carrito-item-nombre">{{ carritoItem.producto.nombre }}</div>
-            <div class="carrito-item-precio">{{ carritoItem.producto.precio | currency }}</div>
+            <div class="carrito-item-precio">S/.{{ carritoItem.producto.precio }}</div>
             <div class="carrito-item-remove">
               <p-button icon="pi pi-trash" (onClick)="deleteCarritoItem(carritoItem)"></p-button>
             </div>
@@ -41,8 +41,8 @@
             </div>
             <div class="carrito-item-subtotal">
               Subtotal:
-              <span class="carrito-item-subtotal-value">{{
-                carritoItem.producto.precio * carritoItem.cantidad! | currency
+              <span class="carrito-item-subtotal-value">S/.{{
+                carritoItem.producto.precio * carritoItem.cantidad!
               }}</span>
             </div>
           </div>

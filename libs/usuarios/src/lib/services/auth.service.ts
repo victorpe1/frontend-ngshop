@@ -24,8 +24,14 @@ export class AuthService {
   }
 
   logout() {
-    console.log("Xd")
+    console.log("LOGOUT")
     this.token.removeToken();
     this.router.navigate(['/login']);
+  }
+
+  logoutShop() {
+    console.log("LOGOUTSHOP")
+    this.token.removeToken();
+    this.router.navigate(['/']);
   }
 }

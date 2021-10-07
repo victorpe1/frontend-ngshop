@@ -53,7 +53,7 @@ export class PedidosListaComponent implements OnInit, OnDestroy {
             this._getPedidos();
             this.messageService.add({
               severity: 'success',
-              summary: 'Success',
+              summary: 'Actualizado',
               detail: 'Pedido eliminado!'
             });
           },
