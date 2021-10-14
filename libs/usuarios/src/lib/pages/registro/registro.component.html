@@ -1,0 +1,99 @@
+<div class="login-wrap">
+	<div class="login-html">
+		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Iniciar sesion</label>
+		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Registrarse</label>
+		<div class="login-form">
+			<div class="sign-in-htm">
+        <form [formGroup]="loginFormGroup" >
+
+				<div class="group">
+					<label for="user" class="label">Correo</label>
+					<input type="text" formControlName="email" pInputText placeholder="Email">
+
+        <small *ngIf="loginForm.email.invalid &&    enviado" class="p-error"
+                ><span *ngIf="loginForm.email.errors!.required">Email es necesario</span>
+                <span *ngIf="loginForm.email.errors!.email">email es invalido</span></small
+              >
+
+          </div>
+
+				<div class="group">
+					<label for="pass" class="label">Contraseña</label>
+					<input
+                  type="password"
+                  formControlName="password"
+                  pInputText
+                  placeholder="Contraseña"
+                />
+				</div>
+        <small *ngIf="loginForm.password.invalid && enviado" class="p-error"
+                >Contraseña invalido
+              </small>
+
+				<div class="group">
+					<input id="check" type="checkbox" class="check" checked>
+					<label for="check"><span class="icon"></span> Manterme en sesion</label>
+				</div>
+				<div class="group">
+					<p-button label="Iniciar Sesion" styleClass="full-btn" (onClick)="onSubmit()"></p-button>
+				</div>
+
+        <div class="p-col-12" *ngIf="enviado && authError">
+          <small class="p-error">{{ authMessage }}</small>
+        </div>
+				<div class="hr"></div>
+				<div class="foot-lnk">
+					<a href="#forgot">Olvido su contraseña?</a>
+				</div>
+        </form>
+			</div>
+
+			<div class="sign-up-htm">
+
+      <form [formGroup]="form">
+
+          <div class="group">
+					<label for="user" class="label">Nombre</label>
+					<input formControlName="nombre" id="nombre" type="text" pInputText />
+              <small *ngIf="usuarioForm.nombre.invalid && enviado" class="p-error"
+              >Se requiere el nombre</small
+              >
+				  </div>
+
+				<div class="group">
+					<label for="pass" class="label">Contraseña</label>
+					<input formControlName="password" id="password" type="password" pInputText />
+              <small *ngIf="usuarioForm.password.invalid && enviado" class="p-error"
+                >Se requiere la contraseña</small
+              >
+				</div>
+
+				<div class="group">
+					<label for="pass" class="label">Repita contraseña</label>
+					<input  id="password" type="password" pInputText />
+				</div>
+
+				<div class="group">
+					<label for="pass" class="label">Correo electronico</label>
+					<input formControlName="email" id="email" type="text" pInputText />
+              <small *ngIf="usuarioForm.email.invalid && enviado" class="p-error"
+                ><span *ngIf="usuarioForm.email.errors?.required">Se requiere el email</span>
+                <span *ngIf="usuarioForm.email.errors?.email">Email invalido</span></small
+              >
+				</div>
+
+				<div class="group">
+					<p-button label="Registrarse" styleClass="full-btn" (onClick)="onRegistras()"></p-button>
+				</div>
+
+				  <div class="hr"></div>
+				  <div class="foot-lnk">
+					<label for="tab-1">Ya tiene una cuenta?</label>
+				  </div>
+
+
+      </form>
+			</div>
+		</div>
+	</div>
+</div>

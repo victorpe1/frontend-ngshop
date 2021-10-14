@@ -36,6 +36,10 @@ export class ProductosService {
     return this.http.put<Producto>(`${this.apiURLProducts}/${id_prod}`, productoData);
   }
 
+  updateProductoImagen(productoData: FormData, id_prod: string): Observable<Producto> {
+    return this.http.put<Producto>(`${this.apiURLProducts}/galeria-imgs/${id_prod}`, productoData);
+  }
+
   updateProductoStock(producto: Producto2): Observable<Producto> {
     return this.http.put<Producto>(`${this.apiURLProducts}/stock/${producto.id}`, producto);
   }

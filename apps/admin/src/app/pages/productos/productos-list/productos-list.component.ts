@@ -41,6 +41,10 @@ export class ProductosListComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl(`productos/form/${id_prod}`);
   }
 
+  updateImagenesProducto(id_prod: string) {
+    this.router.navigateByUrl(`productos/img/${id_prod}`);
+  }
+
   deleteProducto(id_prod: string) {
     this.confirmationService.confirm({
       message: 'Quieres eliminar este producto?',

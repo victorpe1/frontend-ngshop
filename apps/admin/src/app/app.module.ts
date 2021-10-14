@@ -14,7 +14,7 @@ import { CategoriaFormComponent } from './pages/categorias/categoria-form/catego
 import { ProductosListComponent } from './pages/productos/productos-list/productos-list.component';
 import { ProductosFormComponent } from './pages/productos/productos-form/productos-form.component'
 
-import { AuthGuard, JwtInterceptor, UsuariosModule } from '@bluebits/usuarios';
+import { AuthGuard, AuthGuardTwo, JwtInterceptor, UsuariosModule } from '@bluebits/usuarios';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UiModule } from '@bluebits/ui';
@@ -42,7 +42,7 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { EditorModule } from 'primeng/editor';
 
-
+import { ProductosImgComponent } from './pages/productos/productos-img/productos-img.component';
 import { StockListaPageComponent } from './pages/producto_stock/stock_lista/stock_lista.component';
 import { StockDetallePageComponent } from './pages/producto_stock/stock_detalle/stock_detalle.component';
 
@@ -50,11 +50,14 @@ import { UsuariosFormComponent } from './pages/usuarios/usuarios-form/usuarios-f
 import { UsuariosListComponent } from './pages/usuarios/usuarios-list/usuarios-list.component';
 import { PedidosListaComponent } from './pages/pedidos/pedidos-lista/pedidos-lista.component';
 import { PedidosDetalleComponent } from './pages/pedidos/pedidos-detalle/pedidos-detalle.component';
-import { PedidosService } from '@bluebits/pedidos';
+import { PedidosModule, PedidosService } from '@bluebits/pedidos';
 import { AuthService } from '@bluebits/usuarios';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { NgxStripeModule } from 'ngx-stripe';
+import { ComprasListaComponent } from './pages/compras/compras-list/compras-lista.component';
+import { ComprasFormComponent } from './pages/compras/compras-form/compras-form.component';
+import { ComprasRegistroFormComponent } from './pages/compras/compras-actualizar/compras-act.component';
 
 
 const UX_MODULE = [
@@ -83,6 +86,8 @@ const UX_MODULE = [
     ShellComponent,
     SidebarComponent,
     CategoriasListComponent,
+    ComprasListaComponent,
+    ComprasFormComponent,
     CategoriaFormComponent,
     ProductosListComponent,
     ProductosFormComponent,
@@ -91,12 +96,14 @@ const UX_MODULE = [
     PedidosListaComponent,
     PedidosDetalleComponent,
     StockListaPageComponent,
-    StockDetallePageComponent
+    StockDetallePageComponent,
+    ProductosImgComponent,ComprasRegistroFormComponent
     ],
   imports: [
     AppRoutingModule,
     HttpClientModule,
     BrowserModule,
+    PedidosModule,
     UiModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),

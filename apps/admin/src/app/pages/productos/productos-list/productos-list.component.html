@@ -50,14 +50,19 @@
               <td>
                 <p-button
                   (click)="deleteProducto(producto._id)"
-                  styleClass="p-button-danger p-mr-2"
+                  styleClass="p-button-danger p-mr-1"
                   icon="pi pi-trash"
                 ></p-button>
                 <p-button
                   (click)="updateProducto(producto.id)"
-                  styleClass="p-button-success"
+                  styleClass="p-button-success p-mr-1"
                   icon="pi pi-pencil"
                 ></p-button>
+                <p-button
+                (click)="updateImagenesProducto(producto.id)"
+                styleClass="p-button-success"
+                icon="pi pi-images"
+              ></p-button>
               </td>
             </tr>
           </ng-template>

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AuthGuard, JwtInterceptor, UsuariosModule } from '@bluebits/usuarios';
+import { AuthGuardTwo, JwtInterceptor, UsuariosModule } from '@bluebits/usuarios';
 
 
 import { PanelComponent } from './pages/panel/panel.component';
@@ -18,12 +18,17 @@ import { PedidosListaComponent } from './pages/pedidos/pedidos-lista/pedidos-lis
 
 import { StockListaPageComponent } from './pages/producto_stock/stock_lista/stock_lista.component';
 import { StockDetallePageComponent } from './pages/producto_stock/stock_detalle/stock_detalle.component';
+import { ProductosImgComponent } from './pages/productos/productos-img/productos-img.component';
+import { ComprasListaComponent } from './pages/compras/compras-list/compras-lista.component';
+import { ComprasFormComponent } from './pages/compras/compras-form/compras-form.component';
+import { ComprasRegistroFormComponent } from './pages/compras/compras-actualizar/compras-act.component';
+
 
 const routes: Routes = [
   {
     path: '',
     component: ShellComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuardTwo],
     children: [
       {
         path: '',
@@ -64,6 +69,22 @@ const routes: Routes = [
       {
         path: 'productos/form/:id',
         component: ProductosFormComponent
+      },
+      {
+        path: 'compras',
+        component: ComprasListaComponent
+      },
+      {
+        path: 'compras/form',
+        component: ComprasRegistroFormComponent
+      },
+      {
+        path: 'compras/:id',
+        component: ComprasFormComponent
+      },
+      {
+        path: 'productos/img/:id',
+        component: ProductosImgComponent
       },
       {
         path: 'productos_stock',

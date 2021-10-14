@@ -1,0 +1,239 @@
+<p-toast></p-toast>
+<div class="admin-page" >
+  <p-card
+    [header]="'Registrar Compra'"
+    subheader="Tu puedes registra una compra aquí"
+  >
+    <div class="p-grid p-mb-5">
+      <div class="p-col-12">
+        <p-toolbar>
+          <div class="p-toolbar-group-left"></div>
+          <div class="p-toolbar-group-right">
+            <p-button
+              styleClass="p-button-primary p-mr-2"
+              [label]="'Crear'"
+              icon="pi pi-plus"
+              (click)="onSubmit()"
+            ></p-button>
+            <p-button
+              styleClass="p-button-secondary"
+              label="Cancle"
+              icon="pi pi-arrow-circle-left"
+              (click)="onCancle()"
+            ></p-button>
+          </div>
+        </p-toolbar>
+      </div>
+    </div>
+
+    <div class="p-grid">
+      <div class="p-col-12">
+
+        <form [formGroup]="form">
+          <div class="p-fluid p-formgrid p-grid">
+            <div class="p-field p-col">
+              <label for="proveedor">Proveedor</label>
+              <input
+                formControlName="proveedor"
+                id="proveedor"
+                type="text"
+                pInputText
+              />
+              <small
+                *ngIf="compraForm.proveedor.invalid && enviado"
+                class="p-error"
+                >Proveedor es obligatorio</small
+              >
+            </div>
+
+            <div class="p-field p-col">
+              <label for="total_pagado">Total pagado</label>
+              <p-inputNumber
+                formControlName="total_pagado"
+                id="total_pagado"
+              ></p-inputNumber>
+              <small
+                *ngIf="compraForm.total_pagado.invalid && enviado"
+                class="p-error"
+                >Total pagado es obligatorio</small
+              >
+            </div>
+
+            <div class="p-field p-col-12">
+              <label for="nota">Nota</label><br />
+              <textarea
+                pInputTextarea
+                formControlName="nota"
+                [rows]="7"
+                [cols]="30"
+              ></textarea>
+              <small *ngIf="compraForm.nota.invalid && enviado" class="p-error"
+                >Nota es obligatorio</small
+              >
+            </div>
+
+            <div class="p-field p-col">
+              <label for="dia">Dia de la factura</label>
+              <p-inputNumber formControlName="dia" id="dia" ></p-inputNumber>
+              <small *ngIf="compraForm.dia.invalid && enviado" class="p-error"
+                >dia es obligatorio</small
+              >
+            </div>
+
+            <div class="p-field p-col">
+              <label for="mes">Mes de la factura</label>
+              <p-inputNumber formControlName="mes" id="mes" ></p-inputNumber>
+              <small *ngIf="compraForm.mes.invalid && enviado" class="p-error"
+                >Mes es obligatorio</small
+              >
+            </div>
+
+            <div class="p-field p-col">
+              <label for="anio">Año de la factura</label>
+              <p-inputNumber formControlName="anio" id="anio"></p-inputNumber>
+              <small *ngIf="compraForm.anio.invalid && enviado" class="p-error"
+                >Año es obligatorio</small
+              >
+            </div>
+
+            <div class="p-field p-col-12">
+              <label for="nombre">Factura</label>
+              <input
+                type="file"
+                class="p-inputtext"
+                accept="image/*"
+                (change)="onImageUpload($event)"
+              />
+              <small
+                *ngIf="compraForm.image.invalid && enviado"
+                class="p-error"
+                >Imagen es obligatorio</small
+              >
+              <div class="p-col-2 p-mt-2 p-pl-0">
+                <img style="width: 100%" [src]="imageDisplay" alt="" />
+              </div>
+            </div>
+          </div>
+        </form>
+
+<br><hr>
+
+      <form [formGroup]="formDetalle">
+        <div class="p-fluid p-formgrid p-grid">
+          <div class="p-field p-col-4">
+          <label for="producto">Producto</label><br />
+          <p-dropdown
+            [options]="productos"
+            formControlName="producto"
+            optionLabel="nombre"
+            optionValue="_id"
+            [filter]="true"
+            filterBy="nombre"
+            [showClear]="true"
+            placeholder="Selecciona un producto"
+          ></p-dropdown>
+          </div>
+          <div class="p-field p-col">
+            <label for="nombre">Importe total</label>
+            <p-inputNumber
+              formControlName="precio_compra"
+              id="precio_compra"
+            ></p-inputNumber>
+            <small
+              *ngIf="compraDetalleForm.precio_compra.invalid && enviado"
+              class="p-error"
+              >Importe total es obligatorio</small
+            >
+          </div>
+
+          <div class="p-field p-col">
+            <label for="detalle">Detalle</label>
+            <input
+              formControlName="detalle"
+              id="detalle"
+              type="text"
+              pInputText
+            />
+            <small
+              *ngIf="compraDetalleForm.detalle.invalid && enviado"
+              class="p-error"
+              >Detalle es obligatorio</small
+            >
+          </div>
+
+          <div class="p-field p-col">
+            <label for="cantidad">Cantidad</label>
+            <p-inputNumber
+              formControlName="cantidad"
+              id="cantidad"
+              type="text"
+            ></p-inputNumber>
+            <small
+              *ngIf="compraDetalleForm.cantidad.invalid && enviado"
+              class="p-error"
+              >Cantidad es obligatorio</small
+            >
+          </div>
+        </div>
+
+        <p-button
+              styleClass="p-button-primary p-mr-2"
+              [label]="'Guardar'"
+              icon="pi pi-plus"
+              (click)="onGuardar()"
+        ></p-button>
+
+        <p-button
+              styleClass="p-button-danger p-mr-2"
+              [label]="'Eliminar registro preeliminar'"
+              icon="pi pi-trash"
+              (click)="onVaciar()"
+        ></p-button>
+
+      </form>
+
+
+      </div>
+
+
+      <div class="p-col-12">
+
+        <p-table [value]="compraItems" styleClass="p-datatable-gridlines">
+          <ng-template pTemplate="header">
+            <tr>
+              <th pSortableColumn="producto">Producto <p-sortIcon field="producto"></p-sortIcon></th>
+
+              <th pSortableColumn="precio_compra">
+                Importe total <p-sortIcon field="precio_compra"></p-sortIcon>
+              </th>
+
+              <th pSortableColumn="cantidad">Cantidad <p-sortIcon field="cantidad"></p-sortIcon></th>
+
+              <th pSortableColumn="detalle">
+                Detalle <p-sortIcon field="detalle"></p-sortIcon>
+              </th>
+
+              <th></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-compraItems>
+            <tr>
+              <td>{{ compraItems.producto }}</td>
+              <td>{{ compraItems.precio_compra }}</td>
+              <td>{{ compraItems.cantidad }}</td>
+              <td>{{ compraItems.detalle }}</td>
+              <td>
+                <p-button
+                  (click)="deleteCarritoItem(compraItems)"
+                  styleClass="p-button-danger p-mr-1"
+                  icon="pi pi-trash"
+                ></p-button>
+              </td>
+            </tr>
+          </ng-template>
+
+        </p-table>
+      </div>
+    </div>
+  </p-card>
+</div>

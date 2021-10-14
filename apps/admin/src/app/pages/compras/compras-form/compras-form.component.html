@@ -1,0 +1,165 @@
+<p-toast></p-toast>
+<div class="admin-page" *ngIf="compra">
+  <p-card
+    [header]="'Editar Compra'"
+    subheader="Tu puedes editar un pedido aquí"
+  >
+    <div class="p-grid p-mb-5">
+      <div class="p-col-12">
+        <p-toolbar>
+          <div class="p-toolbar-group-left"></div>
+          <div class="p-toolbar-group-right">
+            <p-button
+              styleClass="p-button-primary p-mr-2"
+              [label]="'Actualizar'"
+              icon="pi pi-plus"
+              (click)="onSubmit()"
+            ></p-button>
+            <p-button
+              styleClass="p-button-secondary"
+              label="Cancle"
+              icon="pi pi-arrow-circle-left"
+              (click)="onCancle()"
+            ></p-button>
+          </div>
+        </p-toolbar>
+      </div>
+    </div>
+
+    <p-fieldset
+          legend="Compra Items"
+          styleClass="p-mb-4"
+          [toggleable]="true"
+        >
+          <div class="p-grid p-mb-5">
+            <div class="p-col-2 p-text-bold">Nombre</div>
+            <div class="p-col-1 p-text-bold">Marca</div>
+            <div class="p-col-1 p-text-bold">Categoria</div>
+            <div class="p-col-1 p-text-bold">Cantidad</div>
+            <div class="p-col-2 p-text-bold">Detalle</div>
+            <div class="p-col-1 p-text-bold">Precio unitario</div>
+            <div class="p-col-2 p-text-bold">SubTotal</div>
+            <div class="p-col-2 p-text-bold">Precio Compra</div>
+          </div>
+          <div
+            class="p-grid p-mb-5"
+            *ngFor="let compra_prod of compra.compra_prods"
+          >
+            <div class="p-col-2">{{ compra_prod.producto.nombre }}</div>
+            <div class="p-col-1">{{ compra_prod.producto.marca }}</div>
+            <div class="p-col-1">
+              {{ compra_prod.producto.categoria.nombre }}
+            </div>
+            <div class="p-col-1">{{ compra_prod.cantidad }}</div>
+            <div class="p-col-2">{{ compra_prod.detalle }}</div>
+            <div class="p-col-1">
+              S/.{{ compra_prod.precio_compra / compra_prod.cantidad! | number  }}
+            </div>
+            <div class="p-col-2">
+              S/.{{ compra_prod.producto.precio * 0.82 | number  }}
+            </div>
+            <div class="p-col-2">S/.{{ compra_prod.precio_compra }}</div>
+          </div>
+
+          <div class="p-grid" style="color: green">
+            <div class="p-col-2 p-offset-8 p-text-bold">Precio Total</div>
+
+            <div class="p-col-2 p-text-bold">S/.{{ compra.total_pagado }}</div>
+          </div>
+    </p-fieldset>
+
+    <div class="p-grid">
+      <div class="p-col-12">
+
+        <form [formGroup]="form">
+          <div class="p-fluid p-formgrid p-grid">
+            <div class="p-field p-col">
+              <label for="nombre">Proveedor</label>
+              <input
+                formControlName="proveedor"
+                id="proveedor"
+                type="text"
+                pInputText
+              />
+              <small
+                *ngIf="compraForm.proveedor.invalid && enviado"
+                class="p-error"
+                >Proveedor es obligatorio</small
+              >
+            </div>
+
+            <div class="p-field p-col">
+              <label for="total_pagado">Total pagado</label>
+              <input
+                formControlName="total_pagado"
+                id="total_pagado"
+                type="text"
+                pInputText
+              />
+              <small
+                *ngIf="compraForm.total_pagado.invalid && enviado"
+                class="p-error"
+                >Total pagado es obligatorio</small
+              >
+            </div>
+
+            <div class="p-field p-col-12">
+              <label for="nota">Nota</label><br />
+              <textarea
+                pInputTextarea
+                formControlName="nota"
+                [rows]="7"
+                [cols]="30"
+              ></textarea>
+              <small *ngIf="compraForm.nota.invalid && enviado" class="p-error"
+                >Nota es obligatorio</small
+              >
+            </div>
+
+            <div class="p-field p-col">
+              <label for="dia">Dia de la factura</label>
+              <input formControlName="dia" id="dia" type="text" pInputText />
+              <small *ngIf="compraForm.dia.invalid && enviado" class="p-error"
+                >dia es obligatorio</small
+              >
+            </div>
+
+            <div class="p-field p-col">
+              <label for="mes">Mes de la factura</label>
+              <input formControlName="mes" id="mes" type="text" pInputText />
+              <small *ngIf="compraForm.mes.invalid && enviado" class="p-error"
+                >Mes es obligatorio</small
+              >
+            </div>
+
+            <div class="p-field p-col">
+              <label for="anio">Año de la factura</label>
+              <input formControlName="anio" id="anio" type="text" pInputText />
+              <small *ngIf="compraForm.anio.invalid && enviado" class="p-error"
+                >Total pagado es obligatorio</small
+              >
+            </div>
+
+            <div class="p-field p-col-12">
+              <label for="nombre">Imagen principal</label>
+              <input
+                type="file"
+                class="p-inputtext"
+                accept="image/*"
+                (change)="onImageUpload($event)"
+              />
+              <small
+                *ngIf="compraForm.image.invalid && enviado"
+                class="p-error"
+                >Imagen es obligatorio</small
+              >
+              <div class="p-col-2 p-mt-2 p-pl-0">
+                <img style="width: 100%" [src]="imageDisplay" alt="" />
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </p-card>
+</div>

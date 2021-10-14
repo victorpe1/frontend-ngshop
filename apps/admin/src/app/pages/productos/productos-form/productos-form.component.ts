@@ -158,6 +158,9 @@ export class ProductosFormComponent implements OnInit, OnDestroy {
     const productoFormData = new FormData();
     Object.keys(this.productoForm).map((key) => {
       productoFormData.append(key, this.productoForm[key].value);
+
+      console.log(this.productoForm[key].value)
+
     });
     if (this.editar_mode) {
       this._updateProducto(productoFormData);
@@ -170,15 +173,20 @@ export class ProductosFormComponent implements OnInit, OnDestroy {
 
   onImageUpload(event: any) {
     const file = event.target.files[0];
+
     if (file) {
       this.form.patchValue({ image: file });
       this.form.get('image')!.updateValueAndValidity();
       const fileReader = new FileReader();
       fileReader.onload = () => {
+
         this.imageDisplay = fileReader.result as string;
+
       };
       fileReader.readAsDataURL(file);
     }
+
+    console.log(file.name)
   }
 
   get productoForm() {

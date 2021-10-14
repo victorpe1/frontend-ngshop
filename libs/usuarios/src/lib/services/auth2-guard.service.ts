@@ -5,7 +5,8 @@ import { LocalstorageService } from './localstorage.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class AuthGuardTwo implements CanActivate {
+
   constructor(private router: Router, private localStorageToken: LocalstorageService) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
@@ -17,7 +18,7 @@ export class AuthGuard implements CanActivate {
       if (tokenDecode.admi && !this._tokenExpired(tokenDecode.exp)) return true;
     }
 
-    this.router.navigate(['/registro']);
+    this.router.navigate(['/login']);
 
 
     return false;
@@ -26,4 +27,5 @@ export class AuthGuard implements CanActivate {
   private _tokenExpired(expiration: any): boolean {
     return Math.floor(new Date().getTime() / 1000) >= expiration;
   }
+
 }

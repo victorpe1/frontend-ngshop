@@ -47,7 +47,6 @@ export class CarritoPageComponent implements OnInit, OnDestroy {
   paises: any;
   endSubs$: Subject<any> = new Subject();
   precioTotal!: number;
-  unsubscribe$: Subject<any> = new Subject();
   carritoCont = 0;
 
   ngOnInit(): void {
@@ -61,9 +60,6 @@ export class CarritoPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
-
     this.endSubs$.next();
     this.endSubs$.complete();
   }
@@ -127,7 +123,7 @@ export class CarritoPageComponent implements OnInit, OnDestroy {
   private _autoFillUserData() {
     this.usuariosService
       .observeCurrentUsuario()
-      .pipe(takeUntil(this.unsubscribe$))
+      .pipe(takeUntil(this.endSubs$))
       .subscribe((user: any) => {
         if (user) {
           this.usuarioId = user.id;
@@ -162,6 +158,8 @@ export class CarritoPageComponent implements OnInit, OnDestroy {
   }
 
   initConfig(): void {
+
+
     this.payPalConfig = {
       currency: 'USD',
       clientId: environment.clienteID,
@@ -226,6 +224,7 @@ export class CarritoPageComponent implements OnInit, OnDestroy {
         console.log('onClick', data, actions);
       },
     };
+
   }
 
   placePedido(data: any) {

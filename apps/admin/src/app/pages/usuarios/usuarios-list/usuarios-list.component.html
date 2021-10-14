@@ -48,6 +48,11 @@
               <td>{{ getCountryName(usuario.pais) }}</td>
               <td>
                 <p-button
+                  (click)="deleteUsuario(usuario.id)"
+                  styleClass="p-button-danger p-mr-2"
+                  icon="pi pi-trash"
+                ></p-button>
+                <p-button
                   (click)="updateUsuario(usuario.id)"
                   styleClass="p-button-success"
                   icon="pi pi-pencil"

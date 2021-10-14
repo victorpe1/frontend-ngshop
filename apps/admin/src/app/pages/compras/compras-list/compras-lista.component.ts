@@ -1,30 +1,28 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Pedido, PedidosService } from '@bluebits/pedidos';
+import { Compra, ComprasService } from '@bluebits/pedidos';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ORDER_STATUS } from '../pedido.constants';
 
 @Component({
-  selector: 'bluebits-pedidos-lista',
-  templateUrl: './pedidos-lista.component.html'
+  selector: 'bluebits-compras-lista',
+  templateUrl: './compras-lista.component.html'
 })
-export class PedidosListaComponent implements OnInit, OnDestroy {
+export class ComprasListaComponent implements OnInit, OnDestroy {
 
-  pedidos: Pedido[] = [];
-  estadoPedido = ORDER_STATUS;
+  compras: Compra[] = [];
   endsubs$: Subject<any> = new Subject();
 
   constructor(
-    private pedidoService: PedidosService,
+    private compraService: ComprasService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this._getPedidos();
+    this._getCompras();
   }
 
   ngOnDestroy() {
@@ -32,37 +30,34 @@ export class PedidosListaComponent implements OnInit, OnDestroy {
     this.endsubs$.complete();
   }
 
-  _getPedidos() {
-    this.pedidoService.getPedidos().pipe(takeUntil(this.endsubs$)).subscribe((pedidos) => {
-      this.pedidos = pedidos;
+  _getCompras() {
+    this.compraService.getCompras().pipe(takeUntil(this.endsubs$)).subscribe((compras) => {
+      this.compras = compras;
+      console.log(this.compras)
     });
   }
 
-  showPedido(pedidoId: any) {
-    this.router.navigateByUrl(`pedidos/${pedidoId}`);
-  }
-
-  deletePedido(pedidoId: string) {
+  deleteCompra(compraId: string) {
     this.confirmationService.confirm({
       message: 'Quieres eliminar el pedido?',
       header: 'Eliminar el pedido',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
 
-        this.pedidoService.deletePedido(pedidoId).pipe(takeUntil(this.endsubs$)).subscribe(
+        this.compraService.deleteCompra(compraId).pipe(takeUntil(this.endsubs$)).subscribe(
           () => {
-            this._getPedidos();
+            this._getCompras();
             this.messageService.add({
               severity: 'success',
               summary: 'Actualizado',
-              detail: 'Pedido eliminado!'
+              detail: 'Compra eliminado!'
             });
           },
           () => {
             this.messageService.add({
               severity: 'error',
               summary: 'Error',
-              detail: 'Pedido no fue eliminado!'
+              detail: 'Compra no fue eliminado!'
             });
           }
         );
@@ -70,4 +65,12 @@ export class PedidosListaComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  showCompra(compraId: any) {
+
+    this.router.navigateByUrl(`compras/${compraId}`);
+  }
+
+
+
 }
