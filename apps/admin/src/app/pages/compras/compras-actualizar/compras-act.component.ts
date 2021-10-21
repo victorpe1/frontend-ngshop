@@ -7,7 +7,10 @@ import { UsuariosService } from '@bluebits/usuarios';
 import { MessageService } from 'primeng/api';
 import { Subject, timer } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { CompraItem } from './../../../../../../../libs/pedidos/src/lib/models/compra-item';
+import {
+  CompraItem,
+  CompraItem2,
+} from './../../../../../../../libs/pedidos/src/lib/models/compra-item';
 import {
   CompraGuardado,
   CompraGuardadoItem,
@@ -21,7 +24,7 @@ import { Producto, ProductosService } from '@bluebits/productos';
   styles: [],
 })
 export class ComprasRegistroFormComponent implements OnInit, OnDestroy {
-  compraItems: CompraItem[] = [];
+  compraItems: CompraItem2[] = [];
   form!: FormGroup;
   formDetalle!: FormGroup;
   enviado = false;
@@ -88,8 +91,6 @@ export class ComprasRegistroFormComponent implements OnInit, OnDestroy {
   }
 
   private _autoFillUserData() {
-    console.log('xd');
-
     this.usuariosService
       .observeCurrentUsuario()
       .pipe(takeUntil(this.endsubs$))
@@ -101,13 +102,24 @@ export class ComprasRegistroFormComponent implements OnInit, OnDestroy {
   }
 
   private _getComprasItems() {
-    const compra: CompraGuardado = this.compraService.getCompraSto();
+    const compra: CompraGuardado =
+    this.compraService.getCompraSto();
+
+    let nameP: any;
 
     this.compraItems = compra.items!.map((item) => {
+      this.productos.map((producto) => {
+        if (item.productoId == producto._id) {
+          nameP = producto.nombre;
+        }
+      });
+
+      console.log(nameP);
       return {
         producto: item.productoId,
         precio_compra: item.precio_compra,
         cantidad: item.cantidad,
+        nombre: nameP,
         detalle: item.detalle,
       };
     });
@@ -133,6 +145,7 @@ export class ComprasRegistroFormComponent implements OnInit, OnDestroy {
     };
 
     this.compraService.setCompraItem(compra);
+
     this._getComprasItems();
   }
 

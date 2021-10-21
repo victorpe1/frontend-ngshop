@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { Pedido } from '../models/pedido';
@@ -7,6 +7,7 @@ import { environment } from '@env/environment';
 import { PedidoItem } from './../models/pedido-item';
 
 import { StripeService } from 'ngx-stripe';
+import { Producto } from 'libs/productos/src/lib/models/producto';
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +29,14 @@ export class PedidosService {
 
   getPedido(pedidoId: string): Observable<Pedido> {
     return this.http.get<Pedido>(`${this.apiURLPedidos}/${pedidoId}`);
+  }
+
+  prePedidoResta(pedido: Pedido): Observable<any> {
+    return this.http.put<Pedido>(`${this.apiURLPedidos}/preventaMenos/`, pedido);
+  }
+
+  prePedidoCancelacion(pedido: Pedido): Observable<any> {
+    return this.http.put<Pedido>(`${this.apiURLPedidos}/preventaRecuperar/`, pedido);
   }
 
   createPedido(pedido: Pedido): Observable<Pedido> {
@@ -63,6 +72,14 @@ export class PedidosService {
   getProducto(productoId: string): Observable<any> {
     return this.http.get<any>(`${this.apiURLProductos}/${productoId}`);
   }
+
+
+  getProductos(): Observable<Producto[]> {
+
+    return this.http.get<Producto[]>(this.apiURLProductos);
+  }
+
+
 
   /*crearCheckOutSession(pedidoItem: PedidoItem[]) {
     return this.http

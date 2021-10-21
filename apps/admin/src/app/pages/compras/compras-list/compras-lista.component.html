@@ -17,7 +17,20 @@
     </div>
     <div class="p-grid">
       <div class="p-col-12">
-        <p-table [value]="compras" styleClass="p-datatable-gridlines">
+        <p-table [value]="compras"  #dt1 styleClass="p-datatable-gridlines"
+        [globalFilterFields]="['usuario', 'fecha_factura', 'proveedor']"
+
+        >
+
+          <ng-template pTemplate="caption">
+            <div class="p-d-flex">
+                <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value , 'contains')" placeholder="Buscar" />
+                </span>
+            </div>
+        </ng-template>
+
           <ng-template pTemplate="header">
             <tr>
               <th pSortableColumn="nombre">Usuario <p-sortIcon field="usuario"></p-sortIcon></th>

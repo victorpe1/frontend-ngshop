@@ -79,7 +79,8 @@ const routes: Routes = [
 })
 export class PedidosModule {
 
-  constructor(carritoService: CarritoService, compraService: CompraService) {
+  constructor(carritoService: CarritoService,
+    compraService: CompraService) {
     carritoService.initCarritoLocalStorage();
     compraService.initCompraLocalStorage();
   }

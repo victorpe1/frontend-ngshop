@@ -6,9 +6,11 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 
+
 @Component({
   selector: 'bluebits-usuarios-list',
-  templateUrl: './usuarios-list.component.html'
+  templateUrl: './usuarios-list.component.html',
+  styleUrls: ['../../../../assets/style/flags.css']
 })
 export class UsuariosListComponent implements OnInit, OnDestroy {
   usuarios: Usuario[] = [];
@@ -69,6 +71,8 @@ export class UsuariosListComponent implements OnInit, OnDestroy {
     else
       return "";
   }
+
+
 
   private _getUsuarios() {
     this.usuariosService.getUsuarios().pipe(takeUntil(this.endsubs$)).subscribe((usuarios) => {
