@@ -6,13 +6,13 @@
       </div>
     </div>
     <div class="p-col-4 search"><productos-producto-buscar></productos-producto-buscar></div>
-    <div class="p-col-3 p-offset-1 navigation">
+    <div class="p-col-3 navigation">
       <ngshop-nav></ngshop-nav>
     </div>
     <div class="p-col-1 tools">
 
-      <i class="pi pi-user p-text-secondary" routerLink="/perfil" style="font-size: 1.0rem">
-        <div *ngIf="usuarioNombre">
+      <i class="pi pi-user p-text-secondary" routerLink="/perfil" style="font-size: 1.1rem; display: flex;align-items: center;flex-direction: column">
+        <div *ngIf="usuarioNombre" style="text-align: center">
           {{usuarioNombre}}
         </div>
       </i>
