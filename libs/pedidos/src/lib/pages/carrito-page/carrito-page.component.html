@@ -129,8 +129,11 @@
       </form>
     </div>
     <div class="p-col-4">
-      <pedidos-carrito-resumen></pedidos-carrito-resumen>
-      <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+      <div style="max-width: 350px;margin: auto;">
+        <pedidos-carrito-resumen></pedidos-carrito-resumen>
+        <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+      </div>
+
     </div>
 
     <!-- <div class="p-col-4">
