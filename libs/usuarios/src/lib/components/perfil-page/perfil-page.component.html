@@ -175,7 +175,7 @@
           <!-- Tab panes -->
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="home">
-              <form [formGroup]="checkoutFormGroup">
+              <form [formGroup]="checkoutFormGroup" style="margin-top:20px">
                 <div class="p-field">
                   <label for="nombre">Nombre </label>
                   <input
@@ -234,7 +234,7 @@
                   />
                 </div>
 
-                <div class="form-group">
+                <div class="p-field">
                   <label for="apartamento">Apartamento </label>
                   <input
                     formControlName="apartamento"
@@ -244,7 +244,7 @@
                   />
                 </div>
 
-                <div class="form-group">
+                <div class="p-field">
                   <label for="cod_postal">Codigo Postal </label>
                   <input
                     formControlName="cod_postal"
@@ -254,7 +254,7 @@
                   />
                 </div>
 
-                <div class="form-group">
+                <div class="p-field">
                   <label for="ciudad">Ciudad </label>
                   <input
                     formControlName="ciudad"
@@ -264,7 +264,7 @@
                   />
                 </div>
 
-                <div class="form-group">
+                <div class="p-field">
                   <label for="pais">Pais </label>
                   <p-dropdown
                     [options]="paises"
@@ -278,7 +278,7 @@
                   ></p-dropdown>
                 </div>
 
-                <div class="form-group">
+                <div class="p-field">
                   <label for="password">Contraseña </label>
                   <input
                     formControlName="password"
