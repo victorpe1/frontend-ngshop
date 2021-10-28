@@ -1,15 +1,15 @@
 <header>
   <div class="p-grid">
-    <div class="p-col-3">
+    <div class="p-col-6 p-md-6 p-lg-3">
       <div class="logo">
         <img src="assets/images/logo.png" alt="logo" />
       </div>
     </div>
-    <div class="p-col-4 search"><productos-producto-buscar></productos-producto-buscar></div>
-    <div class="p-col-3 navigation">
+    <div class="p-col-6 p-md-6 p-lg-4 search"><productos-producto-buscar></productos-producto-buscar></div>
+    <div class="p-col-6 p-md-6 p-lg-4 navigation">
       <ngshop-nav></ngshop-nav>
     </div>
-    <div class="p-col-1 tools">
+    <div class="p-col-6 p-md-6 p-lg-2 tools" style="justify-content:right">
 
       <i class="pi pi-user p-text-secondary" routerLink="/perfil" style="font-size: 1.1rem; display: flex;align-items: center;flex-direction: column">
         <div *ngIf="usuarioNombre" style="text-align: center">
