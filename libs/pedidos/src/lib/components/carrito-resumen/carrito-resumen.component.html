@@ -13,7 +13,7 @@
       <span>Precio Total</span>
       <span>S/.{{ precioTotal }}</span>
     </div>
-    <div class="checkout-button" *ngIf="!esCheckout">
+    <div class="checkout-button" *ngIf="!esCheckout" style="display:flex;justify-content: center;">
       <p-button label="Pagar" (onClick)="irACheckout()"></p-button>
     </div>
   </div>
