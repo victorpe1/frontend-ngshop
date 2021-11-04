@@ -5,7 +5,9 @@
 export const environment = {
   production: false,
   apiUrl: 'http://localhost:3000/api/v1/',
-  clienteID: 'AVffHSlUocstJcrjbYbtXtBl37o_z3EhBexK_oyNXEStxZKeVRbKxgZ2Sq5umFEw9o3dIZz95Dv6yjWK'
+  clienteID: 'AVffHSlUocstJcrjbYbtXtBl37o_z3EhBexK_oyNXEStxZKeVRbKxgZ2Sq5umFEw9o3dIZz95Dv6yjWK',
+  reniec: 'https://dniruc.apisperu.com/api/v1/ruc',
+  token: '?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InZpY3Rvci5wYy4wMDA5QGdtYWlsLmNvbSJ9.ttfZICYpLUuKwMriCCMijUOE9YX0QheTuOEpCsJ58dY'
 };
 
 /*

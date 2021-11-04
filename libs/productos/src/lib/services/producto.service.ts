@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '@env/environment';
-import { Producto, Producto2 } from '../models/producto';
+import { Producto, Producto2} from '../models/producto';
+import { Proveedor, ProveedorSUNAT} from '../models/proveedor';
 import { map } from 'rxjs/operators';
 import { Comentario } from '../models/comentario';
 
@@ -11,8 +12,23 @@ import { Comentario } from '../models/comentario';
 })
 export class ProductosService {
   apiURLProducts = environment.apiUrl + 'productos';
+  apiURLProvedores = environment.apiUrl + 'proveedor';
+  apURL = environment.reniec;
+  apURL2 = environment.token;
 
   constructor(private http: HttpClient) {}
+
+  getProveedores(): Observable<Proveedor[]> {
+    return this.http.get<Proveedor[]>(this.apiURLProvedores);
+  }
+
+  getProveedoresSUNAT(ruc: string): Observable<ProveedorSUNAT> {
+    return this.http.get<ProveedorSUNAT>(`${this.apURL}/${ruc}${this.apURL2}`);
+  }
+
+  crearProveedor(proveedorData: Proveedor): Observable<Proveedor> {
+    return this.http.post<Proveedor>(this.apiURLProvedores, proveedorData);
+  }
 
   getProductos(FiltroCategoria?: string[]): Observable<Producto[]> {
     let params = new HttpParams();

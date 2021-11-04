@@ -21,3 +21,5 @@ export class Producto2 {
   id?: string;
   cont_stock?: number;
 }
+
+

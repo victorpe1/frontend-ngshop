@@ -125,6 +125,8 @@ export class ComprasFormComponent implements OnInit, OnDestroy {
   onCancle() {this.location.back();}
 
 
+
+
   onImageUpload(event: any) {
     const file = event.target.files[0];
     if (file) {

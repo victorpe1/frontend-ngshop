@@ -42,6 +42,9 @@ export class CompraService {
     return compra;
   }
 
+
+
+
   setCompraItem(compraItem: CompraGuardadoItem, updateCompraItem?: boolean): CompraGuardado {
 
     console.log(compraItem)

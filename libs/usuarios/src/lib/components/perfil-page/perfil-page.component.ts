@@ -26,6 +26,7 @@ import { AuthService } from '../../services/auth.service';
 export class PerfilPageComponent implements OnInit, OnDestroy{
 
   pedidos: Pedido[] = [];
+
   pedido!: Pedido;
   checkoutFormGroup!: FormGroup;
   unsubscribe$: Subject<any> = new Subject();

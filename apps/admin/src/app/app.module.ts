@@ -58,6 +58,7 @@ import { NgxStripeModule } from 'ngx-stripe';
 import { ComprasListaComponent } from './pages/compras/compras-list/compras-lista.component';
 import { ComprasFormComponent } from './pages/compras/compras-form/compras-form.component';
 import { ComprasRegistroFormComponent } from './pages/compras/compras-actualizar/compras-act.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 const UX_MODULE = [
@@ -97,7 +98,8 @@ const UX_MODULE = [
     PedidosDetalleComponent,
     StockListaPageComponent,
     StockDetallePageComponent,
-    ProductosImgComponent,ComprasRegistroFormComponent
+    ProductosImgComponent,
+    ComprasRegistroFormComponent
     ],
   imports: [
     AppRoutingModule,
@@ -105,6 +107,7 @@ const UX_MODULE = [
     BrowserModule,
     PedidosModule,
     UiModule,
+    NgbModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     BrowserAnimationsModule,
