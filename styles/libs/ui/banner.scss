@@ -1,4 +1,53 @@
-@media (max-width: 800px) {
+@media (max-width: 600px) {
+  .banner {
+    height: 280px;
+    width: 100%;
+    background-color: #d7effb;
+    border-radius: 15px;
+
+    &-text {
+      color: var(--surface-700);
+      margin-top: 20px;
+
+      h1 {
+        margin: 0;
+        font-size: 2em;
+        font-weight: 400;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: 1em;
+        font-weight: 300;
+      }
+    }
+
+    &-image {
+      padding: 70px 0 0 0;
+      text-align: center;
+
+      img {
+        width: 100px;
+      }
+    }
+
+    &-button {
+      background-color: var(--surface-0);
+      color: $primary-color;
+      border: 0;
+      border-radius: 13px;
+      height: 50px;
+
+      &:enabled:hover {
+        background-color: var(--surface-0);
+        color: $primary-color;
+        border: 0;
+      }
+    }
+  }
+}
+
+@media (min-width: 600px) and(max-width: 800px) {
   .banner {
     height: 250px;
     width: 100%;
@@ -23,7 +72,7 @@
     }
 
     &-image {
-      padding: 15px 0 0 0;
+      padding: 30px 0 0 0;
       text-align: center;
 
       img {
