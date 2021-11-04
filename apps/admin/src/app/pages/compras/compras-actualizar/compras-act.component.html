@@ -1,5 +1,78 @@
 <p-toast></p-toast>
-<div class="admin-page" >
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Nuevo proveedor</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formProveedor">
+          <div class="p-fluid p-formgrid p-grid">
+            <div class="p-field p-col">
+              <label for="ruc">Ruc</label>
+              <input formControlName="ruc" id="ruc" type="text" pInputText />
+              <small
+                *ngIf="proveedorForm.ruc.invalid && enviado"
+                class="p-error"
+                >Ruc es obligatorio</small
+              >
+            </div>
+            <p-button
+              styleClass="p-button-success"
+              icon="pi pi-search"
+              (click)="_buscarProveedorSUNAT()"
+            ></p-button>
+
+            <div class="p-field p-col">
+              <label for="raz_social">Raz Social</label>
+              <input
+                formControlName="raz_social"
+                id="icon"
+                type="text"
+                pInputText
+              />
+              <small
+                *ngIf="proveedorForm.raz_social.invalid && enviado"
+                class="p-error"
+                >Raz Social es obligatorio</small
+              >
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Cerrar
+        </button>
+        <p-button
+          styleClass="p-button-primary p-mr-2"
+          [label]="'Crear'"
+          icon="pi pi-plus"
+          (click)="onSubmitProveedor()"
+        ></p-button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="admin-page">
   <p-card
     [header]="'Registrar Compra'"
     subheader="Tu puedes registra una compra aquí"
@@ -28,35 +101,36 @@
 
     <div class="p-grid">
       <div class="p-col-12">
-
         <form [formGroup]="form">
           <div class="p-fluid p-formgrid p-grid">
             <div class="p-field p-col">
               <label for="proveedor">Proveedor</label>
-              <input
+              <p-dropdown
+                [options]="proveedores"
                 formControlName="proveedor"
-                id="proveedor"
-                type="text"
-                pInputText
-              />
-              <small
-                *ngIf="compraForm.proveedor.invalid && enviado"
-                class="p-error"
-                >Proveedor es obligatorio</small
-              >
+                optionLabel="raz_social"
+                optionValue="raz_social"
+                [filter]="true"
+                filterBy="raz_social"
+                [showClear]="true"
+                placeholder="Selecciona un proveedor"
+              ></p-dropdown>
             </div>
+
+            <p-button
+              data-toggle="modal"
+              data-target="#exampleModal"
+              styleClass="p-button-success"
+              icon="pi pi-search"
+            ></p-button>
 
             <div class="p-field p-col">
               <label for="total_pagado">Total pagado</label>
               <p-inputNumber
                 formControlName="total_pagado"
                 id="total_pagado"
+                [disabled]="true"
               ></p-inputNumber>
-              <small
-                *ngIf="compraForm.total_pagado.invalid && enviado"
-                class="p-error"
-                >Total pagado es obligatorio</small
-              >
             </div>
 
             <div class="p-field p-col-12">
@@ -74,7 +148,7 @@
 
             <div class="p-field p-col">
               <label for="dia">Dia de la factura</label>
-              <p-inputNumber formControlName="dia" id="dia" ></p-inputNumber>
+              <p-inputNumber formControlName="dia" id="dia"></p-inputNumber>
               <small *ngIf="compraForm.dia.invalid && enviado" class="p-error"
                 >dia es obligatorio</small
               >
@@ -82,7 +156,7 @@
 
             <div class="p-field p-col">
               <label for="mes">Mes de la factura</label>
-              <p-inputNumber formControlName="mes" id="mes" ></p-inputNumber>
+              <p-inputNumber formControlName="mes" id="mes"></p-inputNumber>
               <small *ngIf="compraForm.mes.invalid && enviado" class="p-error"
                 >Mes es obligatorio</small
               >
@@ -104,9 +178,7 @@
                 accept="image/*"
                 (change)="onImageUpload($event)"
               />
-              <small
-                *ngIf="compraForm.image.invalid && enviado"
-                class="p-error"
+              <small *ngIf="compraForm.image.invalid && enviado" class="p-error"
                 >Imagen es obligatorio</small
               >
               <div class="p-col-2 p-mt-2 p-pl-0">
@@ -116,98 +188,98 @@
           </div>
         </form>
 
-<br><hr>
+        <br />
+        <hr />
 
-      <form [formGroup]="formDetalle">
-        <div class="p-fluid p-formgrid p-grid">
-          <div class="p-field p-col-4">
-          <label for="producto">Producto</label><br />
-          <p-dropdown
-            [options]="productos"
-            formControlName="producto"
-            optionLabel="nombre"
-            optionValue="_id"
-            [filter]="true"
-            filterBy="nombre"
-            [showClear]="true"
-            placeholder="Selecciona un producto"
-          ></p-dropdown>
+        <form [formGroup]="formDetalle">
+          <div class="p-fluid p-formgrid p-grid">
+            <div class="p-field p-col-4">
+              <label for="producto">Producto</label><br />
+              <p-dropdown
+                [options]="productos"
+                formControlName="producto"
+                optionLabel="nombre"
+                optionValue="_id"
+                [filter]="true"
+                filterBy="nombre"
+                [showClear]="true"
+                placeholder="Selecciona un producto"
+              ></p-dropdown>
+            </div>
+            <div class="p-field p-col">
+              <label for="nombre">Importe total</label>
+              <p-inputNumber
+                formControlName="precio_compra"
+                id="precio_compra"
+              ></p-inputNumber>
+              <small
+                *ngIf="compraDetalleForm.precio_compra.invalid && enviado"
+                class="p-error"
+                >Importe total es obligatorio</small
+              >
+            </div>
+
+            <div class="p-field p-col">
+              <label for="detalle">Detalle</label>
+              <input
+                formControlName="detalle"
+                id="detalle"
+                type="text"
+                pInputText
+              />
+              <small
+                *ngIf="compraDetalleForm.detalle.invalid && enviado"
+                class="p-error"
+                >Detalle es obligatorio</small
+              >
+            </div>
+
+            <div class="p-field p-col">
+              <label for="cantidad">Cantidad</label>
+              <p-inputNumber
+                formControlName="cantidad"
+                id="cantidad"
+                type="text"
+              ></p-inputNumber>
+              <small
+                *ngIf="compraDetalleForm.cantidad.invalid && enviado"
+                class="p-error"
+                >Cantidad es obligatorio</small
+              >
+            </div>
           </div>
-          <div class="p-field p-col">
-            <label for="nombre">Importe total</label>
-            <p-inputNumber
-              formControlName="precio_compra"
-              id="precio_compra"
-            ></p-inputNumber>
-            <small
-              *ngIf="compraDetalleForm.precio_compra.invalid && enviado"
-              class="p-error"
-              >Importe total es obligatorio</small
-            >
-          </div>
 
-          <div class="p-field p-col">
-            <label for="detalle">Detalle</label>
-            <input
-              formControlName="detalle"
-              id="detalle"
-              type="text"
-              pInputText
-            />
-            <small
-              *ngIf="compraDetalleForm.detalle.invalid && enviado"
-              class="p-error"
-              >Detalle es obligatorio</small
-            >
-          </div>
+          <p-button
+            styleClass="p-button-primary p-mr-2"
+            [label]="'Guardar'"
+            icon="pi pi-plus"
+            (click)="onGuardar()"
+          ></p-button>
 
-          <div class="p-field p-col">
-            <label for="cantidad">Cantidad</label>
-            <p-inputNumber
-              formControlName="cantidad"
-              id="cantidad"
-              type="text"
-            ></p-inputNumber>
-            <small
-              *ngIf="compraDetalleForm.cantidad.invalid && enviado"
-              class="p-error"
-              >Cantidad es obligatorio</small
-            >
-          </div>
-        </div>
-
-        <p-button
-              styleClass="p-button-primary p-mr-2"
-              [label]="'Guardar'"
-              icon="pi pi-plus"
-              (click)="onGuardar()"
-        ></p-button>
-
-        <p-button
-              styleClass="p-button-danger p-mr-2"
-              [label]="'Eliminar registro preeliminar'"
-              icon="pi pi-trash"
-              (click)="onVaciar()"
-        ></p-button>
-
-      </form>
-
-
+          <p-button
+            styleClass="p-button-danger p-mr-2"
+            [label]="'Eliminar registro preeliminar'"
+            icon="pi pi-trash"
+            (click)="onVaciar()"
+          ></p-button>
+        </form>
       </div>
 
-
       <div class="p-col-12">
-
         <p-table [value]="compraItems" styleClass="p-datatable-gridlines">
           <ng-template pTemplate="header">
             <tr>
-              <th pSortableColumn="producto">Producto <p-sortIcon field="producto"></p-sortIcon></th>
+              <th pSortableColumn="producto">
+                Producto <p-sortIcon field="producto"></p-sortIcon>
+              </th>
 
               <th pSortableColumn="precio_compra">
                 Importe total <p-sortIcon field="precio_compra"></p-sortIcon>
               </th>
 
-              <th pSortableColumn="cantidad">Cantidad <p-sortIcon field="cantidad"></p-sortIcon></th>
+              <th pSortableColumn="cantidad">
+                Cantidad <p-sortIcon field="cantidad"></p-sortIcon>
+              </th>
 
               <th pSortableColumn="detalle">
                 Detalle <p-sortIcon field="detalle"></p-sortIcon>
@@ -231,7 +303,6 @@
               </td>
             </tr>
           </ng-template>
-
         </p-table>
       </div>
     </div>
