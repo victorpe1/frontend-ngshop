@@ -5,3 +5,6 @@ export class Categoria {
   color?: string;
   seleccionado?: boolean;
 }
+
+
+
