@@ -20,7 +20,8 @@ body {
   float: none;
   margin: 0 auto;
   width: 50%;
-  margin-left: 95px;
+  margin: auto;
+  display: flex;
   height: 50%;
   -webkit-border-radius: 50% !important;
   -moz-border-radius: 50% !important;
