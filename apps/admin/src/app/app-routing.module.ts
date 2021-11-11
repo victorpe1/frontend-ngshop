@@ -22,7 +22,8 @@ import { ProductosImgComponent } from './pages/productos/productos-img/productos
 import { ComprasListaComponent } from './pages/compras/compras-list/compras-lista.component';
 import { ComprasFormComponent } from './pages/compras/compras-form/compras-form.component';
 import { ComprasRegistroFormComponent } from './pages/compras/compras-actualizar/compras-act.component';
-
+import { ProductosKardexListComponent } from './pages/kardex/productos_lista/productos_lita.component';
+import { ProductosKardexDetallesComponent } from './pages/kardex/detalle_kardex/detalle_kardex.component';
 
 const routes: Routes = [
   {
@@ -105,6 +106,14 @@ const routes: Routes = [
       {
         path: 'pedidos/:id',
         component: PedidosDetalleComponent
+      },
+      {
+        path: 'productos_kardex',
+        component: ProductosKardexListComponent
+      },
+      {
+        path: 'producto_kardex/:id',
+        component: ProductosKardexDetallesComponent
       }
     ],
   }

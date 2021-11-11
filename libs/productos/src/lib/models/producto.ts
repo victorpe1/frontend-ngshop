@@ -22,4 +22,25 @@ export class Producto2 {
   cont_stock?: number;
 }
 
+export class CompraProducto {
+  id?: string;
+  cantidad?: number;
+  detalle?: any;
+  precio_compra?: any;
+  fecha_create?: any;
 
+}
+
+class VentaProdItem {
+  producto?: any;
+  cantidad?: number;
+}
+
+
+export class VentaProducto {
+  id?: string;
+  cantidad?: number;
+  order_prods?: VentaProdItem[];
+  usuario?: any;
+  fecha_pedido?: any;
+}

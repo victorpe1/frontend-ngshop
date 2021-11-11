@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '@env/environment';
-import { Producto, Producto2} from '../models/producto';
+import { Producto, Producto2, CompraProducto, VentaProducto} from '../models/producto';
 import { Proveedor, ProveedorSUNAT} from '../models/proveedor';
 import { map } from 'rxjs/operators';
 import { Comentario } from '../models/comentario';
@@ -13,6 +13,8 @@ import { Comentario } from '../models/comentario';
 export class ProductosService {
   apiURLProducts = environment.apiUrl + 'productos';
   apiURLProvedores = environment.apiUrl + 'proveedor';
+  apiURLKardex = environment.apiUrl + 'kardex';
+
   apURL = environment.reniec;
   apURL2 = environment.token;
 
@@ -39,6 +41,17 @@ export class ProductosService {
 
     return this.http.get<Producto[]>(this.apiURLProducts, { params: params });
   }
+
+  getCompraProducto(id_prod: string): Observable<CompraProducto[]> {
+
+    return this.http.get<CompraProducto[]>(`${this.apiURLKardex}/compras/${id_prod}`);
+  }
+
+  getVentaProducto(id_prod: string): Observable<VentaProducto[]> {
+    return this.http.get<VentaProducto[]>(`${this.apiURLKardex}/ventas/${id_prod}`);
+  }
+
+
 
   crearProducto(productoData: FormData): Observable<Producto> {
     return this.http.post<Producto>(this.apiURLProducts, productoData);
