@@ -14,7 +14,10 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitReturns": true,
+    "esModuleInterop": true,
     "noFallthroughCasesInSwitch": true,
+    "allowSyntheticDefaultImports":true,
+    "module": "es6",
     "strictNullChecks": false,
     "paths": {
       "rxjs": [

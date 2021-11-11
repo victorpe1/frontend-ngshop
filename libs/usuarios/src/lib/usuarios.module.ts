@@ -30,7 +30,13 @@ import { InputMaskModule } from 'primeng/inputmask'
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import{ PdfMakeWrapper, Table } from 'pdfmake-wrapper';
+import { RegistroComponent } from './pages/registro/registro.component';
 
+
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+
+PdfMakeWrapper.setFonts(pdfFonts)
 
 const UX_MODULE = [
   CardModule,
@@ -66,7 +72,7 @@ const UX_MODULE = [
     EffectsModule.forFeature([UsuariosEffects]),
     ...UX_MODULE
   ],
-  declarations: [LoginComponent, PerfilPageComponent],
+  declarations: [LoginComponent, RegistroComponent, PerfilPageComponent],
   providers: [UsuariosFacade, MessageService, ConfirmationService],
 })
 export class UsuariosModule {}

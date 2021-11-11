@@ -12,13 +12,16 @@
   }
 
   .imagen {
-    width: 60%;
-    height: 150px;
+    width: 50%;
+    min-height: 60px;
+    max-height: 200px;
     margin-top: -85px;
   }
 
   .nombre {
     margin: 10px 0;
+    font-size: 1.2rem;
+    text-align: center;
   }
 
   .precio {
@@ -27,7 +30,7 @@
     margin: 0;
   }
 
-  .agregar-carrito{
+  .agregar-carrito {
     background-color: $primary-color;
     border: 0;
     border-radius: 15px;

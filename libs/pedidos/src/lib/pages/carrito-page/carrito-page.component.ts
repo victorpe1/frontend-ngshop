@@ -20,6 +20,8 @@ import { ITS_JUST_ANGULAR } from '@angular/core/src/r3_symbols';
 import { PopupComponent } from '../popup/popup.component';
 import { GraciasCompraComponent } from './../gracias-compra/gracias-compra.component';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+import { Producto } from 'libs/productos/src/lib/models/producto';
+import { ProductosService } from './../../../../../productos/src/lib/services/producto.service';
 
 @Component({
   selector: 'pedidos-carrito-page',
@@ -34,6 +36,7 @@ export class CarritoPageComponent implements OnInit, OnDestroy {
     private usuariosService: UsuariosService,
     private formBuilder: FormBuilder,
     private carritoService: CarritoService,
+    private productosService: ProductosService,
     private pedidosService: PedidosService,
     private spinner: NgxSpinnerService
   ) {}
@@ -47,23 +50,22 @@ export class CarritoPageComponent implements OnInit, OnDestroy {
   paises: any;
   endSubs$: Subject<any> = new Subject();
   precioTotal!: number;
-  unsubscribe$: Subject<any> = new Subject();
   carritoCont = 0;
+  productos: Producto[] = [];
 
   ngOnInit(): void {
     this.initConfig();
+    this._getProductos();
     this._initCheckoutForm();
     this._getCarritoItems();
     this._getPaises();
     this._autoFillUserData();
     this._getPedidoResumen();
     this._getCarritoDetalle();
+
   }
 
   ngOnDestroy() {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
-
     this.endSubs$.next();
     this.endSubs$.complete();
   }
@@ -127,7 +129,7 @@ export class CarritoPageComponent implements OnInit, OnDestroy {
   private _autoFillUserData() {
     this.usuariosService
       .observeCurrentUsuario()
-      .pipe(takeUntil(this.unsubscribe$))
+      .pipe(takeUntil(this.endSubs$))
       .subscribe((user: any) => {
         if (user) {
           this.usuarioId = user.id;
@@ -162,6 +164,7 @@ export class CarritoPageComponent implements OnInit, OnDestroy {
   }
 
   initConfig(): void {
+
     this.payPalConfig = {
       currency: 'USD',
       clientId: environment.clienteID,
@@ -214,19 +217,91 @@ export class CarritoPageComponent implements OnInit, OnDestroy {
           JSON.stringify(data)
         );
 
+        this.preVentaCancelar();
         this.placePedido(data);
       },
       onCancel: (data, actions) => {
+
+        this.preVentaCancelar();
+        console.log('BORRARXd', data, actions);
         console.log('OnCancel', data, actions);
       },
       onError: (err) => {
+
+        this.preVentaCancelar();
         console.log('OnError', err);
       },
       onClick: (data, actions) => {
+
+        let comprobar_stock = this.preVentaVerificar();
+
+        console.log(comprobar_stock)
+
+        if(comprobar_stock == false){
+          window.location.href = "/productos";
+
+        }else{
+          console.log("RESTAR")
+          this.restarStockPedido();
+        }
+
         console.log('onClick', data, actions);
       },
     };
+
   }
+
+  private _getProductos() {
+    this.productosService
+      .getProductos()
+      .pipe(takeUntil(this.endSubs$))
+      .subscribe((productos) => {
+        this.productos = productos;
+      });
+  }
+
+  preVentaVerificar(): Boolean{
+
+    let flgConforme = true;
+
+    this.pedidoItems.map((item) => {
+    //buscar producto x pedido
+    this.productos.map((producto) => {
+        if(item.producto == producto._id){
+           let stock_reducido_comprobar;
+           stock_reducido_comprobar = producto.cont_stock! - item.cantidad!;
+
+           console.log(stock_reducido_comprobar)
+
+           if(stock_reducido_comprobar < 0){
+              flgConforme = false;
+           }
+        }
+      });
+    });
+
+    return flgConforme;
+  }
+
+  restarStockPedido(){
+    const pedido: Pedido = {
+      order_prods: this.pedidoItems
+    };
+
+    console.log(pedido)
+    this.pedidosService.prePedidoResta(pedido);
+  }
+
+
+  preVentaCancelar(){
+    const pedido: Pedido = {
+      order_prods: this.pedidoItems
+    };
+
+    console.log("SUMAR STOCK")
+    this.pedidosService.prePedidoCancelacion(pedido);
+  }
+
 
   placePedido(data: any) {
     this.esEnviado = true;

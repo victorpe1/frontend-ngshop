@@ -1,7 +1,7 @@
 <div class="carrito-page">
   <div class="p-grid">
-    <div class="p-col-8">
-      <div>
+    <div class="p-col-12 p-md-7 p-lg-8">
+      <div style="margin:20px 0">
         <p-button
           label="Continuar comprando"
           icon="pi pi-arrow-left"
@@ -16,17 +16,17 @@
       </div>
       <div class="carrito-item p-mb-5" *ngFor="let carritoItem of carritoItemDetallado">
         <div class="p-grid p-fluid">
-          <div class="p-col-2 carrito-item-image">
+          <div class="p-col-12 p-md-12 p-lg-2 carrito-item-image">
             <img [src]="carritoItem.producto.image" [attr.alt]="carritoItem.producto.nombre" />
           </div>
-          <div class="p-col-7">
+          <div class="p-col-12 p-md-6 p-lg-7">
             <div class="carrito-item-nombre">{{ carritoItem.producto.nombre }}</div>
-            <div class="carrito-item-precio">{{ carritoItem.producto.precio | currency }}</div>
+            <div class="carrito-item-precio">S/.{{ carritoItem.producto.precio }}</div>
             <div class="carrito-item-remove">
               <p-button icon="pi pi-trash" (onClick)="deleteCarritoItem(carritoItem)"></p-button>
             </div>
           </div>
-          <div class="p-col-3">
+          <div class="p-col-12 p-md-6 p-lg-3">
             <div class="p-field carrito-item-cantidad">
               <p-inputNumber
                 mode="decimal"
@@ -41,15 +41,15 @@
             </div>
             <div class="carrito-item-subtotal">
               Subtotal:
-              <span class="carrito-item-subtotal-value">{{
-                carritoItem.producto.precio * carritoItem.cantidad! | currency
+              <span class="carrito-item-subtotal-value">S/.{{
+                carritoItem.producto.precio * carritoItem.cantidad!
               }}</span>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="p-col-4">
+    <div class="p-col-12 p-md-5 p-lg-4">
       <pedidos-carrito-resumen></pedidos-carrito-resumen>
     </div>
   </div>

@@ -19,6 +19,8 @@ import { NgxPayPalModule } from 'ngx-paypal';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PopupComponent } from './pages/popup/popup.component'
+import { CompraService } from './services/compra-json.service';
+
 
 const routes: Routes = [
   {
@@ -76,8 +78,11 @@ const routes: Routes = [
   ],
 })
 export class PedidosModule {
-  constructor(carritoService: CarritoService) {
+
+  constructor(carritoService: CarritoService,
+    compraService: CompraService) {
     carritoService.initCarritoLocalStorage();
+    compraService.initCompraLocalStorage();
   }
 
 }

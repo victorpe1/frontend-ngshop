@@ -4,6 +4,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { LocalstorageService } from '../../services/localstorage.service';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit {
     private auth: AuthService,
     private localstorageService: LocalstorageService,
     private router: Router,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -46,7 +48,8 @@ export class LoginComponent implements OnInit {
       (usuario) => {
         this.authError = false;
         this.localstorageService.setToken(usuario.token);
-        this.router.navigate(['/']);
+
+        window.location.href = "/";
       },
       (error: HttpErrorResponse) => {
         this.authError = true;

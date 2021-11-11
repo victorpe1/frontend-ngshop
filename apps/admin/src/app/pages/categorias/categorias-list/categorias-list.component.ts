@@ -43,7 +43,7 @@ export class CategoriasListComponent implements OnInit {
             this._getCategorias();
             this.messageService.add({
               severity: 'success',
-              summary: 'Success',
+              summary: 'Actualizado',
               detail: 'Categoria ha sido eliminado!'
             });
           },

@@ -3,7 +3,19 @@
   <p-card header="Pedidos" subheader="Lista de todos los pedidos">
     <div class="p-grid">
       <div class="p-col-12">
-        <p-table [value]="pedidos" styleClass="p-datatable-gridlines">
+        <p-table #dt1 [value]="pedidos" styleClass="p-datatable-gridlines"
+        [globalFilterFields]="['usuario', 'fecha_pedido', 'estado']"
+
+        >
+          <ng-template pTemplate="caption">
+            <div class="p-d-flex">
+                <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value , 'contains')" placeholder="Buscar" />
+                </span>
+            </div>
+        </ng-template>
+
           <ng-template pTemplate="header">
             <tr>
               <th pSortableColumn="nombre">Usuario <p-sortIcon field="usuario"></p-sortIcon></th>
@@ -29,11 +41,6 @@
                 ></p-tag>
               </td>
               <td>
-                <p-button
-                  (click)="deletePedido(pedido.id)"
-                  styleClass="p-button-danger p-mr-2"
-                  icon="pi pi-trash"
-                ></p-button>
                 <p-button
                   (click)="showPedido(pedido.id)"
                   styleClass="p-button-success"

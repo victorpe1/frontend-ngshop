@@ -24,10 +24,12 @@ export class ProductosListaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
     this.route.params.subscribe((params) => {
       params.categoriaId ? this._getProductos([params.categoriaId]) : this._getProductos();
       params.categoriaId ? (this.esPaginaCategoria = true) : (this.esPaginaCategoria = false);
     });
+
     this._getCategorias();
   }
 

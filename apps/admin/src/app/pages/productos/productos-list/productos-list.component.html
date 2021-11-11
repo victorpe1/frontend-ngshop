@@ -7,7 +7,7 @@
           <div class="p-toolbar-group-left">
             <p-button
               styleClass="p-button-success"
-              label="New"
+              label="Nuevo"
               icon="pi pi-plus"
               routerLink="form"
             ></p-button>
@@ -17,13 +17,22 @@
     </div>
     <div class="p-grid">
       <div class="p-col-12">
-        <p-table
+        <p-table #dt1
           [paginator]="true"
           [rows]="10"
           [value]="productos"
           styleClass="p-datatable-gridlines"
           [globalFilterFields]="['nombre']"
         >
+        <ng-template pTemplate="caption">
+          <div class="p-d-flex">
+              <span class="p-input-icon-left p-ml-auto">
+                  <i class="pi pi-search"></i>
+                  <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value , 'contains')" placeholder="Buscar" />
+              </span>
+          </div>
+      </ng-template>
+
           <ng-template pTemplate="header">
             <tr>
               <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
@@ -50,14 +59,19 @@
               <td>
                 <p-button
                   (click)="deleteProducto(producto._id)"
-                  styleClass="p-button-danger p-mr-2"
+                  styleClass="p-button-danger p-mr-1"
                   icon="pi pi-trash"
                 ></p-button>
                 <p-button
                   (click)="updateProducto(producto.id)"
-                  styleClass="p-button-success"
+                  styleClass="p-button-success p-mr-1"
                   icon="pi pi-pencil"
                 ></p-button>
+                <p-button
+                (click)="updateImagenesProducto(producto.id)"
+                styleClass="p-button-success"
+                icon="pi pi-images"
+              ></p-button>
               </td>
             </tr>
           </ng-template>

@@ -48,12 +48,13 @@ export class PedidosListaComponent implements OnInit, OnDestroy {
       header: 'Eliminar el pedido',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
+
         this.pedidoService.deletePedido(pedidoId).pipe(takeUntil(this.endsubs$)).subscribe(
           () => {
             this._getPedidos();
             this.messageService.add({
               severity: 'success',
-              summary: 'Success',
+              summary: 'Actualizado',
               detail: 'Pedido eliminado!'
             });
           },
@@ -65,6 +66,7 @@ export class PedidosListaComponent implements OnInit, OnDestroy {
             });
           }
         );
+
       }
     });
   }

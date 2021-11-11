@@ -11,9 +11,11 @@ import { CarritoService, CarritoItem } from '@bluebits/pedidos';
 export class ProductosItemComponent implements OnInit {
   @Input() producto!: Producto;
 
-  constructor(private carritoService: CarritoService){}
+  constructor(private carritoService: CarritoService){
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   addProductoAlCarrito() {
     const carritoItem: CarritoItem = {

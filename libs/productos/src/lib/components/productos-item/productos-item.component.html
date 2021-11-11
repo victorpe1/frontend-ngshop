@@ -2,7 +2,7 @@
   <div class="productos-item-wrapper">
     <img [routerLink]="'/productos/' + producto._id" [src]="producto.image" class="imagen" alt="" />
     <h4 class="nombre">{{ producto.nombre }}</h4>
-    <h5 class="precio">{{ producto.precio | currency }}</h5>
+    <h5 class="precio">S/.{{ producto.precio }}</h5>
     <p-button
       styleClass="p-mt-3 agregar-carrito"
       label="Agregar al carrito"

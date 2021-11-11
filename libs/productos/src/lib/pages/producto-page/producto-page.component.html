@@ -1,9 +1,11 @@
 <div class="producto-page" *ngIf="producto">
   <div class="p-grid">
-    <div class="p-col-6">
-      <ui-gallery [images]="producto.images!"></ui-gallery>
+    <div class="p-col-12 p-md-6">
+
+      <ui-gallery [images]="imagenes!"></ui-gallery>
+
     </div>
-    <div class="p-col-6 producto">
+    <div class="p-col-12 p-md-6 producto">
       <h2 class="producto-nombre">{{ producto.nombre }}</h2>
       <p class="producto-desc">
         {{ producto.descripcion }}

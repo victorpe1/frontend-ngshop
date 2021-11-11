@@ -17,6 +17,8 @@ import { Comentario } from '../../models/comentario';
 export class ProductoPageComponent implements OnInit {
 
   producto!: Producto;
+  imagenes: string[] = [];
+
   comentarios: Comentario[]=[];
   endSubs$: Subject<any> = new Subject();
   cantidad = 1;
@@ -59,8 +61,16 @@ export class ProductoPageComponent implements OnInit {
       .getProducto(id)
       .pipe(takeUntil(this.endSubs$))
       .subscribe((resProducto) => {
+
+        this.imagenes[0] = resProducto.image!
+
+        for(let i = 0; i < resProducto.images!.length; i++){
+          this.imagenes[i+1] = resProducto.images![i]
+        }
+
         this.producto = resProducto;
         this.productoIdd = resProducto._id!;
+
       });
   }
 

@@ -1,0 +1,89 @@
+<p-toast></p-toast>
+<div class="admin-page">
+  <p-card header="Compras" subheader="Lista de todas las compras">
+    <div class="p-grid">
+      <div class="p-col-12">
+        <p-toolbar>
+          <div class="p-toolbar-group-left">
+            <p-button
+              styleClass="p-button-success"
+              label="Nuevo"
+              icon="pi pi-plus"
+              routerLink="form"
+            ></p-button>
+          </div>
+        </p-toolbar>
+      </div>
+    </div>
+    <div class="p-grid">
+      <div class="p-col-12">
+        <p-table [value]="compras"  #dt1 styleClass="p-datatable-gridlines"
+        [globalFilterFields]="['usuario', 'fecha_factura', 'proveedor']"
+
+        >
+
+          <ng-template pTemplate="caption">
+            <div class="p-d-flex">
+                <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value , 'contains')" placeholder="Buscar" />
+                </span>
+            </div>
+        </ng-template>
+
+          <ng-template pTemplate="header">
+            <tr>
+              <th pSortableColumn="nombre">Usuario <p-sortIcon field="usuario"></p-sortIcon></th>
+
+              <th pSortableColumn="fecha_factura">
+                Fecha de la factura <p-sortIcon field="fecha_factura"></p-sortIcon>
+              </th>
+
+              <th pSortableColumn="total_pagado">
+                Precio total <p-sortIcon field="total_pagado"></p-sortIcon>
+              </th>
+
+              <th pSortableColumn="proveedor">Proveedor <p-sortIcon field="proveedor"></p-sortIcon></th>
+
+              <th>Factura</th>
+
+              <th pSortableColumn="fecha_create">
+                Fecha de creacion <p-sortIcon field="fecha_create"></p-sortIcon>
+              </th>
+
+              <th></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-compra>
+            <tr>
+              <td>{{ compra.usuario.nombre }}</td>
+              <td>{{ compra.dia }}/{{ compra.mes }}/{{ compra.anio }}</td>
+              <td>{{ compra.total_pagado }}</td>
+              <td>{{ compra.proveedor }}</td>
+              <td><img [src]="compra.image" style="width: 100%" alt="" /></td>
+              <td>{{ compra.fecha_create | date: 'short' }}</td>
+              <td>
+                <p-button
+                  (click)="deleteCompra(compra._id)"
+                  styleClass="p-button-danger p-mr-1"
+                  icon="pi pi-trash"
+                ></p-button>
+                <p-button
+                  (click)="showCompra(compra._id)"
+                  styleClass="p-button-success"
+                  icon="pi pi-eye"
+                ></p-button>
+              </td>
+            </tr>
+          </ng-template>
+
+        </p-table>
+      </div>
+    </div>
+  </p-card>
+</div>
+<p-confirmDialog
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="10000"
+  rejectButtonStyleClass="p-button-text"
+></p-confirmDialog>
