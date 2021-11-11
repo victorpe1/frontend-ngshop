@@ -1,0 +1,64 @@
+<p-toast></p-toast>
+<div class="admin-page">
+  <p-card
+    [header]="'Editar Producto'"
+    subheader="Tu puedes editar un producto aquí"
+  >
+    <div class="p-grid p-mb-5">
+      <div class="p-col-12">
+        <p-toolbar>
+          <div class="p-toolbar-group-left"></div>
+          <div class="p-toolbar-group-right">
+            <p-button
+              styleClass="p-button-primary p-mr-2"
+              [label]="'Actualizar'"
+              icon="pi pi-plus"
+              (click)="onSubmit()"
+            ></p-button>
+            <p-button
+              styleClass="p-button-secondary"
+              label="Cancle"
+              icon="pi pi-arrow-circle-left"
+              (click)="onCancle()"
+            ></p-button>
+          </div>
+        </p-toolbar>
+      </div>
+    </div>
+    <div class="p-grid">
+      <div class="p-col-12">
+        <form [formGroup]="form">
+          <div class="p-fluid p-formgrid p-grid">
+            <div class="p-field p-col">
+              <label for="nombre">Nombre</label>
+              <input formControlName="nombre" id="nombre" type="text" pInputText
+
+              />
+            </div>
+            <div class="p-field p-col">
+              <label for="marca">Marca</label>
+              <input formControlName="marca" id="marca" type="text" pInputText />
+
+            </div>
+            <div class="p-field p-col-12">
+              <label for="nombre">Imagen principal</label>
+              <input
+                type="file"
+                class="p-inputtext"
+                accept="image/*"
+                multiple=""
+                (change)="onImageUpload($event)"
+              />
+              <div class="p-col-2 p-mt-2 p-pl-0">
+
+                <img *ngFor='let url of images'
+                style="width: 100%" [src]="url" alt="" />
+
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </p-card>
+</div>

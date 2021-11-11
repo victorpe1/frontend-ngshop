@@ -1,6 +1,5 @@
 @import '~normalize.css/normalize.css';
 
-
 @import '~primeflex/primeflex.min.css';
 
 @import './base/colors.scss';
@@ -31,11 +30,8 @@
 @import './app/shop/shared/header.scss';
 @import './app/shop/shared/nav.scss';
 
-
 .container {
-  width: 1200px;
-  padding: 15px;
-  margin: 0 auto;
+  min-width: 100%;
+  padding: 45px;
   background-color: var(--surface-100);
 }
-

@@ -18,6 +18,7 @@ export class CarritoService {
       const intialCarrito = {
         items: []
       };
+
       const intialCarritoJson = JSON.stringify(intialCarrito);
       localStorage.setItem(CARRITO_KEY, intialCarritoJson);
     }
@@ -33,7 +34,9 @@ export class CarritoService {
   }
 
   getCarrito(): Carrito {
+
     const carritoJsonString: string = localStorage.getItem(CARRITO_KEY)!;
+
     const carrito: Carrito = JSON.parse(carritoJsonString);
 
     return carrito;
@@ -43,6 +46,7 @@ export class CarritoService {
     const carrito = this.getCarrito();
 
     const carritoItemExiste = carrito.items!.find((item) => item.productoId === carritoItem.productoId);
+
     if (carritoItemExiste) {
       carrito.items!.map((item: any) => {
         if (item.productoId === carritoItem.productoId) {

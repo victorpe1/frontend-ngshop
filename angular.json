@@ -1,7 +1,8 @@
 {
   "version": 1,
   "cli": {
-    "defaultCollection": "@nrwl/angular"
+    "defaultCollection": "@nrwl/angular",
+    "analytics": "424c6112-a8a4-48d3-ab1f-39fcf6bc279d"
   },
   "defaultProject": "ng-shop",
   "schematics": {
@@ -51,7 +52,9 @@
               "apps/ng-shop/src/favicon.ico",
               "apps/ng-shop/src/assets"
             ],
-            "styles": ["apps/ng-shop/src/styles.scss"],
+            "styles": [
+              "apps/ng-shop/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -116,7 +119,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/ng-shop"],
+          "outputs": [
+            "coverage/apps/ng-shop"
+          ],
           "options": {
             "jestConfig": "apps/ng-shop/jest.config.js",
             "passWithNoTests": true
@@ -145,7 +150,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/ng-shop-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/ng-shop-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
@@ -165,13 +172,19 @@
             "polyfills": "apps/admin/src/polyfills.ts",
             "tsConfig": "apps/admin/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["apps/admin/src/favicon.ico", "apps/admin/src/assets"],
+            "assets": [
+              "apps/admin/src/favicon.ico",
+              "apps/admin/src/assets"
+            ],
             "styles": [
               "apps/admin/src/styles.scss",
               "node_modules/quill/dist/quill.core.css",
               "node_modules/quill/dist/quill.snow.css"
             ],
-            "scripts": ["node_modules/quill/dist/quill.js"]
+            "scripts": [
+              "node_modules/quill/dist/quill.js",
+              "apps/admin/src/assets/js/table.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -235,7 +248,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/admin"],
+          "outputs": [
+            "coverage/apps/admin"
+          ],
           "options": {
             "jestConfig": "apps/admin/jest.config.js",
             "passWithNoTests": true
@@ -264,7 +279,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/admin-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/admin-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
@@ -277,7 +294,9 @@
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/productos"],
+          "outputs": [
+            "coverage/libs/productos"
+          ],
           "options": {
             "jestConfig": "libs/productos/jest.config.js",
             "passWithNoTests": true
@@ -302,7 +321,9 @@
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/usuarios"],
+          "outputs": [
+            "coverage/libs/usuarios"
+          ],
           "options": {
             "jestConfig": "libs/usuarios/jest.config.js",
             "passWithNoTests": true
@@ -342,7 +363,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/pedidos"],
+          "outputs": [
+            "coverage/libs/pedidos"
+          ],
           "options": {
             "jestConfig": "libs/pedidos/jest.config.js",
             "passWithNoTests": true
@@ -367,7 +390,9 @@
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/ui"],
+          "outputs": [
+            "coverage/libs/ui"
+          ],
           "options": {
             "jestConfig": "libs/ui/jest.config.js",
             "passWithNoTests": true
@@ -376,7 +401,10 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/ui/src/**/*.ts", "libs/ui/src/**/*.html"]
+            "lintFilePatterns": [
+              "libs/ui/src/**/*.ts",
+              "libs/ui/src/**/*.html"
+            ]
           }
         }
       }

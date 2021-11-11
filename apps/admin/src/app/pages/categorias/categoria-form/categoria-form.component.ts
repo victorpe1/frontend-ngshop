@@ -70,7 +70,7 @@ export class CategoriaFormComponent implements OnInit, OnDestroy {
       (categoria: Categoria) => {
         this.messageService.add({
           severity: 'success',
-          summary: 'Success',
+          summary: 'Actualizado',
           detail: `Categoria ${categoria.nombre} ha sido creado!`
         });
         timer(2000)

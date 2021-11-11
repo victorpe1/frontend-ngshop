@@ -17,14 +17,13 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PedidosModule } from '@bluebits/pedidos';
 import { MessagesComponent } from './shared/messages/messages.component';
 import { MessageService } from 'primeng/api';
-import { JwtInterceptor, UsuariosModule } from '@bluebits/usuarios';
+import { JwtInterceptor, UsuariosModule, UsuariosService } from '@bluebits/usuarios';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxStripeModule } from 'ngx-stripe';
-
 
 @NgModule({
   declarations: [
@@ -33,7 +32,7 @@ import { NgxStripeModule } from 'ngx-stripe';
     HeaderComponent,
     FooterComponent,
     NavComponent,
-    MessagesComponent
+    MessagesComponent,
   ],
   imports: [AppRoutingModule,
     BrowserModule,

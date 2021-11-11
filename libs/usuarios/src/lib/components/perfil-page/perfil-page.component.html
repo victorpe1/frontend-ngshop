@@ -1,3 +1,97 @@
+<ng-template #content let-modal>
+  <div *ngIf="pedido" id="pdfTable" #pdfTable>
+    <div class="modal-header">
+      <h4 class="modal-title">Detalles del pedido</h4>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="p-col-4">
+        <h5>Id del pedido</h5>
+        <p>{{ pedido.id }}</p>
+      </div>
+
+      <div class="p-col-4">
+        <h5>Fecha del pedido</h5>
+        <p>{{ pedido.fecha_pedido | date: 'short' }}</p>
+      </div>
+
+      <div class="p-col-4">
+        <h5>Estado del pedido</h5>
+        <p>{{estadoPedido[pedido.estado!].label}}</p>
+      </div>
+
+      <div class="p-col-4">
+        <h5>Total del precio del pedido</h5>
+        <p>S/. {{ pedido.totalPrecio }}</p>
+      </div>
+
+      <div class="p-grid p-mb-5">
+        <div class="p-col-2 p-text-bold">Nombre</div>
+        <div class="p-col-2 p-text-bold">Marca</div>
+        <div class="p-col-2 p-text-bold">Categoria</div>
+        <div class="p-col-2 p-text-bold">Precio</div>
+        <div class="p-col-2 p-text-bold">Cantidad</div>
+        <div class="p-col-2 p-text-bold">Subtotal</div>
+      </div>
+
+      <div class="p-grid p-mb-5" *ngFor="let order_prod of pedido.order_prods">
+
+        <div class="p-col-2">{{ order_prod.producto.nombre }}</div>
+        <div class="p-col-2">{{ order_prod.producto.marca }}</div>
+        <div class="p-col-2">{{ order_prod.producto.categoria.nombre }}</div>
+        <div class="p-col-2">S/. {{ order_prod.producto.precio }}</div>
+        <div class="p-col-2">{{ order_prod.cantidad }}</div>
+        <div class="p-col-2">
+          S/. {{ order_prod.producto.precio * order_prod.cantidad! }}
+        </div>
+      </div>
+
+      <div class="p-grid" style="color: green">
+        <div class="p-col-2 p-offset-8 p-text-bold">Precio Total</div>
+
+        <div class="p-col-2 p-text-bold">S/. {{ pedido.totalPrecio }}</div>
+      </div>
+
+      <div class="p-col-4">
+        <h5>Direccion del pedido</h5>
+        <p>
+          {{ pedido.envio_direcc1 }}<br />
+          {{ pedido.envio_direcc2 }}<br />
+          {{ pedido.cod_postal }} {{ pedido.ciudad }}<br />
+          {{ pedido.pais }}
+        </p>
+      </div>
+
+      <div class="p-col-4">
+        <h5>Informacion del Cliente</h5>
+        <p>{{ pedido.usuario?.nombre }}</p>
+      </div>
+
+      <div class="p-col-4">
+        <h5>Informacion del Contacto</h5>
+        <p>{{ pedido.telef }}</p>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-light"
+        (click)="modal.close('Close click')"
+      >
+        Close
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+
 <div class="p-grid">
   <div class="p-col-4">
     <div class="portlet light profile-sidebar-portlet bordered">
@@ -9,13 +103,21 @@
         />
       </div>
       <div class="profile-usertitle">
-        <div class="profile-usertitle-name">Marcus Doe</div>
+        <div class="profile-usertitle-name">{{usuarioNombre}}</div>
       </div>
 
       <div class="profile-usermenu">
         <ul class="nav">
           <li class="active">
             <a href="#"> <i class="icon-home"></i> Mi perfil </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="profile-usermenu">
+        <ul class="nav">
+          <li class="active">
+            <a (click)="cerrarSesion()"> <i class="icon-home"></i> Salir de la cuenta </a>
           </li>
         </ul>
       </div>
@@ -73,9 +175,9 @@
           <!-- Tab panes -->
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="home">
-              <form [formGroup]="checkoutFormGroup">
+              <form [formGroup]="checkoutFormGroup" style="margin-top:20px">
                 <div class="p-field">
-                  <label for="nombre">Nombre</label>
+                  <label for="nombre">Nombre </label>
                   <input
                     formControlName="nombre"
                     id="nombre"
@@ -89,7 +191,7 @@
                   >
                 </div>
                 <div class="p-field form-group">
-                  <label for="email">Email</label>
+                  <label for="email">Email </label>
                   <input
                     formControlName="email"
                     id="email"
@@ -109,7 +211,7 @@
                 </div>
 
                 <div class="p-field">
-                  <label for="telef">Telefono</label><br />
+                  <label for="telef">Telefono </label>
                   <p-inputMask
                     mask="(999) 999-9999"
                     formControlName="telef"
@@ -123,7 +225,7 @@
                 </div>
 
                 <div class="p-field">
-                  <label for="calle">Calle</label>
+                  <label for="calle">Calle </label>
                   <input
                     formControlName="calle"
                     id="calle"
@@ -132,8 +234,8 @@
                   />
                 </div>
 
-                <div class="form-group">
-                  <label for="apartamento">Apartamento</label>
+                <div class="p-field">
+                  <label for="apartamento">Apartamento </label>
                   <input
                     formControlName="apartamento"
                     id="apartamento"
@@ -142,8 +244,8 @@
                   />
                 </div>
 
-                <div class="form-group">
-                  <label for="cod_postal">Codigo Postal</label>
+                <div class="p-field">
+                  <label for="cod_postal">Codigo Postal </label>
                   <input
                     formControlName="cod_postal"
                     id="cod_postal"
@@ -152,8 +254,8 @@
                   />
                 </div>
 
-                <div class="form-group">
-                  <label for="ciudad">Ciudad</label>
+                <div class="p-field">
+                  <label for="ciudad">Ciudad </label>
                   <input
                     formControlName="ciudad"
                     id="ciudad"
@@ -162,8 +264,8 @@
                   />
                 </div>
 
-                <div class="form-group">
-                  <label for="pais">Pais</label><br />
+                <div class="p-field">
+                  <label for="pais">Pais </label>
                   <p-dropdown
                     [options]="paises"
                     formControlName="pais"
@@ -176,8 +278,8 @@
                   ></p-dropdown>
                 </div>
 
-                <div class="form-group">
-                  <label for="password">Contraseña</label>
+                <div class="p-field">
+                  <label for="password">Contraseña </label>
                   <input
                     formControlName="password"
                     id="password"
@@ -200,9 +302,72 @@
               </form>
             </div>
 
-            <div role="tabpanel" class="tab-pane" id="profile">Profile</div>
-            <div role="tabpanel" class="tab-pane" id="messages">Messages</div>
-            <div role="tabpanel" class="tab-pane" id="settings">Settings</div>
+            <div role="tabpanel" class="tab-pane" id="profile">
+              <p-card header="Pedidos" subheader="Lista de todos los pedidos">
+                <div class="p-grid">
+                  <div class="p-col-12">
+                    <p-table
+                      [value]="pedidos"
+                      styleClass="p-datatable-gridlines"
+                    >
+                      <ng-template pTemplate="header">
+                        <tr>
+                          <th pSortableColumn="precioTotal">
+                            Precio total
+                            <p-sortIcon field="precioTotal"></p-sortIcon>
+                          </th>
+                          <th pSortableColumn="fecha_pedido">
+                            Fecha del pedido
+                            <p-sortIcon field="fecha_pedido"></p-sortIcon>
+                          </th>
+                          <th pSortableColumn="estado">
+                            Estado <p-sortIcon field="estado"></p-sortIcon>
+                          </th>
+                          <th></th>
+                        </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-pedido>
+                        <tr>
+                          <td>{{ pedido.totalPrecio }}</td>
+                          <td>{{ pedido.fecha_pedido | date: 'short' }}</td>
+                          <td>
+                            <p-tag
+                              [value]="estadoPedido[pedido.estado].label"
+                              [severity]="estadoPedido[pedido.estado].color"
+                            ></p-tag>
+                          </td>
+                          <td>
+                            <p-button
+                            (click)="
+                            generarPDFPedido(pedido.id)"
+                              styleClass="p-button-danger p-mr-2"
+                              icon="pi pi-print"
+                            ></p-button>
+                            <p-button
+                              (click)="
+                                openBackDropCustomClass(content, pedido.id)
+                              "
+                              styleClass="p-button-success"
+                              icon="pi pi-eye"
+                            ></p-button>
+                          </td>
+                        </tr>
+                      </ng-template>
+                    </p-table>
+                  </div>
+                </div>
+              </p-card>
+            </div>
+
+            <div role="tabpanel" class="tab-pane active" id="messages">
+
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="profile">Pedidos</div>
+            <div role="tabpanel" class="tab-pane" id="messages">
+              Comentarios
+            </div>
+            <div role="tabpanel" class="tab-pane" id="settings">Tickets</div>
           </div>
         </div>
       </div>

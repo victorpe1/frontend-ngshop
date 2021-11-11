@@ -57,7 +57,7 @@ export class UsuariosFormComponent implements OnInit {
       (usuario: Usuario) => {
         this.messageService.add({
           severity: 'success',
-          summary: 'Success',
+          summary: 'Actualizado',
           detail: `Usuario ${usuario.nombre} ha sido creado!`
         });
         timer(2000)
@@ -81,7 +81,7 @@ export class UsuariosFormComponent implements OnInit {
       () => {
         this.messageService.add({
           severity: 'success',
-          summary: 'Success',
+          summary: 'Actualizado',
           detail: 'Usuario ha sido actualizado!'
         });
         timer(2000)

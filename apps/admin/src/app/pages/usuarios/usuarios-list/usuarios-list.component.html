@@ -7,7 +7,7 @@
           <div class="p-toolbar-group-left">
             <p-button
               styleClass="p-button-success"
-              label="New"
+              label="Nuevo"
               icon="pi pi-plus"
               routerLink="form"
             ></p-button>
@@ -17,7 +17,21 @@
     </div>
     <div class="p-grid">
       <div class="p-col-12">
-        <p-table [value]="usuarios" styleClass="p-datatable-gridlines">
+        <p-table #dt1 [value]="usuarios" styleClass="p-datatable-gridlines"
+        [globalFilterFields]="['nombre', 'email', 'pais']"
+        >
+
+
+
+          <ng-template pTemplate="caption">
+            <div class="p-d-flex">
+                <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value , 'contains')" placeholder="Buscar" />
+                </span>
+            </div>
+        </ng-template>
+
           <ng-template pTemplate="header">
             <tr>
               <th pSortableColumn="name">Nombre <p-sortIcon field="name"></p-sortIcon></th>
@@ -45,7 +59,12 @@
                   [rounded]="true"
                 ></p-tag>
               </td>
-              <td>{{ getCountryName(usuario.pais) }}</td>
+              <td>
+                <img src= '../../../../assets/images/flag_placeholder.png'
+                [class]="'flag flag-' + usuario.pais.toLowerCase()" width="30">
+                <span class="image-text">
+                  {{ getCountryName(usuario.pais) }}</span>
+                </td>
               <td>
                 <p-button
                   (click)="deleteUsuario(usuario.id)"
