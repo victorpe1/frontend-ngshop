@@ -7,8 +7,7 @@ import {
   Producto,
   ProductosService,
   Categoria,
-  CompraProducto,
-  VentaProducto,
+  KardexProducto
 } from '@bluebits/productos';
 import { MessageService } from 'primeng/api';
 import { Subject, timer } from 'rxjs';
@@ -24,9 +23,8 @@ declare var jQuery:any;
   templateUrl: './detalle_kardex.component.html',
   styleUrls: ['./detalle_kardex.scss'],
 })
-export class ProductosKardexDetallesComponent implements OnInit, OnDestroy, AfterViewInit{
-  compraProductos: CompraProducto[] = [];
-  ventaProductos: VentaProducto[] = [];
+export class ProductosKardexDetallesComponent implements OnInit, OnDestroy{
+  kardexProducto: KardexProducto[] = [];
 
   //compraItems: CompraItem2[] = [];
 
@@ -43,12 +41,7 @@ export class ProductosKardexDetallesComponent implements OnInit, OnDestroy, Afte
 
   ngOnInit(): void {
     this._initForm();
-    this._getComprasVentas();
-  }
-
-  ngAfterViewInit(){
-
-
+    this._getKardexProducto();
   }
 
   ngOnDestroy() {
@@ -62,31 +55,16 @@ export class ProductosKardexDetallesComponent implements OnInit, OnDestroy, Afte
         this.id_producto_act = params.id;
       }
     });
-
-
   }
 
-  _getComprasVentas() {
-
-
+  _getKardexProducto() {
     this.productoService
-      .getCompraProducto(this.id_producto_act)
+      .getKardexProducto(this.id_producto_act)
       .pipe(takeUntil(this.endsubs$))
-      .subscribe((compraProductos) => {
-        this.compraProductos = compraProductos;
-        console.log(compraProductos);
+      .subscribe((kardexProducto) => {
+        this.kardexProducto = kardexProducto;
+        console.log(kardexProducto);
       });
-
-    this.productoService
-      .getVentaProducto(this.id_producto_act)
-      .pipe(takeUntil(this.endsubs$))
-      .subscribe((veProductos) => {
-        this.ventaProductos = veProductos;
-        console.log(veProductos);
-      });
-
-
-
   }
 
   exportarExcel() {}
