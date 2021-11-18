@@ -26,6 +26,10 @@ declare var jQuery:any;
 export class ProductosKardexDetallesComponent implements OnInit, OnDestroy{
   kardexProducto: KardexProducto[] = [];
 
+  cantidad_ultimo: any;
+  precio_existencia_ultimo: any;
+  valor_total_ex_ultimo: any;
+
   //compraItems: CompraItem2[] = [];
 
   imageDisplay!: string | ArrayBuffer;
@@ -63,8 +67,16 @@ export class ProductosKardexDetallesComponent implements OnInit, OnDestroy{
       .pipe(takeUntil(this.endsubs$))
       .subscribe((kardexProducto) => {
         this.kardexProducto = kardexProducto;
-        console.log(kardexProducto);
+
+        this.kardexProducto.map(kardex =>{
+          this.cantidad_ultimo = kardex.cantidad_existencia;
+          this.precio_existencia_ultimo = kardex.precio_existencia;
+          this.valor_total_ex_ultimo = kardex.valor_total_existencia;
+         });
+
       });
+
+
   }
 
   exportarExcel() {}

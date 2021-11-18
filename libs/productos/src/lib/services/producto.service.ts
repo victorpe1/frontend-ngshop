@@ -42,6 +42,17 @@ export class ProductosService {
     return this.http.get<Producto[]>(this.apiURLProducts, { params: params });
   }
 
+  getProductosConAnulados(FiltroCategoria?: string[]): Observable<Producto[]> {
+    let params = new HttpParams();
+
+    if (FiltroCategoria) {
+      params = params.append('categorias', FiltroCategoria.join(','));
+    }
+
+    return this.http.get<Producto[]>(`${this.apiURLProducts}/completo_anulados/`, { params: params });
+  }
+
+
   getKardexProducto(id_prod: string): Observable<KardexProducto[]> {
 
     return this.http.get<KardexProducto[]>(`${this.apiURLKardex}/kardex_simple/${id_prod}`);

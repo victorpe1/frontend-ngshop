@@ -28,7 +28,7 @@ export class ProductosKardexListComponent implements OnInit, OnDestroy {
 
   private _getProductos() {
     this.productosService
-      .getProductos()
+      .getProductosConAnulados()
       .pipe(takeUntil(this.endsubs$))
       .subscribe((productos) => {
         this.productos = productos;

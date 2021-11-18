@@ -41,12 +41,14 @@
           pRipple
           type="button"
           label="Comprar ahora"
+          [disabled]="hay_stock"
           class="p-button-rounded p-mr-2"
         ></button>
         <button
           pButton
           pRipple
           type="button"
+          [disabled]="hay_stock"
           label="Agregar al carrito"
           class="p-button-rounded"
           (click)="addProductoAlCarrito()"

@@ -70,20 +70,29 @@
             <tr>
             <td>{{ producto.fecha_create | date: 'short'}}</td>
             <td>{{ producto.detalle }}</td>
-            <td><span *ngIf="producto.cantidad_compra">S/. </span> {{ producto.cantidad_compra }}</td>
-            <td>{{ producto.precio_compra }}</td>
+            <td> {{ producto.cantidad_compra }}</td>
+            <td><span *ngIf="producto.precio_compra">S/. </span> {{ producto.precio_compra }}</td>
             <td><span *ngIf="producto.valor_total_compra">S/. </span>{{producto.valor_total_compra}}</td>
 
-            <td><span *ngIf="producto.cantidad_venta">S/. </span> {{ producto.cantidad_venta }}</td>
-            <td>{{ producto.precio_venta }}</td>
+            <td>{{ producto.cantidad_venta }}</td>
+            <td><span *ngIf="producto.precio_venta">S/. </span> {{ producto.precio_venta }}</td>
             <td><span *ngIf="producto.valor_total_venta">S/. </span> {{producto.valor_total_venta}}</td>
 
-            <td>S/. {{ producto.cantidad_existencia }}</td>
-            <td>{{ producto.precio_existencia }}</td>
+            <td>{{ producto.cantidad_existencia }}</td>
+            <td>S/. {{ producto.precio_existencia }}</td>
             <td>S/. {{producto.valor_total_existencia}}</td>
             </tr>
           </ng-template>
         </p-table>
+
+
+
+        <br/>
+
+        <p><span>Cantidad actual: </span> {{cantidad_ultimo}}</p>
+        <p><span></span>S/. {{precio_existencia_ultimo}}</p>
+        <p><span></span>S/. {{valor_total_ex_ultimo}}</p>
+
 
         <!-- <p-table [value]="[{}]" styleClass="p-datatable-gridlines"
         >

@@ -11,10 +11,16 @@ import { CarritoService, CarritoItem } from '@bluebits/pedidos';
 export class ProductosItemComponent implements OnInit {
   @Input() producto!: Producto;
 
+  hay_stock: any = false;
+
   constructor(private carritoService: CarritoService){
   }
 
   ngOnInit(): void {
+      if(this.producto.cont_stock! <= 0){
+        this.hay_stock = true;
+      }
+      console.log(this.hay_stock);
   }
 
   addProductoAlCarrito() {

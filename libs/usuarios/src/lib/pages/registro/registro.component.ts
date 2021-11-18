@@ -60,7 +60,8 @@ constructor(
       (usuario) => {
         this.authError = false;
         this.localstorageService.setToken(usuario.token);
-        this.router.navigate(['/']);
+        window.location.href = '/';
+
       },
       (error: HttpErrorResponse) => {
         this.authError = true;
