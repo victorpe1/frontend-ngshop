@@ -7,8 +7,7 @@ import {
   Producto,
   ProductosService,
   Categoria,
-  CompraProducto,
-  VentaProducto,
+  KardexProducto
 } from '@bluebits/productos';
 import { MessageService } from 'primeng/api';
 import { Subject, timer } from 'rxjs';
@@ -24,9 +23,12 @@ declare var jQuery:any;
   templateUrl: './detalle_kardex.component.html',
   styleUrls: ['./detalle_kardex.scss'],
 })
-export class ProductosKardexDetallesComponent implements OnInit, OnDestroy, AfterViewInit{
-  compraProductos: CompraProducto[] = [];
-  ventaProductos: VentaProducto[] = [];
+export class ProductosKardexDetallesComponent implements OnInit, OnDestroy{
+  kardexProducto: KardexProducto[] = [];
+
+  cantidad_ultimo: any;
+  precio_existencia_ultimo: any;
+  valor_total_ex_ultimo: any;
 
   //compraItems: CompraItem2[] = [];
 
@@ -43,12 +45,7 @@ export class ProductosKardexDetallesComponent implements OnInit, OnDestroy, Afte
 
   ngOnInit(): void {
     this._initForm();
-    this._getComprasVentas();
-  }
-
-  ngAfterViewInit(){
-
-
+    this._getKardexProducto();
   }
 
   ngOnDestroy() {
@@ -62,29 +59,22 @@ export class ProductosKardexDetallesComponent implements OnInit, OnDestroy, Afte
         this.id_producto_act = params.id;
       }
     });
-
-
   }
 
-  _getComprasVentas() {
-
-
+  _getKardexProducto() {
     this.productoService
-      .getCompraProducto(this.id_producto_act)
+      .getKardexProducto(this.id_producto_act)
       .pipe(takeUntil(this.endsubs$))
-      .subscribe((compraProductos) => {
-        this.compraProductos = compraProductos;
-        console.log(compraProductos);
-      });
+      .subscribe((kardexProducto) => {
+        this.kardexProducto = kardexProducto;
 
-    this.productoService
-      .getVentaProducto(this.id_producto_act)
-      .pipe(takeUntil(this.endsubs$))
-      .subscribe((veProductos) => {
-        this.ventaProductos = veProductos;
-        console.log(veProductos);
-      });
+        this.kardexProducto.map(kardex =>{
+          this.cantidad_ultimo = kardex.cantidad_existencia;
+          this.precio_existencia_ultimo = kardex.precio_existencia;
+          this.valor_total_ex_ultimo = kardex.valor_total_existencia;
+         });
 
+      });
 
 
   }

@@ -17,7 +17,7 @@
             ></p-button>
             <p-button
               styleClass="p-button-secondary"
-              label="Cancle"
+              label="Cancelar"
               icon="pi pi-arrow-circle-left"
               (click)="onCancle()"
             ></p-button>
@@ -28,79 +28,71 @@
     <div class="p-grid">
       <div class="p-col-12">
 
-        <p><button id="btnxd" >Sort</button></p>
-
-        <tr>
-          <th></th>
-          <th></th>
-          <th colspan="3" style="text-align:center;">Entradas</th>
-          <th colspan="3" style="text-align:center;">Salidas</th>
-          <th colspan="3" style="text-align:center;">Existencias</th>
-        </tr>
-
-        <table
-          id="example"
-          class="table table-striped table-bordered"
-          style="width: 100%"
+        <p-table [value]="kardexProducto"
         >
-          <thead class="thead-dark">
-
+          <ng-template pTemplate="header">
             <tr>
-              <th class="th-sm" onclick="sortTable(0)">Fecha</th>
-              <th class="th-sm">Descripcion</th>
-              <th class="th-sm">Cantidad</th>
-              <th class="th-sm">Precio</th>
-              <th class="th-sm">Valor Total</th>
-              <th class="th-sm">Cantidad</th>
-              <th class="th-sm">Precio</th>
-              <th class="th-sm">Valor Total</th>
-              <th class="th-sm">Cantidad</th>
-              <th class="th-sm">Precio</th>
-              <th class="th-sm">Valor Total</th>
+              <th> Fecha </th>
+              <th>
+                Descripcion
+              </th>
+              <th >
+                Cantidad
+              </th>
+              <th >
+                Precio
+              </th>
+              <th >
+                Valor Total
+              </th>
+              <th >
+                Cantidad
+              </th>
+              <th >
+                Precio
+              </th>
+              <th >
+                Valor Total
+              </th>
+              <th >
+                Cantidad
+              </th>
+              <th >
+                Precio
+              </th>
+              <th>
+                Valor Total
+              </th>
+
             </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let compraProducto of compraProductos; index">
-              <td>
-                {{ compraProducto.fecha_create | date: 'dd/MM/yyyy HH:mm' }}
-              </td>
-              <td>{{ compraProducto.detalle }}</td>
-              <td>S/. {{ compraProducto.precio_compra }}</td>
-              <td>{{ compraProducto.cantidad }}</td>
-              <td>
-                S/.
-                {{ compraProducto.precio_compra * compraProducto.cantidad! }}
-              </td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+          </ng-template>
+          <ng-template pTemplate="body" let-producto>
+            <tr>
+            <td>{{ producto.fecha_create | date: 'short'}}</td>
+            <td>{{ producto.detalle }}</td>
+            <td> {{ producto.cantidad_compra }}</td>
+            <td><span *ngIf="producto.precio_compra">S/. </span> {{ producto.precio_compra }}</td>
+            <td><span *ngIf="producto.valor_total_compra">S/. </span>{{producto.valor_total_compra}}</td>
+
+            <td>{{ producto.cantidad_venta }}</td>
+            <td><span *ngIf="producto.precio_venta">S/. </span> {{ producto.precio_venta }}</td>
+            <td><span *ngIf="producto.valor_total_venta">S/. </span> {{producto.valor_total_venta}}</td>
+
+            <td>{{ producto.cantidad_existencia }}</td>
+            <td>S/. {{ producto.precio_existencia }}</td>
+            <td>S/. {{producto.valor_total_existencia}}</td>
             </tr>
-            <tr *ngFor="let ventaProducto of ventaProductos; index">
-              <td>
-                {{ ventaProducto.fecha_pedido | date: 'dd/MM/yyyy HH:mm' }}
-              </td>
-              <td>Venta - {{ ventaProducto.usuario.nombre }}</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>{{ ventaProducto.order_prods![0].cantidad }}</td>
-              <td>S/. {{ ventaProducto.order_prods![0].producto.precio }}</td>
-              <td>
-                S/.
-                {{
-                  ventaProducto.order_prods![0].producto.precio *
-                    ventaProducto.order_prods![0].cantidad!
-                }}
-              </td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
+          </ng-template>
+        </p-table>
+
+
+
+        <br/>
+
+        <p><span>Cantidad actual: </span> {{cantidad_ultimo}}</p>
+        <p><span></span>S/. {{precio_existencia_ultimo}}</p>
+        <p><span></span>S/. {{valor_total_ex_ultimo}}</p>
+
 
         <!-- <p-table [value]="[{}]" styleClass="p-datatable-gridlines"
         >

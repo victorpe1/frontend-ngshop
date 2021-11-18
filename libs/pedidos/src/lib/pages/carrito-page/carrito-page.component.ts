@@ -238,7 +238,7 @@ export class CarritoPageComponent implements OnInit, OnDestroy {
         console.log(comprobar_stock)
 
         if(comprobar_stock == false){
-          window.location.href = "/productos";
+          window.location.href = "/error_stock";
 
         }else{
           console.log("RESTAR")
