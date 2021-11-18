@@ -7,6 +7,7 @@
       styleClass="p-mt-3 agregar-carrito"
       label="Agregar al carrito"
       icon="pi pi-shopping-cart"
+      [disabled]="hay_stock"
       (onClick)="addProductoAlCarrito()"
     ></p-button>
   </div>

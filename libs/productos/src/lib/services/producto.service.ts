@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '@env/environment';
-import { Producto, Producto2, CompraProducto, VentaProducto} from '../models/producto';
+import { Producto, Producto2, KardexProducto} from '../models/producto';
 import { Proveedor, ProveedorSUNAT} from '../models/proveedor';
 import { map } from 'rxjs/operators';
 import { Comentario } from '../models/comentario';
@@ -42,16 +42,21 @@ export class ProductosService {
     return this.http.get<Producto[]>(this.apiURLProducts, { params: params });
   }
 
-  getCompraProducto(id_prod: string): Observable<CompraProducto[]> {
+  getProductosConAnulados(FiltroCategoria?: string[]): Observable<Producto[]> {
+    let params = new HttpParams();
 
-    return this.http.get<CompraProducto[]>(`${this.apiURLKardex}/compras/${id_prod}`);
+    if (FiltroCategoria) {
+      params = params.append('categorias', FiltroCategoria.join(','));
+    }
+
+    return this.http.get<Producto[]>(`${this.apiURLProducts}/completo_anulados/`, { params: params });
   }
 
-  getVentaProducto(id_prod: string): Observable<VentaProducto[]> {
-    return this.http.get<VentaProducto[]>(`${this.apiURLKardex}/ventas/${id_prod}`);
+
+  getKardexProducto(id_prod: string): Observable<KardexProducto[]> {
+
+    return this.http.get<KardexProducto[]>(`${this.apiURLKardex}/kardex_simple/${id_prod}`);
   }
-
-
 
   crearProducto(productoData: FormData): Observable<Producto> {
     return this.http.post<Producto>(this.apiURLProducts, productoData);

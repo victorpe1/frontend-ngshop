@@ -11,24 +11,27 @@ import { Comentario } from '../../models/comentario';
 @Component({
   selector: 'producto-page',
   templateUrl: './producto-page.component.html',
-  styles: [
-  ]
+  styles: [],
 })
 export class ProductoPageComponent implements OnInit {
-
   producto!: Producto;
   imagenes: string[] = [];
 
-  comentarios: Comentario[]=[];
+  comentarios: Comentario[] = [];
   endSubs$: Subject<any> = new Subject();
   cantidad = 1;
   usuarioId!: string;
   productoIdd!: string;
   unsubscribe$: Subject<any> = new Subject();
 
-  constructor(private prodService: ProductosService, private route: ActivatedRoute,
-  private usuariosService: UsuariosService,
-  private carritoService: CarritoService) {}
+  hay_stock: any = false;
+
+  constructor(
+    private prodService: ProductosService,
+    private route: ActivatedRoute,
+    private usuariosService: UsuariosService,
+    private carritoService: CarritoService
+  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -51,7 +54,7 @@ export class ProductoPageComponent implements OnInit {
   addProductoAlCarrito() {
     const cartItem: CarritoItem = {
       productoId: this.producto._id,
-      cantidad: this.cantidad
+      cantidad: this.cantidad,
     };
     this.carritoService.setCarritoItem(cartItem);
   }
@@ -61,24 +64,25 @@ export class ProductoPageComponent implements OnInit {
       .getProducto(id)
       .pipe(takeUntil(this.endSubs$))
       .subscribe((resProducto) => {
+        this.imagenes[0] = resProducto.image!;
 
-        this.imagenes[0] = resProducto.image!
-
-        for(let i = 0; i < resProducto.images!.length; i++){
-          this.imagenes[i+1] = resProducto.images![i]
+        for (let i = 0; i < resProducto.images!.length; i++) {
+          this.imagenes[i + 1] = resProducto.images![i];
         }
 
         this.producto = resProducto;
         this.productoIdd = resProducto._id!;
 
+        if (resProducto.cont_stock! <= 0) {
+          this.hay_stock = true;
+        }
       });
   }
 
   private _getComentarios(id: string) {
     this.prodService.getComentarios(id).subscribe((comentario) => {
       this.comentarios = comentario;
-      console.log(comentario)
+      console.log(comentario);
     });
-}
-
+  }
 }

@@ -22,25 +22,18 @@ export class Producto2 {
   cont_stock?: number;
 }
 
-export class CompraProducto {
-  id?: string;
-  cantidad?: number;
-  detalle?: any;
+export class KardexProducto {
+  detalle?: string;
+  fecha_create?: string;
+  id_compra?: any;
+  cantidad_compra?: any;
   precio_compra?: any;
-  fecha_create?: any;
-
-}
-
-class VentaProdItem {
-  producto?: any;
-  cantidad?: number;
-}
-
-
-export class VentaProducto {
-  id?: string;
-  cantidad?: number;
-  order_prods?: VentaProdItem[];
-  usuario?: any;
-  fecha_pedido?: any;
+  valor_total_compra?: any;
+  id_venta?: any;
+  cantidad_venta?: any;
+  precio_venta?: any;
+  valor_total_venta?: any;
+  cantidad_existencia?: any;
+  precio_existencia?: any;
+  valor_total_existencia?: any;
 }

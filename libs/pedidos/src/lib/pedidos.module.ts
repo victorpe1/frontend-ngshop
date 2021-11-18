@@ -20,7 +20,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PopupComponent } from './pages/popup/popup.component'
 import { CompraService } from './services/compra-json.service';
-
+import { ErrorPagoComponent } from './pages/error_pago/error_pago.component'
 
 const routes: Routes = [
   {
@@ -39,6 +39,10 @@ const routes: Routes = [
   {
     path: 'exitoso2',
     component: GraciasCompraComponent
+  },
+  {
+    path: 'error_stock',
+    component: ErrorPagoComponent
   }
 ];
 @NgModule({
@@ -62,6 +66,7 @@ const routes: Routes = [
     CarritoResumenComponent,
     CarritoPageComponent,
     CarritoCheckoutComponent,
+    ErrorPagoComponent,
     GraciasCompraComponent,
     PopupComponent
   ],
@@ -74,6 +79,7 @@ const routes: Routes = [
     CarritoPageComponent,
     CarritoCheckoutComponent,
     GraciasCompraComponent,
+    ErrorPagoComponent,
     PopupComponent
   ],
 })
