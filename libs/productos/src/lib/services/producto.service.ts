@@ -15,8 +15,8 @@ export class ProductosService {
   apiURLProvedores = environment.apiUrl + 'proveedor';
   apiURLKardex = environment.apiUrl + 'kardex';
 
-  apURL = environment.reniec;
-  apURL2 = environment.token;
+  apURL = 'https://dniruc.apisperu.com/api/v1/ruc';
+  apURL2 = '?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InZpY3Rvci5wYy4wMDA5QGdtYWlsLmNvbSJ9.ttfZICYpLUuKwMriCCMijUOE9YX0QheTuOEpCsJ58dY';
 
   constructor(private http: HttpClient) {}
 
