@@ -12,7 +12,7 @@ import { Pedido } from '../../../../../pedidos/src/lib/models/pedido'
 import { ORDER_STATUS } from '../pedido.constants';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { PdfMakeWrapper, Txt, ITable, Table, Columns } from 'pdfmake-wrapper';
+import { PdfMakeWrapper, Txt, ITable, Table, Columns,Img } from 'pdfmake-wrapper';
 import * as pdfFonts from "pdfmake/build/vfs_fonts";
 import { createImmutabilityCheckMetaReducer } from '@ngrx/store/src/runtime_checks';
 import { AuthService } from '../../services/auth.service';
@@ -27,7 +27,7 @@ export class PerfilPageComponent implements OnInit, OnDestroy{
 
   pedidos: Pedido[] = [];
 
-  pedido!: Pedido;
+  pedido!: any;
   checkoutFormGroup!: FormGroup;
   unsubscribe$: Subject<any> = new Subject();
   usuarioId!: string;
@@ -70,40 +70,58 @@ export class PerfilPageComponent implements OnInit, OnDestroy{
     this.modalService.open(content, {backdropClass: 'light-blue-backdrop', size: 'lg' });
   }
 
+  buildTableBody(data:any,columns:any) {
+    const body = [];
+    body.push(columns);
+    data.forEach(function(row:any) {
+      var dataRow:any = [];
 
-  generarPDFPedido(pedidoId: any){
+      columns.forEach(function(column:any) {
+          dataRow.push(row[column].toString());
+      })
+
+      body.push(dataRow);
+  });
+
+  return body;
+  }
+
+
+  async generarPDFPedido(pedidoId: any){
     this.pedidoId = pedidoId
     this._getPedidoUsuario()
 
     const pdf = new PdfMakeWrapper();
 
+    pdf.add( await new Img('https://scontent.flim15-2.fna.fbcdn.net/v/t1.6435-9/117444994_2721265124641153_9017967486796541863_n.jpg?_nc_cat=111&ccb=1-5&_nc_sid=09cbfe&_nc_eui2=AeG4jJpreJs-6PymvD0irrYezcb-rJXAfYHNxv6slcB9geSyShfzdcz1SVpdlJNEBzc1b9mKTjbSUb1ILN9CXdxW&_nc_ohc=qONc3RUUtS0AX8uAKfG&_nc_ht=scontent.flim15-2.fna&oh=a1b9d1c45c8dad10313b95e46efea54a&oe=61BCE665').height(100).width(80).build() );
+
     pdf.add(
-        new Txt("Comprobante de pago").bold().italics().end
+        new Txt("Comprobante de pago").bold().fontSize(25).margin([0,0,0,5]).end
     );
     pdf.add(
-      new Txt("Id del pedido").bold().end
+      new Txt("Id del pedido").bold().fontSize(16).color("#141414").end
      );
       pdf.add(
-        new Txt(this.pedido.id!).italics().end
+        new Txt(this.pedido.id!).italics().color("#292929").margin([0,0,0,2]).end
       );
 
      pdf.add(
-      new Txt("Fecha del pedido").bold().end
+      new Txt("Fecha del pedido").bold().fontSize(16).color("#141414").end
      );
         pdf.add(
-          new Txt(this.pedido.fecha_pedido!).italics().end
+          new Txt(this.pedido.fecha_pedido!).italics().color("#292929").margin([0,0,0,2]).end
         );
 
      pdf.add(
-      new Txt("Estado del pedido").bold().end
+      new Txt("Estado del pedido").bold().fontSize(16).color("#141414").end
      );
 
      pdf.add(
-      new Txt(this.estadoPedido[this.pedido.estado!].label).italics().end
+      new Txt(this.estadoPedido[this.pedido.estado!].label).italics().color("#292929").margin([0,0,0,10]).end
     );
 
      pdf.add(
-      new Txt("Productos").bold().italics().end
+      new Txt("Productos").bold().fontSize(20).margin([0,0,0,5]).end
      );
 
 
@@ -113,48 +131,36 @@ export class PerfilPageComponent implements OnInit, OnDestroy{
       new Columns([
         pedido.producto.nombre, pedido.producto.marca, pedido.producto.categoria.nombre, pedido.producto.precio, pedido.cantidad, pedido.producto.precio * pedido.cantidad!
       ]).end
-      );
+      )
     }
 
      pdf.add(
-      new Txt("Total del precio del pedido").bold().end
+      new Txt("Total del precio del pedido").bold().margin([0,15,0,0]).fontSize(16).color("#141414").end
      );
      pdf.add(
-      new Txt(this.pedido.totalPrecio!).italics().end
+      new Txt(this.pedido.totalPrecio!).italics().color("#292929").margin([0,0,0,2]).end
     );
 
      pdf.add(
-      new Txt("Direccion del pedido").bold().italics().end
+      new Txt("Direccion del pedido").bold().italics().fontSize(16).color("#141414").end
      );
      pdf.add(
-      new Txt(this.pedido.envio_direcc1!).italics().end
-    );
-    pdf.add(
-      new Txt(this.pedido.envio_direcc2!).italics().end
-    );
-    pdf.add(
-      new Txt(this.pedido.cod_postal!).italics().end
-    );
-    pdf.add(
-      new Txt(this.pedido.ciudad!).italics().end
-    );
-    pdf.add(
-      new Txt(this.pedido.pais!).italics().end
+       new Columns([this.pedido.envio_direcc1!,this.pedido.envio_direcc2!,this.pedido.cod_postal!,this.pedido.ciudad!]).end
     );
 
      pdf.add(
-      new Txt("Informacion del Cliente").bold().end
+      new Txt("Informacion del Cliente").bold().fontSize(16).color("#141414").margin([0,10,0,0]).end
      );
      pdf.add(
-      new Txt(this.pedido.usuario.nombre).italics().end
+      new Txt(this.pedido.usuario.nombre).italics().color("#292929").margin([0,0,0,2]).end
     );
 
 
      pdf.add(
-      new Txt("Informacion del Contacto").bold().end
+      new Txt("Informacion del Contacto").fontSize(16).bold().color("#141414").end
      );
      pdf.add(
-      new Txt(this.pedido.telef!).italics().end
+      new Txt(this.pedido.telef!).italics().color("#292929").end
     );
 
       pdf.create().open()
