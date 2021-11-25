@@ -26,12 +26,14 @@ export class AuthService {
   logout() {
     console.log("LOGOUT")
     this.token.removeToken();
-    this.router.navigate(['/login']);
+    window.location.href = "/login";
   }
 
   logoutShop() {
     console.log("LOGOUTSHOP")
     this.token.removeToken();
-    this.router.navigate(['/']);
+    window.location.href = "/";
+
+
   }
 }

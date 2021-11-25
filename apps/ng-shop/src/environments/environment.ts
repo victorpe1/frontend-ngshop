@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  apiUrl: 'https://ecommerce-backend-upn.herokuapp.com/api/v1/',
 };
 
 /*

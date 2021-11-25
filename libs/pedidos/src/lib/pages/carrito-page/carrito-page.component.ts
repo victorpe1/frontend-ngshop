@@ -165,9 +165,10 @@ export class CarritoPageComponent implements OnInit, OnDestroy {
 
   initConfig(): void {
 
+
     this.payPalConfig = {
       currency: 'USD',
-      clientId: environment.clienteID,
+      clientId: 'AVffHSlUocstJcrjbYbtXtBl37o_z3EhBexK_oyNXEStxZKeVRbKxgZ2Sq5umFEw9o3dIZz95Dv6yjWK',
 
       createOrderOnClient: (data: any) =>
         <ICreateOrderRequest>{

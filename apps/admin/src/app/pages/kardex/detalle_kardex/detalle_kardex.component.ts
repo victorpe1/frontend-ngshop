@@ -13,10 +13,13 @@ import { MessageService } from 'primeng/api';
 import { Subject, timer } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import '../../../../assets/js/table.js'
+import * as FileSaver from 'file-saver';
+import '../../../../assets/js/table.js';
 
-declare var $: any;
-declare var jQuery:any;
+import { jsPDF } from 'jspdf';
+import * as autoTable from 'jspdf-autotable';
+import 'jspdf-autotable';
+
 
 @Component({
   selector: 'admin-productos-form',
@@ -29,6 +32,9 @@ export class ProductosKardexDetallesComponent implements OnInit, OnDestroy{
   cantidad_ultimo: any;
   precio_existencia_ultimo: any;
   valor_total_ex_ultimo: any;
+
+  cols!: any[];
+  exportColumns!: any[];
 
   //compraItems: CompraItem2[] = [];
 
@@ -46,6 +52,22 @@ export class ProductosKardexDetallesComponent implements OnInit, OnDestroy{
   ngOnInit(): void {
     this._initForm();
     this._getKardexProducto();
+
+    this.cols = [
+      { field: 'fecha', header: 'Fecha' },
+      { field: 'descripcion', header: 'Descripcion' },
+      { field: 'cantidad_compra', header: 'Cantidad' },
+      { field: 'precio_compra', header: 'Precio' },
+      { field: 'valor_compra', header: 'Valor Total' },
+      { field: 'cantidad_venta', header: 'Cantidad' },
+      { field: 'precio_venta', header: 'Precio' },
+      { field: 'valor_venta', header: 'Valor Total' },
+      { field: 'cantidad_f', header: 'Cantidad' },
+      { field: 'precio_f', header: 'Precio' },
+      { field: 'valor_f', header: 'Valor Total' },
+      ];
+
+  this.exportColumns = this.cols.map(col => ({title: col.header, dataKey: col.field}));
   }
 
   ngOnDestroy() {
@@ -79,7 +101,34 @@ export class ProductosKardexDetallesComponent implements OnInit, OnDestroy{
 
   }
 
-  exportarExcel() {}
+  exportPdf() {
+   /* import("jspdf").then(jsPDF => {
+        import("jspdf-autotable").then(x => {
+            const doc = new jsPDF.default(0,0);
+            doc.autoTable(this.exportColumns,
+              this.kardexProducto);
+            doc.save('kardex.pdf');
+        })
+    })*/
+}
+
+exportExcel() {
+    import("xlsx").then(xlsx => {
+        const worksheet = xlsx.utils.json_to_sheet(this.kardexProducto);
+        const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+        const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+        this.saveAsExcelFile(excelBuffer, "kardex");
+    });
+}
+
+saveAsExcelFile(buffer: any, fileName: string): void {
+    let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    let EXCEL_EXTENSION = '.xlsx';
+    const data: Blob = new Blob([buffer], {
+        type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+}
 
   onCancle() {
     this.location.back();
