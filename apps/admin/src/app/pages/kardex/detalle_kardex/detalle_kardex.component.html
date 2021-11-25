@@ -10,12 +10,6 @@
           <div class="p-toolbar-group-left"></div>
           <div class="p-toolbar-group-right">
             <p-button
-              styleClass="p-button-success p-mr-2"
-              [label]="'Exportar excel'"
-              icon="pi pi-file-excel"
-              (click)="exportarExcel()"
-            ></p-button>
-            <p-button
               styleClass="p-button-secondary"
               label="Cancelar"
               icon="pi pi-arrow-circle-left"
@@ -30,6 +24,15 @@
 
         <p-table [value]="kardexProducto"
         >
+        <ng-template pTemplate="caption">
+          <div class="p-d-flex">
+              <button type="button" pButton pRipple icon="pi pi-file" (click)="
+              exportExcel()" class="p-mr-2" pTooltip="CSV" tooltipPosition="bottom"></button>
+              <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-success p-mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button>
+              <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()" class="p-button-warning p-mr-2" pTooltip="PDF" tooltipPosition="bottom"></button>
+          </div>
+      </ng-template>
+
           <ng-template pTemplate="header">
             <tr>
               <th> Fecha </th>
