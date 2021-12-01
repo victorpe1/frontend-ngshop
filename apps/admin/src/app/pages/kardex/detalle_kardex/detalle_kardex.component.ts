@@ -68,7 +68,9 @@ export class ProductosKardexDetallesComponent implements OnInit, OnDestroy{
       ];
 
   this.exportColumns = this.cols.map(col => ({title: col.header, dataKey: col.field}));
-  }
+
+
+}
 
   ngOnDestroy() {
     this.endsubs$.next();
