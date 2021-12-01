@@ -25,6 +25,8 @@ import { ComprasRegistroFormComponent } from './pages/compras/compras-actualizar
 import { ProductosKardexListComponent } from './pages/kardex/productos_lista/productos_lita.component';
 import { ProductosKardexDetallesComponent } from './pages/kardex/detalle_kardex/detalle_kardex.component';
 
+import { ReporteListaComponent } from './pages/reporte/reporte-list/reporte-list.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -114,6 +116,9 @@ const routes: Routes = [
       {
         path: 'producto_kardex/:id',
         component: ProductosKardexDetallesComponent
+      },{
+        path: 'ventas_reporte',
+        component: ReporteListaComponent
       }
     ],
   }

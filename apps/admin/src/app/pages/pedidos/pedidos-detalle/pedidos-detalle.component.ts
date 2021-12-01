@@ -53,7 +53,8 @@ export class PedidosDetalleComponent implements OnInit, OnDestroy {
   }
 
   onStatusChange(event: any) {
-    this.pedidoService.updatePedido({ estado: event.value }, this.pedido.id!).pipe(takeUntil(this.endsubs$)).subscribe(
+
+    this.pedidoService.updatePedido({ estado: event.value, pedido: this.pedido}, this.pedido.id!).pipe(takeUntil(this.endsubs$)).subscribe(
       () => {
         this.messageService.add({
           severity: 'success',
@@ -69,5 +70,6 @@ export class PedidosDetalleComponent implements OnInit, OnDestroy {
         });
       }
     );
+
   }
 }

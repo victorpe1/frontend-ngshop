@@ -31,6 +31,23 @@ export class PedidosService {
     return this.http.get<Pedido>(`${this.apiURLPedidos}/${pedidoId}`);
   }
 
+  getPedidosDetallado(): Observable<Pedido[]> {
+    return this.http.get<Pedido[]>(`${this.apiURLPedidos}/get/reporte`);
+  }
+
+  getPedidosReporteDiario(doa: any, mes: any, anio: any): Observable<Pedido[]> {
+    return this.http.get<Pedido[]>(`${this.apiURLPedidos}/reporte_diario/${doa}/${mes}/${anio}`);
+  }
+
+  getPedidosReporteMes(mes: any, anio: any): Observable<Pedido[]> {
+    return this.http.get<Pedido[]>(`${this.apiURLPedidos}/reporte_mes/${mes}/${anio}`);
+  }
+
+  getPedidosReporteAnio(anio: any): Observable<Pedido[]> {
+    return this.http.get<Pedido[]>(`${this.apiURLPedidos}/reporte_anio/${anio}`);
+  }
+
+
   prePedidoResta(pedido: Pedido): Observable<any> {
     return this.http.put<Pedido>(`${this.apiURLPedidos}/preventaMenos/`, pedido);
   }
@@ -44,7 +61,7 @@ export class PedidosService {
   }
 
   updatePedido(
-    estadoPedido: { estado: string },
+    estadoPedido: { estado: string, pedido: Pedido },
     pedidoId: string
   ): Observable<Pedido> {
     return this.http.put<Pedido>(

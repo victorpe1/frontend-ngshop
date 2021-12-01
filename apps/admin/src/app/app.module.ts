@@ -47,6 +47,7 @@ import { StockListaPageComponent } from './pages/producto_stock/stock_lista/stoc
 import { StockDetallePageComponent } from './pages/producto_stock/stock_detalle/stock_detalle.component';
 import { ProductosKardexListComponent } from './pages/kardex/productos_lista/productos_lita.component';
 import { ProductosKardexDetallesComponent } from './pages/kardex/detalle_kardex/detalle_kardex.component';
+import { ReporteListaComponent } from './pages/reporte/reporte-list/reporte-list.component';
 
 import { UsuariosFormComponent } from './pages/usuarios/usuarios-form/usuarios-form.component';
 import { UsuariosListComponent } from './pages/usuarios/usuarios-list/usuarios-list.component';
@@ -63,7 +64,7 @@ import { ComprasRegistroFormComponent } from './pages/compras/compras-actualizar
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
-
+import {CalendarModule} from 'primeng/calendar';
 
 const UX_MODULE = [
   CardModule,
@@ -80,6 +81,7 @@ const UX_MODULE = [
   DropdownModule,
   FieldsetModule,
   InputTextareaModule,
+  CalendarModule,
   InputSwitchModule,
   EditorModule,
   MatTableModule,
@@ -107,7 +109,8 @@ const UX_MODULE = [
     StockDetallePageComponent,
     ProductosImgComponent,
     ProductosKardexListComponent,
-    ComprasRegistroFormComponent
+    ComprasRegistroFormComponent,
+    ReporteListaComponent
     ],
   imports: [
     AppRoutingModule,

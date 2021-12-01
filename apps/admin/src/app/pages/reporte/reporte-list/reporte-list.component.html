@@ -1,0 +1,189 @@
+<p-toast></p-toast>
+<div class="admin-page">
+  <p-card header="VENTAS REPORTE" subheader="Lista de todos las ventas">
+    <div class="p-grid">
+      <div class="p-col-12">
+        <p-table
+          #dt1
+          [value]="pedidos"
+          styleClass="p-datatable-gridlines"
+          [showCurrentPageReport]="true"
+          [rowsPerPageOptions]="[10, 25, 50]"
+          [globalFilterFields]="['usuario']"
+          dataKey="nombre"
+        >
+          <ng-template pTemplate="caption">
+            <div class="p-d-flex">
+              <button
+                type="button"
+                pButton
+                pRipple
+                icon="pi pi-file"
+                (click)="exportExcel()"
+                class="p-mr-2"
+                pTooltip="CSV"
+                tooltipPosition="bottom"
+              ></button>
+              <button
+                type="button"
+                pButton
+                pRipple
+                icon="pi pi-file-excel"
+                (click)="exportExcel()"
+                class="p-button-success p-mr-2"
+                pTooltip="XLS"
+                tooltipPosition="bottom"
+              ></button>
+              <button
+                type="button"
+                pButton
+                pRipple
+                icon="pi pi-file-pdf"
+                (click)="exportPdf()"
+                class="p-button-warning p-mr-2"
+                pTooltip="PDF"
+                tooltipPosition="bottom"
+              ></button>
+
+              <div style="margin-left: 50px">
+                Mes
+                <p-calendar
+                  [(ngModel)]="dateMes"
+                  (onSelect)="onChangeMes($event)"
+                  view="month"
+                  dateFormat="mm/yy"
+                ></p-calendar>
+              </div>
+
+              <div style="margin-left: 50px">
+                Año
+                <p-calendar
+                  [(ngModel)]="dateAnio"
+                  (onSelect)="onChangeAnio($event)"
+                  view="month"
+                  dateFormat="yy"
+                  [yearNavigator]="true"
+                  yearRange="2000:2030"
+                ></p-calendar>
+              </div>
+
+              <div style="margin-left: 50px">
+                <button
+                  pButton
+                  pRipple
+                  type="button"
+                  (onClick)="onChangeHoy()"
+                  label="Hoy"
+                  class="p-button-rounded p-button-secondary"
+                ></button>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 3rem"></th>
+              <th pSortableColumn="nombre" style="width: 7rem">
+                Usuario <p-sortIcon field="usuario"></p-sortIcon>
+              </th>
+              <th pSortableColumn="id" style="width: 20rem">
+                Id de identificación <p-sortIcon field="id"></p-sortIcon>
+              </th>
+              <th>
+                Fecha del pedido
+                <p-columnFilter
+                  type="date"
+                  field="date"
+                  display="menu"
+                ></p-columnFilter>
+              </th>
+              <th pSortableColumn="ciudad">
+                Ciudad <p-sortIcon field="ciudad"></p-sortIcon>
+              </th>
+              <th pSortableColumn="telef">
+                Telefono <p-sortIcon field="telef"></p-sortIcon>
+              </th>
+              <th pSortableColumn="precioTotal">
+                Precio total <p-sortIcon field="precioTotal"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-pedido let-expanded="expanded">
+            <tr>
+              <td>
+                <button
+                  type="button"
+                  pButton
+                  pRipple
+                  [pRowToggler]="pedidos"
+                  class="p-button-text p-button-rounded p-button-plain"
+                  [icon]="
+                    expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'
+                  "
+                ></button>
+              </td>
+
+              <td>{{ pedido.usuario.nombre }}</td>
+              <td>{{ pedido.id }}</td>
+              <td>{{ pedido.date | date: 'MM/dd/yyyy' }}</td>
+              <td>{{ pedido.ciudad }}</td>
+              <td>{{ pedido.telef }}</td>
+              <td>S/. {{ pedido.totalPrecio }}</td>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="rowexpansion" let-pedido>
+            <tr>
+              <td colspan="7">
+                <div class="p-p-3">
+                  <p-table [value]="pedido.order_prods" dataKey="id">
+                    <ng-template pTemplate="header">
+                      <tr>
+                        <th pSortableColumn="nombre">
+                          Nombre <p-sortIcon field="nombre"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="descripcion">
+                          Descripcion
+                          <p-sortIcon field="descripcion"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="image">
+                          Imagen <p-sortIcon field="image"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="categoria">
+                          Categoria <p-sortIcon field="categoria"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="cantidad">
+                          Cantidad <p-sortIcon field="cantidad"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="importe">
+                          Importe <p-sortIcon field="importe"></p-sortIcon>
+                        </th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-order>
+                      <tr *ngIf="order.producto">
+                        <td>{{ order.producto.nombre }}</td>
+                        <td>{{ order.producto.descripcion }}</td>
+                        <td>
+                          <img
+                            [src]="order.producto.image"
+                            style="width: 50%"
+                            alt=""
+                          />
+                        </td>
+                        <td>{{ order.producto.categoria.nombre }}</td>
+                        <td>{{ order.cantidad }}</td>
+                        <td>
+                          S/.{{ order.producto.precio * order.cantidad! }}
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </p-card>
+</div>
