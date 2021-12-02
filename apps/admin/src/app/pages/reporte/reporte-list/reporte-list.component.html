@@ -72,7 +72,7 @@
                   pButton
                   pRipple
                   type="button"
-                  (onClick)="onChangeHoy()"
+                  (click)="onChangeHoy()"
                   label="Hoy"
                   class="p-button-rounded p-button-secondary"
                 ></button>
@@ -184,6 +184,8 @@
           </ng-template>
         </p-table>
       </div>
+
+      <div *ngIf="importeTotal">Importe total:          S/. {{importeTotal}}</div>
     </div>
   </p-card>
 </div>
