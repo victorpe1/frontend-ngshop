@@ -28,6 +28,8 @@ export class ReporteListaComponent implements OnInit, OnDestroy {
   mes_act!: any;
   anio_act!: any;
 
+  importeTotal: any;
+
   endsubs$: Subject<any> = new Subject();
   cols!: any[];
   exportColumns!: any[];
@@ -68,21 +70,31 @@ export class ReporteListaComponent implements OnInit, OnDestroy {
   }
 
   _getPedidos() {
+
+
+    this.importeTotal = 0
+
     this.pedidoService.getPedidosReporteDiario(this.dia_act,this.mes_act, this.anio_act).pipe(takeUntil(this.endsubs$)).subscribe((pedidos) => {
       this.pedidos = pedidos;
       this.pedidos.map((item) =>{
         item.date = new Date(item.fecha_pedido!)
+
+        this.importeTotal = item.totalPrecio + this.importeTotal
+
       });
-      console.log(this.pedidos)
+
     });
   }
 
   onChangeHoy(){
 
+    this.importeTotal = 0
+
     this.pedidoService.getPedidosReporteDiario(this.dia_act,this.mes_act, this.anio_act).pipe(takeUntil(this.endsubs$)).subscribe((pedidos) => {
       this.pedidos = pedidos;
       this.pedidos.map((item) =>{
         item.date = new Date(item.fecha_pedido!)
+        this.importeTotal = item.totalPrecio + this.importeTotal
       });
       console.log(this.pedidos)
     });
@@ -94,13 +106,14 @@ export class ReporteListaComponent implements OnInit, OnDestroy {
     let mes = fecha.getMonth()
     mes = mes +1
     let an = fecha.getFullYear()
-    console.log(mes +1)
-    console.log(an)
+
+    this.importeTotal = 0
 
     this.pedidoService.getPedidosReporteMes(mes, an).pipe(takeUntil(this.endsubs$)).subscribe((pedidos) => {
       this.pedidos = pedidos;
       this.pedidos.map((item) =>{
         item.date = new Date(item.fecha_pedido!)
+        this.importeTotal = item.totalPrecio + this.importeTotal
       });
       console.log(this.pedidos)
     });
@@ -109,6 +122,8 @@ export class ReporteListaComponent implements OnInit, OnDestroy {
 
   onChangeAnio(event: any){
 
+    this.importeTotal = 0
+
     let fecha = new Date(event)
     let an = fecha.getFullYear()
 
@@ -116,6 +131,7 @@ export class ReporteListaComponent implements OnInit, OnDestroy {
       this.pedidos = pedidos;
       this.pedidos.map((item) =>{
         item.date = new Date(item.fecha_pedido!)
+        this.importeTotal = item.totalPrecio + this.importeTotal
       });
       console.log(this.pedidos)
     });
@@ -142,6 +158,6 @@ saveAsExcelFile(buffer: any, fileName: string): void {
         type: EXCEL_TYPE
     });
     FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
-}
+  }
 
 }
